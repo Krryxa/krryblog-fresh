@@ -1,5 +1,5 @@
-export default (function(window, document) {
-  var hearts = []
+export default (function(window: any, document) {
+  var hearts: any = []
   window.requestAnimationFrame = (function() {
     return (
       window.requestAnimationFrame ||
@@ -7,7 +7,7 @@ export default (function(window, document) {
       window.mozRequestAnimationFrame ||
       window.oRequestAnimationFrame ||
       window.msRequestAnimationFrame ||
-      function(callback) {
+      function(callback: any) {
         setTimeout(callback, 1000 / 60)
       }
     )
@@ -48,12 +48,12 @@ export default (function(window, document) {
   }
   function attachEvent() {
     var old = typeof window.onclick === 'function' && window.onclick
-    window.onclick = function(event) {
+    window.onclick = function(event: any) {
       old && old()
       createHeart(event)
     }
   }
-  function createHeart(event) {
+  function createHeart(event: any) {
     var d = document.createElement('div')
     d.className = 'heart'
     hearts.push({
@@ -66,8 +66,8 @@ export default (function(window, document) {
     })
     document.body.appendChild(d)
   }
-  function css(css) {
-    var style = document.createElement('style')
+  function css(css: any) {
+    var style: any = document.createElement('style')
     style.type = 'text/css'
     try {
       style.appendChild(document.createTextNode(css))

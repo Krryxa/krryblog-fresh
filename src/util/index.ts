@@ -1,8 +1,8 @@
-export function formatKM(_value, _decimal) {
+export function formatKM(_value: any, _decimal: any) {
   if (!_value || isNaN(Number(_value))) return 0
   let _k = 1000
   let _m = 10000
-  let _d = '1'
+  let _d: any = '1'
   let _y = 100000000
   if (_decimal > 0) {
     for (let i = 0; i < _decimal; i++) {
@@ -25,7 +25,7 @@ export function formatKM(_value, _decimal) {
   return _value
 }
 
-export function slideToogle(dom, duration = 1000) {
+export function slideToogle(dom: any, duration = 1000) {
   if (!dom.tagTimer) {
     dom.status = dom.status || dom.style.display
     let flag = dom.status !== 'none' // 保存当前的显示状态，方便进行判断
@@ -36,7 +36,7 @@ export function slideToogle(dom, duration = 1000) {
   }
 }
 
-function animateDom(flag, dom, duration) {
+function animateDom(flag: any, dom: any, duration: any) {
   setData(dom)
   dom.style.height = flag ? dom.tagHeight : '0px'
   setTimeout(() => {
@@ -51,7 +51,7 @@ function animateDom(flag, dom, duration) {
   }, duration)
 }
 
-function setData(dom) {
+function setData(dom: any) {
   dom.tagTimer = dom.tagTimer || null
   dom.style.display = 'block'
   dom.tagHeight = dom.clientHeight + 'px'

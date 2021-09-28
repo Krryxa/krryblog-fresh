@@ -3,10 +3,10 @@
 /* eslint-disable */
 var _typeof =
   typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol'
-    ? function(obj) {
+    ? function(obj: any) {
         return typeof obj
       }
-    : function(obj) {
+    : function(obj: any) {
         return obj &&
           typeof Symbol === 'function' &&
           obj.constructor === Symbol &&
@@ -15,7 +15,7 @@ var _typeof =
           : typeof obj
       }
 
-export default function(opts) {
+export default function(opts: any) {
   var defaultOpts = {
     linkClass: 'cl-link', // 所有目录项都有的类
     linkActiveClass: 'cl-link-active', // active的目录项
@@ -35,33 +35,38 @@ export default function(opts) {
 
   // querySelectorAll() 返回所匹配到的所有元素集合；数组：NodeList[]
   // 在内容区获取要生成目录的 H 标签元素数组，allCatalogs：nodeList[]数组形式
-  var allCatalogs = $content.querySelectorAll(Opt.selector.join()) // Opt.selector.join() => "h1,h2,h3"
+  var allCatalogs = $content ? $content.querySelectorAll(Opt.selector.join()) : null // Opt.selector.join() => "h1,h2,h3"
 
   // 生成目录树
   var tree = getCatalogsTree(allCatalogs)
 
-  try {
-    $catalog.innerHTML =
-      "<div class='cl-wrapper'>" + generateHtmlTree(tree, { id: -1 }) + '</div>'
-  } catch (e) {
-    console.error('error in progress-catalog', e)
+  if ($catalog) {
+    try {
+      $catalog.innerHTML =
+        "<div class='cl-wrapper'>" + generateHtmlTree(tree, { id: -1 }) + '</div>'
+    } catch (e) {
+      console.error('error in progress-catalog', e)
+    }
+    // 事件注册
+    $catalog.addEventListener('click', clickHandler)
+    window.addEventListener('scroll', simpleScrollHandler)
   }
 
-  // 事件注册
-  $catalog.addEventListener('click', clickHandler)
-  window.addEventListener('scroll', simpleScrollHandler)
 
   /**
    * 滚动事件
    */
-  function simpleScrollHandler(el) {
+  function simpleScrollHandler(el: any) {
     var scrollToEl = null
+    // @ts-ignore
     for (var i = allCatalogs.length - 1; i >= 0; i--) {
       var scrollTop =
         document.documentElement.scrollTop ||
         window.pageYOffset ||
         document.body.scrollTop
+      // @ts-ignore
       if (allCatalogs[i].offsetTop <= scrollTop + 30) {
+        // @ts-ignore
         scrollToEl = allCatalogs[i]
         break
       }
@@ -75,16 +80,14 @@ export default function(opts) {
   /**
    * 点击事件
    */
-  function clickHandler(_ref) {
+  function clickHandler(_ref: any) {
     var target = _ref.target
 
     var datasetId = target.getAttribute(Opt.datasetName)
     // 当前点击的 class 如果包含 Opt.linkClass，就跳到某一目录
     // Element.scrollIntoView() 方法让当前的元素滚动到浏览器窗口的可视区域内
-    target.classList.contains(Opt.linkClass) &&
-      document
-        .getElementById(datasetId)
-        .scrollIntoView({ behavior: 'smooth', block: 'start' })
+    // @ts-ignore
+    target.classList.contains(Opt.linkClass) && document.getElementById(datasetId).scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   /**
@@ -92,7 +95,7 @@ export default function(opts) {
    * catalogs NodeList[]
    * @param catalogs
    */
-  function getCatalogsTree(catalogs) {
+  function getCatalogsTree(catalogs: any) {
     var title = void 0
     var tagName = void 0
     var tree = []
@@ -104,6 +107,7 @@ export default function(opts) {
     for (var i = 0; i < catalogs.length; i++) {
       title = catalogs[i].innerText || catalogs[i].textContent // 获取当前 H 标签的内容名称
       tagName = catalogs[i].tagName // 获取 H 标签的标签名
+      // @ts-ignore
       id = 'heading-' + i
       catalogs[i].id = id // 给内容区域的 H 标签设置 id
       treeItem = {
@@ -115,9 +119,12 @@ export default function(opts) {
       }
       if (lastTreeItem) {
         // 当前 treeItem 的 H > 上一个 treeItem 的 H （如 3 > 2）H3 是 H2 的子标题，说明当前 treeItem.parent = 上一个 treeItem
+        // @ts-ignore
         if (treeItem.level > lastTreeItem.level) {
+          // @ts-ignore
           treeItem.parent = lastTreeItem
         } else {
+          // @ts-ignore
           treeItem.parent = findParent(treeItem, lastTreeItem)
         }
       }
@@ -133,6 +140,7 @@ export default function(opts) {
    * @param lastTreeItem
    * @returns {*|Window}
    */
+  // @ts-ignore
   function findParent(currTreeItem, lastTreeItem) {
     var lastTreeParent = lastTreeItem.parent
     // 找到 lastTreeParent 的 H 标签是 currTreeItem 的父标签就停止循环
@@ -148,7 +156,7 @@ export default function(opts) {
    * @param tagName
    * @returns {*}
    */
-  function getLevel(tagName) {
+  function getLevel(tagName: any) {
     return tagName ? tagName.slice(1) : 0
   }
 
@@ -158,14 +166,17 @@ export default function(opts) {
    * @param _parent
    * @return {string}
    */
+  // @ts-ignore
   function generateHtmlTree(tree, _parent) {
     var ul = void 0
     var hasChild = false
     if (tree) {
+      // @ts-ignore
       ul = '<ul>'
       for (var i = 0; i < tree.length; i++) {
         if (isEqual(tree[i].parent, _parent)) {
           hasChild = true
+          // @ts-ignore
           ul +=
             "<li><div class='" +
             Opt.linkClass +
@@ -177,11 +188,14 @@ export default function(opts) {
             tree[i].id +
             "'>" +
             tree[i].name +
-            '</div>'
+          '</div>'
+          // @ts-ignore
           ul += generateHtmlTree(tree, tree[i]) // 递归获取子节点
+          // @ts-ignore
           ul += '</li>'
         }
       }
+      // @ts-ignore
       ul += '</ul>'
     }
     return hasChild ? ul : ''
@@ -190,6 +204,7 @@ export default function(opts) {
   /**
    * 判断是否是相同节点
    */
+  // @ts-ignore
   function isEqual(node, node2) {
     return (
       node &&
@@ -205,20 +220,26 @@ export default function(opts) {
   /**
    *  滚动到当前目录，设置选中的目录
    */
-  function setActiveItem(id) {
+  function setActiveItem(id: any) {
+    // @ts-ignore
     var _this = this
 
     var catas = [].concat(
+      // @ts-ignore
       _toConsumableArray($catalog.querySelectorAll('[' + Opt.datasetName + ']'))
     )
 
-    catas.forEach(function(T) {
+    catas.forEach(function (T) {
+      // @ts-ignore
       if (T.getAttribute(Opt.datasetName) === id) {
         typeof Opt.activeHook === 'function' &&
+          // @ts-ignore
           !T.classList.contains(Opt.linkActiveClass) &&
           Opt.activeHook.call(_this, T) // 执行 active 钩子
+        // @ts-ignore
         T.classList.add(Opt.linkActiveClass)
       } else {
+        // @ts-ignore
         T.classList.remove(Opt.linkActiveClass)
       }
     })
@@ -226,7 +247,7 @@ export default function(opts) {
 }
 
 // 复制数组
-function _toConsumableArray(arr) {
+function _toConsumableArray(arr: any) {
   if (Array.isArray(arr)) {
     for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
       arr2[i] = arr[i]
