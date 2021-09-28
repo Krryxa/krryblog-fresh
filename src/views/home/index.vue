@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue'
 import { getBlog } from '@/service/api'
 import { useRoute, useRouter } from 'vue-router'
+
 import sectionArticle from '@/components/section-article.vue'
 
 const route = useRoute()
