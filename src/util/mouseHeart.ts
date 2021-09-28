@@ -1,13 +1,13 @@
-export default (function(window: any, document) {
-  var hearts: any = []
-  window.requestAnimationFrame = (function() {
+export default (function (window: any, document) {
+  const hearts: any = []
+  window.requestAnimationFrame = (function () {
     return (
       window.requestAnimationFrame ||
       window.webkitRequestAnimationFrame ||
       window.mozRequestAnimationFrame ||
       window.oRequestAnimationFrame ||
       window.msRequestAnimationFrame ||
-      function(callback: any) {
+      function (callback: any) {
         setTimeout(callback, 1000 / 60)
       }
     )
@@ -21,7 +21,7 @@ export default (function(window: any, document) {
     gameloop()
   }
   function gameloop() {
-    for (var i = 0; i < hearts.length; i++) {
+    for (let i = 0; i < hearts.length; i++) {
       if (hearts[i].alpha <= 0) {
         document.body.removeChild(hearts[i].el)
         hearts.splice(i, 1)
@@ -47,14 +47,14 @@ export default (function(window: any, document) {
     requestAnimationFrame(gameloop)
   }
   function attachEvent() {
-    var old = typeof window.onclick === 'function' && window.onclick
-    window.onclick = function(event: any) {
+    const old = typeof window.onclick === 'function' && window.onclick
+    window.onclick = function (event: any) {
       old && old()
       createHeart(event)
     }
   }
   function createHeart(event: any) {
-    var d = document.createElement('div')
+    const d = document.createElement('div')
     d.className = 'heart'
     hearts.push({
       el: d,
@@ -67,7 +67,7 @@ export default (function(window: any, document) {
     document.body.appendChild(d)
   }
   function css(css: any) {
-    var style: any = document.createElement('style')
+    const style: any = document.createElement('style')
     style.type = 'text/css'
     try {
       style.appendChild(document.createTextNode(css))

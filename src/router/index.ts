@@ -58,7 +58,7 @@ const routes = [
     component: () => import('@/views/blog/detail.vue'),
     name: 'link',
     meta: { title: '友情链接' }
-  },
+  }
 ]
 
 export default createRouter({

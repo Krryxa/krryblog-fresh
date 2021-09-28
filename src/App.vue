@@ -35,7 +35,7 @@ a {
   color: #666;
   text-decoration: none;
   outline: 0;
-  transition: color .2s ease;
+  transition: color 0.2s ease;
 }
 a:hover {
   color: #eb5055 !important;
@@ -97,7 +97,8 @@ img {
 .hljs-name {
   font-weight: bold !important;
 }
-.hljs-name, .hljs-tag {
+.hljs-name,
+.hljs-tag {
   color: #333 !important;
 }
 .hljs-keyword {

@@ -28,7 +28,7 @@ export function formatKM(_value: any, _decimal: any) {
 export function slideToogle(dom: any, duration = 1000) {
   if (!dom.tagTimer) {
     dom.status = dom.status || dom.style.display
-    let flag = dom.status !== 'none' // 保存当前的显示状态，方便进行判断
+    const flag = dom.status !== 'none' // 保存当前的显示状态，方便进行判断
     dom.status = flag ? 'none' : 'block' // 更改dom上的显示属性
     dom.style.transition = 'height ' + duration / 1000 + 's' // 设置动画时间
     dom.style.overflow = 'hidden' // 保证子元素不外溢

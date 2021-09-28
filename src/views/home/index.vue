@@ -2,7 +2,6 @@
 import { ref, watch } from 'vue'
 import { getBlog } from '@/service/api'
 import { useRoute, useRouter } from 'vue-router'
-// @ts-ignore
 import sectionArticle from '@/components/section-article.vue'
 
 const route = useRoute()
@@ -28,14 +27,14 @@ const getBlogList = async () => {
 }
 getBlogList()
 
-const changePage = async (pageNo: number) => {
-  pageNo = pageNo
+const changePage = async (pageIndex: number) => {
+  pageNo.value = pageIndex
   await getBlogList()
   flag = false
-  if (pageNo === 1) {
+  if (pageIndex === 1) {
     router.push({ name: 'home' })
   } else {
-    router.push({ name: 'homePage', params: { pageIndex: pageNo } })
+    router.push({ name: 'homePage', params: { pageIndex: pageIndex } })
   }
 }
 
@@ -50,7 +49,7 @@ watch(route, (to, from) => {
 
 <template>
   <main>
-    <section-article :blogList="blogList"></section-article>
+    <section-article :blog-list="blogList"></section-article>
   </main>
 </template>
 

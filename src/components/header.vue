@@ -69,8 +69,8 @@ const closeCollMenu = () => {
         </router-link>
       </div>
       <div
-        class="nav-coll-menu"
         ref="collMenuNavFar"
+        class="nav-coll-menu"
         :class="{ 'nav-coll-menu-padd': isVisibleNavFar }"
       >
         <span
@@ -172,14 +172,14 @@ const closeCollMenu = () => {
         <div class="search" @mouseover="focusInp">
           <i class="iconfont icon-search1" @click="search" />
           <input
-            type="text"
-            class="s-inp"
             ref="searchInp"
             v-model.trim="keyWord"
-            @keyup.enter="search"
+            type="text"
+            class="s-inp"
             placeholder="查找你喜欢的内容..."
             maxlength="30"
             autocomplete="off"
+            @keyup.enter="search"
           />
         </div>
       </div>

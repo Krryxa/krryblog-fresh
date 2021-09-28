@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   PropType,
+  toRefs,
   Ref,
   ref,
   watch,
@@ -16,7 +17,7 @@ interface BlogItemType {
 }
 
 const props = defineProps({
-  blogList: { type: Array as PropType<Array<BlogItemType>>, default: [] }
+  blogList: { type: Array as PropType<Array<BlogItemType>>, default: () => [] }
 })
 
 let blogShowList: Ref<Array<BlogItemType>> = ref([
@@ -56,7 +57,8 @@ let blogShowList: Ref<Array<BlogItemType>> = ref([
 ])
 
 if (props.blogList.length > 0) {
-  blogShowList.value = props.blogList
+  const { blogList } = toRefs(props)
+  blogShowList.value = blogList.value
 }
 
 const route = useRoute() // 相当于 vue2 中的 this.$route
@@ -81,10 +83,7 @@ watch(
   }
 )
 
-interface InstanceType {
-  proxy: any
-}
-const { proxy }: InstanceType = getCurrentInstance()!
+const { proxy }: any = getCurrentInstance()
 const basePath = proxy.basePath
 
 const setLink = (id: string | number, link: Object) => {

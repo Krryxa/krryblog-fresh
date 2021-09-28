@@ -25,7 +25,7 @@ let flag = false
 $axios.interceptors.request.use(
   (config: any) => {
     // 判断请求是否是 getClassify，如果是 getClassify，不加载 LoadingBar
-    let url = config.url
+    const url = config.url
     if (noLoading.includes(url.split('/').pop())) {
       flag = false
     } else {
@@ -50,7 +50,7 @@ $axios.interceptors.response.use(
         // 可以在这里直接设置跳转到 404 页面，已经不需要啦，在组件中已经设置，为了不改变 url，实现转发的效果
         // router.push({name: 'error'})
         break
-      case codeStatus.UNAUTHORIZED:
+      case codeStatus.UNAUTHORIZED: {
         store.dispatch('user/CLEARUSER')
         sessionStorage.clear()
         // iView.Message.error(apiRes.message)
@@ -61,6 +61,7 @@ $axios.interceptors.response.use(
           query: { returnUrl }
         })
         break
+      }
       default:
         // flag && iView.LoadingBar.finish()
         break
