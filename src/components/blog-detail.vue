@@ -296,12 +296,12 @@ const getComment = () => {
 <style lang="scss" scoped>
 article {
   position: relative;
+  box-sizing: border-box;
   max-width: 700px;
   padding: 0 25px 16px;
   margin: 0 auto;
   background-color: #fff;
   animation: fadeIn 0.6s linear;
-  box-sizing: border-box;
 
   .art-header {
     position: relative;
@@ -347,8 +347,8 @@ article {
         &:hover {
           color: #fff !important;
           background: #ff4046;
-          outline-style: none;
           border: 1px solid #ff4046;
+          outline-style: none;
         }
       }
     }
@@ -558,19 +558,19 @@ article {
 
   .vrow {
     .new-btn {
-      border: 1px solid #ededed;
       padding: 0.5em 1.25em;
-      outline: none;
-      background: transparent;
       font-size: 0.875em;
       font-weight: 400;
-      border-radius: 0.3em;
       color: #555;
+      background: transparent;
+      border: 1px solid #ededed;
+      border-radius: 0.3em;
+      outline: none;
       transition: 0.3s;
 
       &:hover {
-        border: 1px solid #eb5055;
         color: #eb5055;
+        border: 1px solid #eb5055;
       }
     }
   }
@@ -639,9 +639,10 @@ article {
           margin-bottom: 0;
 
           a {
+            display: inline;
             color: #666;
             border-bottom: 1px solid #ccc;
-            display: inline;
+
             &:hover {
               border-bottom: 1px solid #eb5055;
             }
@@ -661,17 +662,20 @@ article {
         /* @昵称 的样式 */
         .vcontent {
           & > a {
-            color: #ff9800;
             margin-right: 6px;
+            color: #ff9800;
             border: none;
+
             &:hover {
               color: #ff9800 !important;
               border: none;
             }
           }
+
           & > p > a {
             color: #ff9800;
             border: none;
+
             &:hover {
               color: #ff9800 !important;
               border: none;

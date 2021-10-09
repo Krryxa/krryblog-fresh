@@ -272,13 +272,13 @@ header {
                 margin: 0;
 
                 a {
+                  box-sizing: border-box;
                   display: block;
                   width: 156px;
                   height: 50px;
                   padding: 15px 20px;
                   line-height: 20px;
                   transition: 0.4s;
-                  box-sizing: border-box;
 
                   &:hover {
                     padding-left: 32px;
@@ -485,13 +485,13 @@ header {
                 margin: 0;
 
                 a {
+                  box-sizing: border-box;
                   display: block;
                   width: 130px;
                   height: 50px;
                   padding: 15px 22px;
                   line-height: 20px;
                   transition: 0.4s;
-                  box-sizing: border-box;
 
                   &:hover {
                     padding-left: 32px;

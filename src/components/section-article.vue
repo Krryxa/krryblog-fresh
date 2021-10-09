@@ -249,12 +249,12 @@ section {
     .bg-cover {
       position: absolute;
       top: 0;
+      box-sizing: border-box;
       width: 100%;
       height: 100%;
       padding: 40px 28px;
       overflow: hidden;
       cursor: url(../assets/pic/cursor.cur), pointer !important;
-      box-sizing: border-box;
 
       p {
         display: -webkit-box;
@@ -314,10 +314,10 @@ section {
         position: absolute;
         right: 0;
         bottom: 0;
+        box-sizing: border-box;
         width: 100%;
         padding: 0 15px 10px;
         text-align: right;
-        box-sizing: border-box;
 
         .d-detail {
           position: absolute;
@@ -325,8 +325,8 @@ section {
 
           i {
             margin-top: -2px;
-            font-size: 14px;
             margin-right: 4px;
+            font-size: 14px;
 
             &:not(:first-child) {
               margin-left: 12px;
