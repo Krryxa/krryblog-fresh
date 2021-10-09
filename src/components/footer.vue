@@ -25,7 +25,7 @@
           </a>
         </span>
       </p>
-      <el-backtop :visibility-height="500" />
+      <el-backtop :visibility-height="800" />
     </div>
   </footer>
 </template>
