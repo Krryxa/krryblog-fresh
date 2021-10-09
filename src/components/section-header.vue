@@ -45,6 +45,7 @@ defineProps(['title', 'description'])
     .text {
       display: inline-block;
       max-width: 660px;
+      margin: 0 12px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
