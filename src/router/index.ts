@@ -8,6 +8,12 @@ const routes = [
     meta: { title: 'Krryblog' }
   },
   {
+    path: '/page/:pageIndex(\\d+)',
+    component: () => import('@/views/home/index.vue'),
+    name: 'homePage',
+    meta: { title: 'Krryblog' }
+  },
+  {
     path: '/:id(\\d+)',
     component: () => import('@/views/blog/detail.vue'),
     name: 'blog'
@@ -44,7 +50,7 @@ const routes = [
   },
   {
     path: '/tag/:name/:page?',
-    component: () => import('@/views/blog/detail.vue'),
+    component: () => import('@/views/home/index.vue'),
     name: 'tag'
   },
   {
@@ -63,5 +69,8 @@ const routes = [
 
 export default createRouter({
   history: createWebHistory(),
-  routes
+  routes,
+  scrollBehavior() {
+    return { top: 0 }
+  }
 })

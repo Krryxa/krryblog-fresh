@@ -9,11 +9,12 @@ const route = useRoute()
   <my-footer></my-footer>
 </template>
 
-<style>
+<style lang="scss">
 * {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
+
 body {
   font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
     'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
@@ -22,40 +23,50 @@ body {
   color: #515a6e;
   -webkit-font-smoothing: antialiased;
 }
+
 html,
 body {
   height: 100%;
   cursor: url(./assets/pic/pointer.cur), default;
 }
+
 a,
 button {
   cursor: url(./assets/pic/cursor.cur), pointer !important;
 }
+
 a {
   color: #666;
   text-decoration: none;
   outline: 0;
   transition: color 0.2s ease;
 }
+
 a:hover {
   color: #eb5055 !important;
   transition: 0.3s;
 }
+
 ul li {
   list-style: none;
 }
+
 .right {
   float: right;
 }
+
 .left {
   float: left;
 }
+
 img {
   vertical-align: middle;
 }
+
 .clear {
   clear: both;
 }
+
 .animated {
   animation-duration: 0.5s;
 }
@@ -68,9 +79,15 @@ img {
   50% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(90deg);
   }
+}
+
+/* 输入框聚焦 */
+.el-input__inner:focus {
+  border-color: #eb5055;
 }
 
 /* 遮罩层 */
@@ -86,24 +103,28 @@ img {
 
 /* 表单的验证信息右移 */
 .ivu-form-item-error-tip {
-  left: unset;
   right: 0;
+  left: unset;
 }
 
 /* 代码字体 */
 .hljs {
   padding: 18px 15px 12px !important;
 }
+
 .hljs-name {
   font-weight: bold !important;
 }
+
 .hljs-name,
 .hljs-tag {
   color: #333 !important;
 }
+
 .hljs-keyword {
   color: rgb(153, 6, 154) !important;
 }
+
 .hljs-comment,
 .hljs-quote {
   font-style: normal !important;
@@ -112,20 +133,22 @@ img {
 
 /* 回到顶部 */
 .el-backtop {
-  z-index: 1009;
-  transition: 0.4s ease;
-  bottom: 60px;
   right: unset !important;
+  bottom: 60px;
+  z-index: 1009;
+  width: 40px;
+  height: 40px;
   margin-left: 1020px;
   cursor: url(./assets/pic/cursor.cur), pointer !important;
   background: rgba(255, 152, 49, 0.8);
   border-radius: 50%;
-  height: 40px;
-  width: 40px;
+  transition: 0.4s ease;
 }
+
 .el-backtop i {
   color: #fff;
 }
+
 .el-backtop:hover {
   background: rgba(255, 111, 27, 0.9) !important;
 }
@@ -134,6 +157,7 @@ img {
 .ivu-switch {
   cursor: url(./assets/pic/cursor.cur), pointer !important;
 }
+
 .ivu-switch::after {
   cursor: url(./assets/pic/cursor.cur), pointer !important;
 }
@@ -143,20 +167,46 @@ img {
   animation: ani-demo-spin 1s linear infinite;
 }
 
+/* 分页样式的冲突和解决 */
+.el-pagination {
+  margin: 36px 0 auto;
+  font-size: 14px;
+  text-align: center;
+
+  li {
+    cursor: url(./assets/pic/cursor.cur), pointer !important;
+
+    &:hover {
+      color: #eb5055;
+    }
+
+    &.active {
+      color: #eb5055;
+    }
+  }
+
+  button:hover:not(:disabled) {
+    color: #eb5055;
+  }
+}
+
 /* 滚动条优化 */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background-color: transparent;
   -webkit-border-radius: 2em;
   -moz-border-radius: 2em;
   border-radius: 2em;
 }
+
 ::-webkit-scrollbar-track-piece {
   background: #fff;
 }
+
 ::-webkit-scrollbar-thumb {
   background-color: #ff8b18;
   background-image: -webkit-linear-gradient(
@@ -173,39 +223,23 @@ img {
   -moz-border-radius: 2em;
   border-radius: 2em;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   cursor: url(./assets/pic/cursor.cur), pointer;
   background-color: #ff4f00;
 }
+
 ::-webkit-scrollbar-corner {
   background: #535353;
 }
+
 ::-webkit-scrollbar-resizer {
   background: #ff0bee;
 }
-scrollbar {
-  -moz-appearance: none !important;
-  background: rgb(0, 255, 0) !important;
-}
-scrollbarbutton {
-  -moz-appearance: none !important;
-  background-color: rgb(0, 0, 255) !important;
-}
-scrollbarbutton:hover {
-  -moz-appearance: none !important;
-  background-color: rgb(255, 0, 0) !important;
-}
-/* 隐藏上下箭头 */
-scrollbarbutton {
-  display: none !important;
-}
-/* 纵向滚动条宽度 */
-scrollbar[orient='vertical'] {
-  min-width: 12px !important;
-}
+
 ::selection {
-  background: #ff5252;
   color: #fff;
+  background: #ff5252;
 }
 
 /* 响应式 */
@@ -221,9 +255,10 @@ scrollbar[orient='vertical'] {
   .section-article {
     width: 680px;
   }
+
   .section-article article {
-    margin-left: 30px !important;
     margin-right: 30px !important;
+    margin-left: 30px !important;
   }
 }
 
@@ -232,9 +267,10 @@ scrollbar[orient='vertical'] {
   .section-article {
     width: 640px;
   }
+
   .section-article article {
-    margin-left: 20px !important;
     margin-right: 20px !important;
+    margin-left: 20px !important;
   }
 }
 
@@ -243,25 +279,30 @@ scrollbar[orient='vertical'] {
   .section-article {
     width: 100%;
   }
+
   .section-article article {
     width: 70% !important;
-    margin-left: 15% !important;
     margin-right: 15% !important;
+    margin-left: 15% !important;
   }
+
   /* 底部响应式 */
   footer .container .link-git {
     position: absolute !important;
     top: 40px !important;
-    left: 0;
     right: 0;
+    left: 0;
     margin: auto;
   }
+
   footer .container .footer-flot {
     top: 64% !important;
   }
+
   footer .container .sec-footer-flot {
     display: none !important;
   }
+
   /* 汇总数据分行 */
   article .summarize ul li {
     width: 50% !important;
@@ -273,10 +314,11 @@ scrollbar[orient='vertical'] {
   .section-article {
     width: 100%;
   }
+
   .section-article article {
     width: 80% !important;
-    margin-left: 10% !important;
     margin-right: 10% !important;
+    margin-left: 10% !important;
   }
 }
 
@@ -285,10 +327,11 @@ scrollbar[orient='vertical'] {
   .section-article {
     width: 100%;
   }
+
   .section-article article {
     width: 86% !important;
-    margin-left: 7% !important;
     margin-right: 7% !important;
+    margin-left: 7% !important;
   }
 }
 
@@ -305,30 +348,35 @@ scrollbar[orient='vertical'] {
     float: none;
     text-align: center;
   }
+
   .head-page .nav-coll-menu {
     display: block !important;
   }
+
   .head-page .nav {
     position: absolute !important;
     top: 0;
     right: 6px;
     margin-left: 6px;
   }
+
   .head-page .nav .nav-far {
     visibility: hidden;
   }
+
   .head-page .nav .search i {
-    font-size: 26px !important;
-    height: 34px !important;
-    width: 34px !important;
     top: 18px !important;
-    line-height: 34px !important;
     z-index: 2 !important;
-  }
-  .head-page .nav .search input {
+    width: 34px !important;
     height: 34px !important;
+    font-size: 26px !important;
+    line-height: 34px !important;
+  }
+
+  .head-page .nav .search input {
     top: 18px !important;
     z-index: 1;
+    height: 34px !important;
   }
 }
 
@@ -337,6 +385,7 @@ scrollbar[orient='vertical'] {
   .detail-article .art-header .tag-time {
     display: none;
   }
+
   .detail-article .art-header .header-tag {
     width: 100% !important;
   }
@@ -347,15 +396,18 @@ scrollbar[orient='vertical'] {
   footer .container .fir-desc-footer {
     position: absolute !important;
     top: 54% !important;
-    left: 0;
     right: 0;
+    left: 0;
   }
+
   footer .container .fir-footer-flot {
     display: none !important;
   }
+
   footer .container .sec-desc-footer {
     top: 78% !important;
   }
+
   footer .container .link-git {
     top: 30% !important;
   }
@@ -363,72 +415,68 @@ scrollbar[orient='vertical'] {
 
 @keyframes fadeIn {
   from {
-    opacity: 0;
     margin-top: -20px;
+    opacity: 0;
   }
+
   to {
-    opacity: 1;
     margin-top: 0;
+    opacity: 1;
   }
 }
 </style>
 
 <style lang="scss">
-// .ivu-page,
-// .ivu-form {
-//   input {
-//     &:hover {
-//       border-color: #f60 !important;
-//     }
-//     &:focus {
-//       border-color: #f60 !important;
-//       box-shadow: 0 0 0 2px rgba(255, 118, 19, 0.2) !important;
-//     }
-//   }
-// }
 /* 博客详情页样式 */
 .detail-article {
   .content,
   .v-show-content {
     mark {
-      background-color: #fff5f5;
-      color: #ff502c;
       padding: 0.065em 0.4em;
+      color: #ff502c;
+      background-color: #fff5f5;
       border-radius: 6px;
     }
+
     p {
       font-size: 14px !important;
     }
+
     ul li {
       list-style: initial;
     }
+
     ul,
     ol {
       padding-left: 1em;
+
       li {
         font-size: 14px !important;
       }
     }
+
     h1,
     h2,
     h3 {
       position: relative;
-      font-weight: 400;
       font-size: 1.34em;
+      font-weight: 400;
+
       &::before {
-        line-height: 24px;
-        font-size: 20px;
-        font-weight: bold;
         position: absolute;
         top: 0;
         left: -15px;
-        content: '#';
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 24px;
         color: #eb5055;
+        content: '#';
       }
     }
 
     h1 {
       font-size: 1.4em;
+
       &::before {
         font-size: 21px;
         line-height: 25px;
@@ -437,11 +485,13 @@ scrollbar[orient='vertical'] {
 
     h3 {
       font-size: 1.18em;
+
       &::before {
         font-size: 19px;
         line-height: 21px;
       }
     }
+
     img {
       cursor: zoom-in;
       transition: 0.3s;

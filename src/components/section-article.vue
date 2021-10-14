@@ -6,7 +6,6 @@ import {
   ref,
   watch,
   computed,
-  nextTick,
   getCurrentInstance
 } from 'vue'
 import { useRoute } from 'vue-router'
@@ -75,10 +74,10 @@ watch(
     if (oldVal.length !== 0 && blogSectionRef.value) {
       // 共用组件，每次数据变化产生过渡效果
       blogSectionRef.value.style['display'] = 'none'
-      nextTick(() => {
+      setTimeout(() => {
         blogSectionRef.value &&
           (blogSectionRef.value.style['display'] = 'block')
-      })
+      }, 0)
     }
   }
 )
