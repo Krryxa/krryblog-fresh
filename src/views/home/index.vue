@@ -5,17 +5,28 @@ import { configMap } from './config'
 import sectionHeader from '@/components/section-header.vue'
 import sectionArticle from '@/components/section-article.vue'
 
-const route = useRoute()
+const route: any = useRoute()
 const router = useRouter()
 const routerName = computed(() => route.name)
 // 获取首页、标签页、搜索页相关配置
 const config = computed(() =>
   routerName.value ? configMap[routerName.value] : ''
 )
-const mainMarginTop = computed(() => (config.value.header ? '' : '90px'))
+
+let mainMarginTop = ref('')
+let articlePaddingTop = ref('')
+let showHeader = ref(true)
+const setStyle = () => {
+  mainMarginTop.value = config.value.header ? '' : '90px'
+  articlePaddingTop.value = config.value.header ? '20px' : ''
+  showHeader.value = !!config.value.header
+}
+setStyle()
 
 let pageSize = computed(() => config.value.pageSize || 12)
-let pageNo = ref(+route.params.pageIndex || 1)
+let pageNo = ref(
+  +route[config.value.pageParamType][config.value.pageParamName] || 1
+)
 let blogList = ref([])
 let blogLen = ref(0)
 let flag = true
@@ -39,6 +50,7 @@ const getBlogList = async () => {
   if (res.code === 200) {
     blogList.value = res.result.data
     blogLen.value = res.result.blogLen
+    setStyle()
   } else {
     router.push({ name: 'error' })
   }
@@ -57,7 +69,7 @@ const changePage = async (pageIndex: number) => {
     }
   } else {
     const query = pageNo.value === 1 ? {} : { page: pageNo.value }
-    router.push({ name: 'tag', query })
+    router.push({ name: routerName.value as string, query })
   }
 }
 
@@ -73,11 +85,11 @@ watch(route, (to, from) => {
 <template>
   <main>
     <section-header
-      v-if="config.header"
+      v-if="showHeader"
       :title="headerTitle"
       :description="config.header.description"
     ></section-header>
-    <section-article :blog-list="blogList"></section-article>
+    <section-article :blog-list="blogList" class="wrapper"></section-article>
     <el-pagination
       v-if="blogLen > pageSize"
       v-model:currentPage="pageNo"
@@ -92,5 +104,9 @@ watch(route, (to, from) => {
 <style lang="scss" scoped>
 main {
   margin-top: v-bind(mainmargintop);
+}
+
+.wrapper {
+  padding-top: v-bind(articlepaddingtop);
 }
 </style>

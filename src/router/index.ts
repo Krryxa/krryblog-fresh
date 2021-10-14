@@ -54,6 +54,11 @@ const routes = [
     name: 'tag'
   },
   {
+    path: '/search/:keyword/:page?',
+    component: () => import('@/views/home/index.vue'),
+    name: 'search'
+  },
+  {
     path: '/about',
     component: () => import('@/views/blog/detail.vue'),
     name: 'about',
