@@ -4,6 +4,8 @@ import { useRoute, useRouter } from 'vue-router'
 import { configMap } from './config'
 import sectionHeader from '@/components/section-header.vue'
 import sectionArticle from '@/components/section-article.vue'
+import notFound from '@/components/not-found.vue'
+import noResult from './no-result.vue'
 
 const route: any = useRoute()
 const router = useRouter()
@@ -13,9 +15,9 @@ const config = computed(() =>
   routerName.value ? configMap[routerName.value] : ''
 )
 
-let main_margintop = ref('')
-let article_paddingtop = ref('')
-let showHeader = ref(true)
+const main_margintop = ref('')
+const article_paddingtop = ref('')
+const showHeader = ref(true)
 const setStyle = () => {
   main_margintop.value = config.value.header ? '' : '90px'
   article_paddingtop.value = config.value.header ? '20px' : ''
@@ -23,14 +25,18 @@ const setStyle = () => {
 }
 setStyle()
 
-let pageSize = computed(() => config.value.pageSize || 12)
-let pageNo = ref(
+const pageSize = computed(() => config.value.pageSize || 12)
+const pageNo = ref(
   +route[config.value.pageParamType][config.value.pageParamName] || 1
 )
-let blogList = ref([])
-let blogLen = ref(0)
+const blogList = ref([])
+const blogLen = ref(0)
 let flag = true
-let headerTitle = ref('')
+const headerTitle = ref('')
+const status = ref(200)
+
+const hasNoResult = computed(() => status.value === 406)
+const isEmpty = computed(() => status.value === 404)
 
 const getBlogList = async () => {
   let reqData = {
@@ -47,12 +53,14 @@ const getBlogList = async () => {
     }
   }
   let res: any = await config.value.api(reqData)
+  status.value = res.code
   if (res.code === 200) {
     blogList.value = res.result.data
     blogLen.value = res.result.blogLen
     setStyle()
-  } else {
-    router.push({ name: 'error' })
+  }
+  if (hasNoResult.value) {
+    blogLen.value = 0
   }
 }
 getBlogList()
@@ -83,13 +91,18 @@ watch(route, (to, from) => {
 </script>
 
 <template>
-  <main>
+  <main v-if="!isEmpty">
     <section-header
       v-if="showHeader"
       :title="headerTitle"
       :description="config.header.description"
     ></section-header>
-    <section-article :blog-list="blogList" class="wrapper"></section-article>
+    <section-article
+      v-if="!hasNoResult"
+      :blog-list="blogList"
+      class="wrapper"
+    ></section-article>
+    <no-result v-else></no-result>
     <el-pagination
       v-if="blogLen > pageSize"
       v-model:currentPage="pageNo"
@@ -100,6 +113,7 @@ watch(route, (to, from) => {
     >
     </el-pagination>
   </main>
+  <not-found v-else></not-found>
 </template>
 <style lang="scss" scoped>
 main {

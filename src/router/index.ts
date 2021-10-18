@@ -69,6 +69,18 @@ const routes = [
     component: () => import('@/views/blog/detail.vue'),
     name: 'link',
     meta: { title: '友情链接' }
+  },
+  {
+    path: '/error',
+    component: () => import('@/components/not-found.vue'),
+    name: 'error',
+    meta: { title: '404 - 找不到页面', cover: true }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('@/components/not-found.vue'),
+    name: 'NotFound',
+    meta: { title: '404 - 找不到页面', cover: true }
   }
 ]
 

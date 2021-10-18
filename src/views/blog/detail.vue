@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router'
 import { getBlogDetail, getLinkOrAbout } from '@/service/api'
 import blogDetail from '@/components/blog-detail.vue'
 import sectionHeader from '@/components/section-header.vue'
+import notFound from '@/components/not-found.vue'
 
 interface BlogItemType {
   [propName: string]: string | number
@@ -16,14 +17,14 @@ interface LinkOrAboutMapType {
 }
 
 const route = useRoute()
-let blog: Ref<BlogItemType> = ref({})
-let showHeader = ref(false)
-let status = 200
-let reFreshDetail = ref(true)
-let beforeRouterName = ref('')
+const blog: Ref<BlogItemType> = ref({})
+const showHeader = ref(false)
+const status = ref(200)
+const reFreshDetail = ref(true)
+const beforeRouterName = ref('')
 const routerName = computed(() => route.name as string)
-const isNoBlog = computed(() => status === 404)
-let description: Ref<string | Object> = ref('Krryblog')
+const isNoBlog = computed(() => status.value === 404)
+const description: Ref<string | Object> = ref('Krryblog')
 
 const linkOrAboutMap: LinkOrAboutMapType = {
   link: { params: { title: '友情链接' }, description: 'Website link' },
@@ -46,27 +47,27 @@ const getBlog = async () => {
   const res: any = await (isOthers.value
     ? getLinkOrAbout(linkOrAboutMap[routerName.value].params)
     : getBlogDetail(id))
-  status = res.code
-  blog.value = res.result.data
-  // 保证接口数据返回赋值
-  description.value = isOthers.value
-    ? linkOrAboutMap[routerName.value].description
-    : ''
-  // 友情链接 or 关于我，则刷新 blog-detail
-  if (
-    isOthers.value ||
-    Object.keys(linkOrAboutMap).includes(beforeRouterName.value)
-  ) {
-    reFreshDetail.value = false
-    nextTick(() => {
-      reFreshDetail.value = true
-    })
-  }
-  beforeRouterName.value = routerName.value
-  showHeader.value = isOthers.value
+  status.value = res.code
   // 404 的标题在 axios 拦截器已经定义
-  if (status === 200) {
+  if (status.value === 200) {
     document.title = `${blog.value.title} - ${documentTitle}`
+    blog.value = res.result.data
+    // 保证接口数据返回赋值
+    description.value = isOthers.value
+      ? linkOrAboutMap[routerName.value].description
+      : ''
+    // 友情链接 or 关于我，则刷新 blog-detail
+    if (
+      isOthers.value ||
+      Object.keys(linkOrAboutMap).includes(beforeRouterName.value)
+    ) {
+      reFreshDetail.value = false
+      nextTick(() => {
+        reFreshDetail.value = true
+      })
+    }
+    beforeRouterName.value = routerName.value
+    showHeader.value = isOthers.value
   }
 }
 

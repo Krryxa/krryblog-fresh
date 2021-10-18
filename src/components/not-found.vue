@@ -4,7 +4,7 @@
       <p class="number">404</p>
       <p>很抱歉，找不到页面~~</p>
       <router-link to="/">
-        <Button type="error">返回首页</Button>
+        <el-button type="danger">返回首页</el-button>
       </router-link>
     </section>
   </main>
