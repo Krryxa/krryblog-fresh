@@ -18,6 +18,9 @@ const config = computed(() =>
 const main_margintop = ref('')
 const article_paddingtop = ref('')
 const showHeader = ref(true)
+const description = ref(
+  config.value.header ? config.value.header.description : ''
+)
 const setStyle = () => {
   main_margintop.value = config.value.header ? '' : '90px'
   article_paddingtop.value = config.value.header ? '20px' : ''
@@ -52,16 +55,17 @@ const getBlogList = async () => {
       })
     }
   }
+  config.value.header && (description.value = config.value.header.description)
   let res: any = await config.value.api(reqData)
   status.value = res.code
   if (res.code === 200) {
     blogList.value = res.result.data
     blogLen.value = res.result.blogLen
-    setStyle()
   }
   if (hasNoResult.value) {
     blogLen.value = 0
   }
+  setStyle()
 }
 getBlogList()
 
@@ -95,7 +99,7 @@ watch(route, (to, from) => {
     <section-header
       v-if="showHeader"
       :title="headerTitle"
-      :description="config.header.description"
+      :description="description"
     ></section-header>
     <section-article
       v-if="!hasNoResult"
