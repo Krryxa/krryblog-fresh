@@ -87,7 +87,8 @@ const changePage = async (pageIndex: number) => {
 
 watch(route, (to, from) => {
   if (flag && config.value) {
-    pageNo.value = +to.params.pageIndex || 1
+    pageNo.value =
+      +to[config.value.pageParamType][config.value.pageParamName] || 1
     getBlogList()
   }
   flag = true
