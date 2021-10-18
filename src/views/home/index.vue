@@ -13,12 +13,12 @@ const config = computed(() =>
   routerName.value ? configMap[routerName.value] : ''
 )
 
-let mainMarginTop = ref('')
-let articlePaddingTop = ref('')
+let main_margintop = ref('')
+let article_paddingtop = ref('')
 let showHeader = ref(true)
 const setStyle = () => {
-  mainMarginTop.value = config.value.header ? '' : '90px'
-  articlePaddingTop.value = config.value.header ? '20px' : ''
+  main_margintop.value = config.value.header ? '' : '90px'
+  article_paddingtop.value = config.value.header ? '20px' : ''
   showHeader.value = !!config.value.header
 }
 setStyle()
@@ -103,10 +103,10 @@ watch(route, (to, from) => {
 </template>
 <style lang="scss" scoped>
 main {
-  margin-top: v-bind(mainmargintop);
+  margin-top: v-bind(main_margintop);
 }
 
 .wrapper {
-  padding-top: v-bind(articlepaddingtop);
+  padding-top: v-bind(article_paddingtop);
 }
 </style>
