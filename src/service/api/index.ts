@@ -29,7 +29,9 @@ export function getClassify() {
  * @param {*} id
  * @param {*} reqData
  */
-export function getBlogByClassifyId(id: any, reqData: any) {
+export function getBlogByClassifyId(reqData: any) {
+  const id = reqData.id
+  delete reqData.id
   return Ax.get(`/krryblog/blog/getBlogByClassifyId/${id}`, {
     params: reqData
   })

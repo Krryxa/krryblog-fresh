@@ -1,4 +1,9 @@
-import { getBlog, getBlogByTag, getBlogByKeyword } from '@/service/api'
+import {
+  getBlog,
+  getBlogByTag,
+  getBlogByKeyword,
+  getBlogByClassifyId
+} from '@/service/api'
 
 export const configMap: any = {
   home: {
@@ -35,6 +40,20 @@ export const configMap: any = {
     title: '$param - $documentTitle',
     paramMap: {
       tag: 'name'
+    }
+  },
+  category: {
+    pageSize: 9,
+    api: getBlogByClassifyId,
+    pageParamName: 'page',
+    pageParamType: 'query',
+    header: {
+      title: 'categoryName', // 从接口的 categoryName 字段读取
+      description: '相关内容 —— 存档'
+    },
+    title: '$param - $documentTitle',
+    paramMap: {
+      id: 'id'
     }
   }
 }

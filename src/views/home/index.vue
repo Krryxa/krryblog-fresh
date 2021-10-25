@@ -51,9 +51,10 @@ const getBlogList = async () => {
   if (config.value.paramMap) {
     const paramsMapList = Object.entries(config.value.paramMap)
     for (const [paramName, routeParam] of paramsMapList) {
-      headerTitle.value = route.params[routeParam as string] as string
+      const reqParam = route.params[routeParam as string] as string
+      !config.value.header.title && (headerTitle.value = reqParam)
       reqData = Object.assign({}, reqData, {
-        [paramName]: headerTitle.value
+        [paramName]: reqParam
       })
     }
   }
@@ -69,6 +70,8 @@ const getBlogList = async () => {
   if (res.code === 200) {
     blogList.value = res.result.data
     blogLen.value = res.result.blogLen
+    config.value?.header?.title &&
+      (headerTitle.value = res.result[config.value.header.title])
   }
   if (hasNoResult.value) {
     blogLen.value = 0

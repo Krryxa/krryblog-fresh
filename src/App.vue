@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 const route = useRoute()
+const store = useStore()
+store.dispatch('blog/SETCLASSIFY')
 </script>
 
 <template>

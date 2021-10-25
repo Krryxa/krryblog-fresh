@@ -45,7 +45,7 @@ const routes = [
   },
   {
     path: '/category/:id(\\d+)/:page?',
-    component: () => import('@/views/blog/detail.vue'),
+    component: () => import('@/views/home/index.vue'),
     name: 'category'
   },
   {
