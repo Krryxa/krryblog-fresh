@@ -165,12 +165,7 @@ const showImg = (year: string, month: string, index: string) => {
                       }}</router-link>
                     </template>
                     <div style="height: 161px">
-                      <img
-                        :src="
-                          item.isShow ? 'https://ainyi.com/' + item.imgUrl : ''
-                        "
-                        width="196"
-                      />
+                      <img :src="item.isShow ? item.imgUrl : ''" width="196" />
                     </div>
                   </el-popover>
                   <span v-else class="link">{{ item.title }}</span>
