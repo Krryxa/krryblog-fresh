@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, getCurrentInstance } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { configMap } from './config'
 import sectionHeader from '@/components/section-header.vue'
@@ -10,6 +10,8 @@ import noResult from './no-result.vue'
 const route: any = useRoute()
 const router = useRouter()
 const routerName = computed(() => route.name)
+const { proxy }: any = getCurrentInstance()
+const documentTitle = proxy.documentTitle
 // 获取首页、标签页、搜索页相关配置
 const config = computed(() =>
   routerName.value ? configMap[routerName.value] : ''
@@ -58,6 +60,12 @@ const getBlogList = async () => {
   config.value.header && (description.value = config.value.header.description)
   let res: any = await config.value.api(reqData)
   status.value = res.code
+  // 设置标题
+  if (config.value.title) {
+    document.title = config.value.title
+      .replace('$param', headerTitle.value)
+      .replace('$documentTitle', documentTitle)
+  }
   if (res.code === 200) {
     blogList.value = res.result.data
     blogLen.value = res.result.blogLen

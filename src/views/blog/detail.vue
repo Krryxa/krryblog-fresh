@@ -50,8 +50,8 @@ const getBlog = async () => {
   status.value = res.code
   // 404 的标题在 axios 拦截器已经定义
   if (status.value === 200) {
-    document.title = `${blog.value.title} - ${documentTitle}`
     blog.value = res.result.data
+    document.title = `${blog.value.title} - ${documentTitle}`
     // 保证接口数据返回赋值
     description.value = isOthers.value
       ? linkOrAboutMap[routerName.value].description

@@ -19,4 +19,15 @@ Object.keys(components).forEach((key) => {
   app.component(key, components[key])
 })
 
+// 配置页面标题
+router.afterEach((to, from) => {
+  if (to.meta && to.meta.title) {
+    document.title = (
+      to.meta.cover
+        ? to.meta.title
+        : to.meta.title + ' - ' + app.config.globalProperties.documentTitle
+    ) as string
+  }
+})
+
 app.use(router).use(store).use(ElementPlus).mount('#app')

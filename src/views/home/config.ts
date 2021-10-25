@@ -19,6 +19,7 @@ export const configMap: any = {
     header: {
       description: '相关内容 —— 搜索'
     },
+    title: '$param 的搜索结果 - $documentTitle',
     paramMap: {
       keyword: 'keyword'
     }
@@ -31,6 +32,7 @@ export const configMap: any = {
     header: {
       description: '相关内容 —— 标签'
     },
+    title: '$param - $documentTitle',
     paramMap: {
       tag: 'name'
     }
