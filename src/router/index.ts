@@ -33,13 +33,13 @@ const routes = [
   },
   {
     path: '/archive',
-    component: () => import('@/views/blog/detail.vue'),
+    component: () => import('@/views/archive/archive.vue'),
     name: 'archive',
     meta: { title: '时间归档' }
   },
   {
     path: '/stars',
-    component: () => import('@/views/blog/detail.vue'),
+    component: () => import('@/views/archive/archive.vue'),
     name: 'stars',
     meta: { title: '星茶会' }
   },
