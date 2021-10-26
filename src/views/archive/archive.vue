@@ -94,9 +94,11 @@ const handleToogle = (e: any) => {
   const monthDom = e.currentTarget.nextElementSibling
   slideToogle(monthDom, 600)
 }
-const showImg = (year: string, month: string, index: string) => {
+const showImg = (year: string, month: string, index: number) => {
   dataObj.value[year][month][index].isShow = true
 }
+
+const getEntries = (obj: any) => Object.entries(obj) as any
 </script>
 
 <template>
@@ -131,7 +133,7 @@ const showImg = (year: string, month: string, index: string) => {
       </div>
       <div class="spin-box">
         <div
-          v-for="ele in Object.entries(dataObj)"
+          v-for="ele in getEntries(dataObj)"
           :key="ele[0] + 'year'"
           class="year"
         >
@@ -140,7 +142,7 @@ const showImg = (year: string, month: string, index: string) => {
           }}</span>
           <div class="month" style="display: none">
             <div
-              v-for="jcl in Object.entries(ele[1])"
+              v-for="jcl in getEntries(ele[1])"
               :key="ele[0] + 'year' + jcl[0]"
             >
               <span class="month-word" @click="handleToogle($event)">{{
