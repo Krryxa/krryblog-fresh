@@ -131,7 +131,7 @@ const getEntries = (obj: any) => Object.entries(obj) as any
           <div class="clear"></div>
         </ul>
       </div>
-      <div class="spin-box">
+      <div v-loading="spinShow" class="spin-box">
         <div
           v-for="ele in getEntries(dataObj)"
           :key="ele[0] + 'year'"
@@ -176,21 +176,6 @@ const getEntries = (obj: any) => Object.entries(obj) as any
             </div>
           </div>
         </div>
-        <!-- <Spin fix v-if="spinShow">
-          <div class="loader">
-            <svg class="circular" viewBox="25 25 50 50">
-              <circle
-                class="path"
-                cx="50"
-                cy="50"
-                r="20"
-                fill="none"
-                stroke-width="5"
-                stroke-miterlimit="10"
-              ></circle>
-            </svg>
-          </div>
-        </Spin> -->
       </div>
     </article>
   </main>
@@ -211,34 +196,6 @@ article {
   .spin-box {
     position: relative;
     min-height: 200px;
-
-    .loader {
-      position: relative;
-      width: 40px;
-      height: 40px;
-      margin: 0 auto;
-
-      .circular {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        margin: auto;
-        transform-origin: center center;
-        animation: rotate 2s linear infinite;
-
-        .path {
-          stroke-dasharray: 1, 200;
-          stroke-dashoffset: 0;
-          stroke-linecap: round;
-          animation: dash 1.5s ease-in-out infinite,
-            color 6s ease-in-out infinite;
-        }
-      }
-    }
   }
 
   .summarize {
