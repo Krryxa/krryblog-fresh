@@ -53,14 +53,14 @@ const init = () => {
   }
   document.addEventListener('keydown', (e) => {
     if (e.altKey) {
-      switch (e.keyCode) {
-        case 13:
+      switch (e.key) {
+        case 'Enter':
           !isTransition.value && (isPlay.value ? pause() : play())
           break
-        case 39:
+        case 'ArrowRight':
           next(true)
           break
-        case 37:
+        case 'ArrowLeft':
           next(false)
           break
         default:
