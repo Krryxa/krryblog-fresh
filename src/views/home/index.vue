@@ -64,7 +64,12 @@ const getBlogList = async () => {
   // 设置标题
   if (config.value.title) {
     document.title = config.value.title
-      .replace('$param', headerTitle.value)
+      .replace(
+        '$param',
+        config.value?.header?.title
+          ? res.result[config.value.header.title]
+          : headerTitle.value
+      )
       .replace('$documentTitle', documentTitle)
   }
   if (res.code === 200) {
