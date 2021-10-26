@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+import krryMusic from '@/components/krry-music.vue'
 const route = useRoute()
 const store = useStore()
 store.dispatch('blog/SETCLASSIFY')
@@ -8,6 +9,7 @@ store.dispatch('blog/SETCLASSIFY')
 
 <template>
   <my-header v-if="route.name !== 'edit'"></my-header>
+  <krry-music></krry-music>
   <router-view />
   <my-footer></my-footer>
 </template>

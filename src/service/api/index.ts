@@ -154,7 +154,7 @@ export function getAllBlogByPage(reqData: any) {
  * 获取所有音乐
  * @param {*} reqData
  */
-export function getMuisc(reqData: any) {
+export function getMusic(reqData?: any) {
   return Ax.get(`/krryblog/part/getMusic`, { params: reqData })
 }
 

@@ -4,7 +4,6 @@ import { useRoute, useRouter } from 'vue-router'
 import { configMap } from './config'
 import sectionHeader from '@/components/section-header.vue'
 import sectionArticle from '@/components/section-article.vue'
-import notFound from '@/components/not-found.vue'
 import noResult from './no-result.vue'
 
 const route: any = useRoute()
