@@ -27,11 +27,6 @@ const routes = [
     redirect: '/about'
   },
   {
-    path: '/:id(\\d+)',
-    component: () => import('@/views/blog/detail.vue'),
-    name: 'blog'
-  },
-  {
     path: '/archive',
     component: () => import('@/views/archive/archive.vue'),
     name: 'archive',
