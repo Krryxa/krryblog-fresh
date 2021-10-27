@@ -28,7 +28,7 @@ const showPWmsg = computed(() =>
 
 let loadingInstance = null
 
-const userFormRef = ref(null)
+const userFormRef: any = ref(null)
 // 确认修改个人信息
 const confirmUser = () => {
   userFormRef.value &&
