@@ -14,7 +14,11 @@ module.exports = defineConfig({
   },
   // https://eslint.bootcss.com/docs/user-guide/configuring#specifying-globals
   globals: {
-    Nullable: true
+    Nullable: true,
+    defineProps: 'readonly',
+    defineEmits: 'readonly',
+    defineExpose: 'readonly',
+    withDefaults: 'readonly'
   },
   plugins: ['vue'],
   extends: [
@@ -31,12 +35,6 @@ module.exports = defineConfig({
     'prettier',
     'plugin:prettier/recommended'
   ],
-  globals: {
-    defineProps: 'readonly',
-    defineEmits: 'readonly',
-    defineExpose: 'readonly',
-    withDefaults: 'readonly'
-  },
   rules: {
     // 'no-undef': 'off',
     // 禁止使用 var
@@ -49,6 +47,7 @@ module.exports = defineConfig({
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
     // 关闭此规则 使用 prettier 的格式化规则， 感觉prettier 更加合理，
     // 而且一起使用会有冲突
     'vue/max-attributes-per-line': ['off']

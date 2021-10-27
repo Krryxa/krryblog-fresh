@@ -78,6 +78,18 @@ const routes = [
     meta: { title: '后台中心', requireAuth: true }
   },
   {
+    path: '/manage/music',
+    component: () => import('@/views/manage/blog-list.vue'),
+    name: 'music',
+    meta: { title: '音乐', requireAuth: true }
+  },
+  {
+    path: '/manage/edit/:id?',
+    component: () => import('@/views/manage/blog-list.vue'),
+    name: 'edit',
+    meta: { title: '新增博客', requireAuth: true }
+  },
+  {
     path: '/:pathMatch(.*)*',
     component: () => import('@/components/not-found.vue'),
     name: 'NotFound',
