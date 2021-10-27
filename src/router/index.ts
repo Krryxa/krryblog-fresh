@@ -79,7 +79,7 @@ const routes = [
   },
   {
     path: '/manage/music',
-    component: () => import('@/views/manage/blog-list.vue'),
+    component: () => import('@/views/manage/music-list.vue'),
     name: 'music',
     meta: { title: '音乐', requireAuth: true }
   },

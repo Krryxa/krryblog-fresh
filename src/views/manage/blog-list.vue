@@ -294,6 +294,7 @@ const remove = async (id: number) => {
         v-model:currentPage="pageNo"
         :page-size="pageSize"
         layout="prev, pager, next, sizes, jumper"
+        :page-sizes="[10, 20, 50]"
         :total="blogLen"
         @current-change="changePage"
         @size-change="changePageSize"
