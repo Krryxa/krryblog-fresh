@@ -72,10 +72,10 @@ const routes = [
     meta: { title: '管理员登录', keepAlive: true }
   },
   {
-    path: '/error',
-    component: () => import('@/components/not-found.vue'),
-    name: 'error',
-    meta: { title: '404 - 找不到页面', cover: true }
+    path: '/manage/list/:page?',
+    component: () => import('@/views/manage/blog-list.vue'),
+    name: 'list',
+    meta: { title: '后台中心', requireAuth: true }
   },
   {
     path: '/:pathMatch(.*)*',
