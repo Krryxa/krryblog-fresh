@@ -10,7 +10,10 @@ store.dispatch('blog/SETCLASSIFY')
 <template>
   <my-header v-if="route.name !== 'edit'"></my-header>
   <krry-music></krry-music>
-  <router-view />
+  <keep-alive>
+    <router-view v-if="$route.meta.keepAlive" />
+  </keep-alive>
+  <router-view v-if="!$route.meta.keepAlive" />
   <my-footer></my-footer>
 </template>
 

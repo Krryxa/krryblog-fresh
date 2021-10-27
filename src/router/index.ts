@@ -66,6 +66,12 @@ const routes = [
     meta: { title: '友情链接' }
   },
   {
+    path: '/login/:returnUrl?',
+    component: () => import('@/views/manage/login.vue'),
+    name: 'login',
+    meta: { title: '管理员登录', keepAlive: true }
+  },
+  {
     path: '/error',
     component: () => import('@/components/not-found.vue'),
     name: 'error',
