@@ -4,6 +4,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { ElMessageBox, ElLoading, ElMessage } from 'element-plus'
 import { getAllBlogByPage, updateBlogNoTime, getLogout } from '@/service/api'
+import personalInfo from './modules/personal-info.vue'
 
 const store = useStore()
 const route: any = useRoute()
@@ -101,10 +102,12 @@ const Logout = () => {
     .catch(() => {})
 }
 
+const showModel = ref(false)
 const showDialog = () => {
-  // this.showModel = true
-  // this.userForm['newName'] = this.userName
-  console.log(123)
+  showModel.value = true
+}
+const closeDialog = () => {
+  showModel.value = false
 }
 
 // 设置发布状态
@@ -295,6 +298,10 @@ const remove = async (id: number) => {
         @current-change="changePage"
         @size-change="changePageSize"
       ></el-pagination>
+      <personal-info
+        :show-model="showModel"
+        @closeDialog="closeDialog"
+      ></personal-info>
     </section>
   </main>
   <not-found v-else></not-found>
