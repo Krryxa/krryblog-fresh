@@ -1,14 +1,12 @@
 <script setup lang="ts">
-import { ref, getCurrentInstance } from 'vue'
+import { ref } from 'vue'
 import { getLogin } from '@/service/api'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import { ElLoading } from 'element-plus'
+import { ElLoading, ElMessage } from 'element-plus'
 const router = useRouter()
 const route = useRoute()
 const store = useStore()
-const { proxy }: any = getCurrentInstance()
-const $message = proxy.$message
 
 interface ReqDataType {
   name: string
@@ -21,9 +19,9 @@ const password = ref('')
 let loading: any = null
 const beforeSubmit = () => {
   if (name.value === '') {
-    $message.warning('Please enter your username first~~')
+    ElMessage.warning('Please enter your username first~~')
   } else if (password.value === '') {
-    $message.warning('Please enter your password first~~')
+    ElMessage.warning('Please enter your password first~~')
   } else {
     loading = ElLoading.service({
       lock: true,
@@ -39,7 +37,7 @@ const beforeSubmit = () => {
 const submit = async (reqData: ReqDataType) => {
   let res: any = await getLogin(reqData)
   if (res.message !== 'success') {
-    $message.warning(res.message)
+    ElMessage.warning(res.message)
   } else {
     // 成功登录
     console.log('成功登录')

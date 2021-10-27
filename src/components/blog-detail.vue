@@ -1,19 +1,11 @@
 <script setup lang="ts">
-import {
-  ref,
-  watch,
-  Ref,
-  PropType,
-  onMounted,
-  computed,
-  nextTick,
-  getCurrentInstance
-} from 'vue'
+import { ref, watch, Ref, PropType, onMounted, computed, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import '@/assets/css/markdown.css'
 import '@/assets/css/github.css'
 import Catalog from '@/util/catalog'
 import Valine from 'valine'
+import { ElMessage } from 'element-plus'
 import { addBlogComment, getAllBlog } from '@/service/api'
 import myReward from './models/my-reward.vue'
 
@@ -130,8 +122,7 @@ const setNextPreBlog = async () => {
 
 let submitBtn: HTMLElement | null = null
 const commentSpanRef: Ref<HTMLSpanElement | null> = ref(null)
-const { proxy }: any = getCurrentInstance()
-const $message = proxy.$message
+
 const getComment = () => {
   Valine({
     el: '#vcomments',
@@ -179,11 +170,11 @@ const getComment = () => {
     let textDesc = textDiv.value
     let isok = emailReg.test(mailText)
     if (nickText.trim() === '') {
-      $message.warning('先输入昵称哦~~')
+      ElMessage.warning('先输入昵称哦~~')
     } else if (mailText.trim() && !isok) {
-      $message.warning('邮箱格式不正确哦~~')
+      ElMessage.warning('邮箱格式不正确哦~~')
     } else if (textDesc.trim() === '') {
-      $message.warning('先输入评论哦~~')
+      ElMessage.warning('先输入评论哦~~')
     } else {
       // 触发提交按钮
       buttonContainer.appendChild(submitBtn as HTMLElement)
