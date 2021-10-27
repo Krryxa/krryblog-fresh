@@ -19,6 +19,38 @@ Object.keys(components).forEach((key) => {
   app.component(key, components[key])
 })
 
+router.beforeEach((to, from, next) => {
+  const toRouteName = to.name
+  const username = sessionStorage.getItem('username')
+  const id = sessionStorage.getItem('id')
+  if (toRouteName === 'login') {
+    if (username && id) {
+      // 已登录，进入列表页
+      store.dispatch('user/SETUSERID', +id)
+      store.dispatch('user/SETUSERNAME', username)
+      next({ name: 'list' })
+    } else {
+      next()
+    }
+  } else if (to.meta.requireAuth) {
+    // 如果需要进入需登录的页面
+    if (username && id) {
+      // 已登录，进入下一个页面
+      store.dispatch('user/SETUSERID', +id)
+      store.dispatch('user/SETUSERNAME', username)
+      next()
+    } else {
+      // 否则进入登录页面
+      next({
+        name: 'login',
+        query: { returnUrl: window.location.href }
+      })
+    }
+  } else {
+    next()
+  }
+})
+
 // 配置页面标题
 router.afterEach((to, from) => {
   if (to.meta && to.meta.title) {
