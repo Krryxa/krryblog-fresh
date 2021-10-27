@@ -2,9 +2,8 @@
 import { ref, Ref, computed, getCurrentInstance } from 'vue'
 import { useStore } from 'vuex'
 import { getMusic } from '@/service/api'
-import mitt from 'mitt'
+import emitter from '@/bus'
 const store = useStore()
-const emitter = mitt()
 const { proxy }: any = getCurrentInstance()
 const basePath = proxy.basePath
 

@@ -3,10 +3,10 @@ import { ref, watch, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { ElMessageBox, ElLoading, ElMessage } from 'element-plus'
+import krryWaves from '@/components/krry-waves.vue'
 import { getMusic, deleteMusic } from '@/service/api'
-import mitt from 'mitt'
+import emitter from '@/bus'
 
-const emitter = mitt()
 const route: any = useRoute()
 const router = useRouter()
 const store = useStore()
@@ -148,7 +148,23 @@ const operateMusic = (id: number) => {
         >
       </div>
       <el-table :data="musicList" class="music-table">
-        <el-table-column prop="id" label="ID" width="100"></el-table-column>
+        <el-table-column prop="id" label="ID" width="90"></el-table-column>
+        <el-table-column width="80">
+          <template #default="scope">
+            <div class="music-control">
+              <krry-waves
+                :class="[{ playing: musicId === scope.row.id }, 'play-waves']"
+              ></krry-waves>
+              <i
+                :class="[
+                  musicId === scope.row.id ? 'icon-pause' : 'icon-play',
+                  'iconfont play-btn'
+                ]"
+                @click="operateMusic(scope.row.id)"
+              ></i>
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column prop="title" label="Title" width="400">
         </el-table-column>
         <el-table-column prop="size" label="Size"> </el-table-column>
@@ -248,18 +264,54 @@ section {
       font-size: 12px;
       color: #5cadff;
     }
+
+    .el-table__row {
+      .music-control {
+        position: relative;
+        line-height: 42px;
+
+        .play-waves {
+          margin-left: 3px;
+
+          &.playing {
+            visibility: visible;
+            opacity: 1;
+          }
+        }
+
+        .play-btn {
+          position: absolute;
+          top: -12px;
+          width: 25px;
+          font-size: 24px;
+          text-align: center;
+          cursor: url(../../assets/pic/cursor.cur), pointer !important;
+          visibility: hidden;
+          opacity: 0;
+          transition: 0.4s;
+        }
+      }
+
+      &:hover {
+        .play-btn {
+          visibility: visible;
+          opacity: 1;
+        }
+
+        .play-waves.playing {
+          visibility: hidden;
+          opacity: 0;
+        }
+      }
+    }
   }
 }
 
 .music {
   :deep(.el-table) {
     .cell {
-      display: -webkit-box;
       padding: 0 18px !important;
-      overflow: hidden;
-      line-height: 1.5;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
+      overflow: unset;
     }
 
     .el-table__cell {
