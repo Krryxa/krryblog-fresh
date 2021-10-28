@@ -1,8 +1,13 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, computed } from 'vue'
+import { ref, Ref, watch, computed } from 'vue'
 import { ElMessageBox, ElLoading, ElMessage } from 'element-plus'
 import { deleteBlogCover } from '@/service/api'
 import Ax from '@/service/axios'
+import {
+  ElUploadRequestOptions,
+  ElUploadProgressEvent,
+  ElUpload
+} from 'element-plus/lib/components/upload/src/upload.type'
 const props = defineProps(['id', 'uploadImgUrl', 'imgName', 'defaultList'])
 const emit = defineEmits(['changeImg'])
 
@@ -11,7 +16,7 @@ const previewImg = computed(
   () => window.location.origin + '/krryblog/' + props.uploadImgUrl
 )
 
-const uploadRef: any = ref(null)
+const uploadRef: Ref<ElUpload | null> = ref(null)
 const hide_upload = ref(!!props.uploadImgUrl)
 
 const handleView = () => {
@@ -34,7 +39,7 @@ const handleRemove = () => {
         ElMessage.success('删除成功！')
         // 清空图片区域
         emit('changeImg', '', '', true)
-        uploadRef.value.uploadFiles = []
+        uploadRef.value && (uploadRef.value.uploadFiles = [])
         hide_upload.value = false
       } else {
         ElMessage.error('删除失败！')
@@ -58,7 +63,7 @@ const beforeAvatarUpload = (file: File) => {
   return isLt2M
 }
 
-const customUpload = (file: any) => {
+const customUpload = (file: ElUploadRequestOptions) => {
   hide_upload.value = true
   let formDatas = new FormData()
   formDatas.append('imgFile', file.file)
@@ -78,17 +83,14 @@ const customUpload = (file: any) => {
 
 const handleError = () => {
   ElMessage.error('上传失败！')
-  uploadRef.value.uploadFiles = []
+  uploadRef.value && (uploadRef.value.uploadFiles = [])
   showPercent.value = false
   hide_upload.value = false
 }
 
-interface ProgressEventType {
-  percent: number
-}
 const uploadPercent = ref(0)
 const showPercent = ref(false)
-const handleProgress = (event: ProgressEventType) => {
+const handleProgress = (event: ElUploadProgressEvent) => {
   showPercent.value = true
   uploadPercent.value = event.percent
 }
