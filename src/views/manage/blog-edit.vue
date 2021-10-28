@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref, reactive, toRefs, getCurrentInstance, computed } from 'vue'
+import { ref, getCurrentInstance, computed } from 'vue'
 import mavonEditor from '@/components/mavon-editor/mavon-editor.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
-import { ElMessageBox, ElLoading, ElMessage } from 'element-plus'
+import { ElLoading, ElMessage } from 'element-plus'
+import editUpload from './modules/edit-upload.vue'
 import '@/assets/css/markdown.css'
 import '@/assets/css/github.css'
 import {
@@ -214,14 +215,14 @@ const back = () => {
           ></el-input>
         </el-form-item>
         <!-- upload image -->
-        <!-- <uploadImg
+        <edit-upload
           v-if="id ? uploadImgUrl || manualDeleteImg : true"
           :id="id"
-          :defaultList="defaultUploadList"
-          :uploadImgUrl="uploadImgUrl"
-          :imgName="imgName"
+          :default-list="defaultUploadList"
+          :upload-img-url="uploadImgUrl"
+          :img-name="imgName"
           @changeImg="changeImg"
-        ></uploadImg> -->
+        ></edit-upload>
         <el-form-item label="分类存档：">
           <el-radio-group v-model="classifyId">
             <el-radio
@@ -262,36 +263,8 @@ section {
   padding: 40px 50px 30px;
   animation: fadeIn 0.6s linear;
 
-  .ivu-breadcrumb {
+  .el-breadcrumb {
     padding-bottom: 26px;
-  }
-
-  .blog-title {
-    height: 40px;
-    padding: 0 10px;
-    font-size: 14px;
-    color: #666;
-    text-align: center;
-    border: none;
-    border-top: 1px solid #ddd;
-    outline: none;
-
-    &:hover {
-      border-color: #ddd !important;
-    }
-
-    &:focus {
-      border-color: #ddd !important;
-      box-shadow: none !important;
-    }
-  }
-
-  .v-note-wrapper {
-    z-index: 1009;
-  }
-
-  .ivu-form-item {
-    padding-top: 24px;
   }
 
   .blog-btn {
@@ -301,68 +274,35 @@ section {
       width: 160px;
     }
   }
-
-  .ivu-radio-wrapper {
-    margin-right: 18px;
-    cursor: url(../../assets/pic/cursor.cur), pointer !important;
-  }
 }
-</style>
-<style lang="scss">
-.add-blog {
-  .v-note-wrapper .v-note-op .v-left-item .op-icon,
-  .op-icon input,
-  .ivu-radio,
-  .ivu-radio-input {
-    cursor: url(../../assets/pic/cursor.cur), pointer !important;
-  }
 
-  .content-input-wrapper {
-    padding: unset !important;
-
-    textarea {
-      padding: 8px 25px 15px 25px;
-      font-size: 14px !important;
-    }
-  }
-
-  .ivu-form-item {
-    .ivu-form-item-label {
+section :deep() {
+  .blog-title {
+    input {
+      height: 40px;
       font-size: 14px;
-    }
-  }
+      color: #666;
+      text-align: center;
+      border: none;
+      border-top: 1px solid #ddd;
+      outline: none;
 
-  .v-note-wrapper {
-    .v-note-show {
-      .v-show-content {
-        ul li {
-          list-style: initial !important;
-        }
+      &:hover {
+        border-color: #ddd !important;
       }
-    }
 
-    .v-note-img-wrapper {
-      img {
-        max-width: 86%;
-        max-height: 86%;
-        cursor: zoom-out;
+      &:focus {
+        border-color: #ddd !important;
+        box-shadow: none !important;
       }
     }
   }
 
-  .ivu-upload-list-remove {
-    display: none;
-  }
-
-  textarea.ivu-input {
-    &:hover {
-      border-color: #f60 !important;
-    }
-
-    &:focus {
-      border-color: #f60 !important;
-      box-shadow: 0 0 0 2px rgba(255, 118, 19, 0.2) !important;
-    }
+  .el-switch__core,
+  .el-radio,
+  .el-radio__input,
+  .el-radio__inner {
+    cursor: url(../../assets/pic/cursor.cur), pointer !important;
   }
 }
 </style>

@@ -95,9 +95,16 @@ img {
   }
 }
 
-/* 输入框聚焦 */
-.el-input__inner:focus {
-  border-color: #eb5055;
+.el-textarea__inner,
+.el-input__inner {
+  &:hover {
+    border-color: #f60 !important;
+  }
+
+  &:focus {
+    border-color: #f60 !important;
+    box-shadow: 0 0 0 2px rgba(255, 118, 19, 0.2) !important;
+  }
 }
 
 /* 遮罩层 */

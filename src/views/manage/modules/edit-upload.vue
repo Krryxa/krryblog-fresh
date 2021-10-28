@@ -1,43 +1,24 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, watch, computed } from 'vue'
-import {
-  ElMessageBox,
-  ElLoading,
-  ElMessage,
-  ElNotification
-} from 'element-plus'
+import { ref, onMounted, watch, computed } from 'vue'
+import { ElMessageBox, ElLoading, ElMessage } from 'element-plus'
 import { deleteBlogCover } from '@/service/api'
+import Ax from '@/service/axios'
 const props = defineProps(['id', 'uploadImgUrl', 'imgName', 'defaultList'])
 const emit = defineEmits(['changeImg'])
 
-const uploadList = ref([])
 const visible = ref(false)
 const previewImg = computed(
   () => window.location.origin + '/krryblog/' + props.uploadImgUrl
 )
 
-watch(uploadList.value, (newVal) => {
-  let Eleupload = document.getElementsByClassName('ivu-upload-input')[0]
-  if (newVal.length === 0) {
-    // 上传列表为空，设置文件上传为可用
-    Eleupload.removeAttribute('disabled')
-    emit('changeImg', '', '')
-  } else {
-    Eleupload.setAttribute('disabled', 'true')
-  }
-})
-
 const uploadRef: any = ref(null)
-onMounted(() => {
-  uploadList.value = uploadRef.value.fileList
-})
 
 const handleView = () => {
   visible.value = true
 }
 
 let loadingInstance = null
-const handleRemove = (file: any) => {
+const handleRemove = () => {
   ElMessageBox.confirm('确定要删除博客封面图片吗？', '提示', {
     confirmButtonText: 'OK',
     cancelButtonText: 'Cancel',
@@ -52,8 +33,7 @@ const handleRemove = (file: any) => {
         ElMessage.success('删除成功！')
         // 清空图片区域
         emit('changeImg', '', '', true)
-        const fileList = uploadRef.value.fileList
-        uploadRef.value.fileList.splice(fileList.indexOf(file), 1)
+        uploadRef.value.uploadFiles = []
       } else {
         ElMessage.error('删除失败！')
       }
@@ -61,28 +41,52 @@ const handleRemove = (file: any) => {
     })
     .catch(() => {})
 }
-const handleSuccess = (res: any, file: any) => {
+const handleSuccess = (res: any) => {
   if (res !== null) {
     emit('changeImg', res.oldName, res.url)
-    file.url = window.location.origin + '/krryblog/' + res.url
-    file.name = res.oldName
-    // 设置文件上传不可用
-    let Eleupload = document.getElementsByClassName('ivu-upload-input')[0]
-    Eleupload.setAttribute('disabled', 'true')
+    showPercent.value = false
   }
 }
-const handleFormatError = (file: any) => {
-  ElNotification.warning({
-    title: 'The file format is incorrect',
-    message:
-      'File format of ' + file.name + ' is incorrect, please select jpg or png.'
+const beforeAvatarUpload = (file: any) => {
+  const isLt2M = file.size / 1024 / 1024 < 2
+  if (!isLt2M) {
+    ElMessage.error('Avatar picture size can not exceed 2MB!')
+  }
+  return isLt2M
+}
+
+const hideUpload = computed(() =>
+  props.uploadImgUrl ? 'none' : 'inline-block'
+)
+
+const customUpload = (file: any) => {
+  let FormDatas = new FormData()
+  FormDatas.append('imgFile', file.file)
+  Ax({
+    url: '/krryblog/krry/uploadCover',
+    method: 'post',
+    data: FormDatas,
+    // 上传进度
+    onUploadProgress: (progressEvent: any) => {
+      let num = ((progressEvent.loaded / progressEvent.total) * 100) | 0 // 百分比
+      file.onProgress({ percent: num }) // 进度条
+    }
+  }).then((data: any) => {
+    file.onSuccess(JSON.parse(data)) //上传成功
   })
 }
-const handleMaxSize = (file: any) => {
-  ElNotification.warning({
-    title: 'Exceeding file size limit',
-    message: 'File  ' + file.name + ' is too large, no more than 2M.'
-  })
+
+const handleError = () => {
+  ElMessage.error('上传失败！')
+  uploadRef.value.uploadFiles = []
+  showPercent.value = false
+}
+
+const uploadPercent = ref(0)
+const showPercent = ref(false)
+const handleProgress = (event: any) => {
+  showPercent.value = true
+  uploadPercent.value = event.percent
 }
 </script>
 
@@ -91,129 +95,95 @@ const handleMaxSize = (file: any) => {
     <el-upload
       ref="uploadRef"
       :on-success="handleSuccess"
-      :format="['jpg', 'jpeg', 'png']"
+      :auto-upload="true"
       accept="image/*"
-      :max-size="2048"
-      :on-format-error="handleFormatError"
-      :on-exceeded-size="handleMaxSize"
-      :default-file-list="defaultList"
-      type="drag"
-      name="imgFile"
-      action="/krryblog/krry/uploadCover"
+      :before-upload="beforeAvatarUpload"
+      :on-progress="handleProgress"
+      :on-error="handleError"
+      :file-list="defaultList"
+      action="void"
+      :http-request="customUpload"
+      :limit="1"
+      list-type="picture-card"
     >
-      <div class="upload-icon">
-        <Icon type="ios-camera" size="20"></Icon>
-      </div>
-      <div
-        v-for="(item, index) in uploadList"
-        :key="index"
-        class="my-upload-list"
-      >
-        <template v-if="item.status === 'finished'">
-          <img :src="item.url" />
-          <div class="my-upload-list-cover">
-            <Icon type="ios-eye-outline" @click="handleView"></Icon>
-            <Icon type="ios-trash-outline" @click="handleRemove(item)"></Icon>
-          </div>
-        </template>
-        <template v-else>
-          <!-- <Progress
-            v-if="item.showProgress"
-            :percent="item.percentage"
-            hide-info
-          ></Progress> -->
-        </template>
-      </div>
+      <template #default>
+        <div class="upload-icon">
+          <i class="iconfont icon-camera2"></i>
+        </div>
+      </template>
+      <template #file="{ file }">
+        <div>
+          <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
+          <span class="el-upload-list__item-actions">
+            <span class="el-upload-list__item-preview" @click="handleView()">
+              <i class="el-icon-zoom-in"></i>
+            </span>
+            <span class="el-upload-list__item-delete" @click="handleRemove">
+              <i class="el-icon-delete"></i>
+            </span>
+          </span>
+        </div>
+      </template>
     </el-upload>
-    <el-dialog
-      v-model="visible"
-      title="View Image"
-      class-name="vertical-center-modal"
-      width="580"
-    >
+    <el-progress
+      v-if="showPercent"
+      :stroke-width="10"
+      :percentage="uploadPercent"
+    />
+    <el-dialog v-model="visible" title="View Image" width="680px">
       <img :src="previewImg" style="width: 100%" />
     </el-dialog>
   </el-form-item>
 </template>
 
 <style lang="scss" scoped>
-.my-upload-list {
-  &:hover .my-upload-list-cover {
-    display: block;
-  }
+.upload-img :deep() {
+  position: relative;
 
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: inline-block;
-  width: 224px;
-  height: 184px;
-  overflow: hidden;
-  line-height: 184px;
-  text-align: center;
-  background: #fff;
-  border-radius: 4px;
-
-  img {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.my-upload-list-cover {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: none;
-  cursor: url(../../../assets/pic/pointer.cur), default !important;
-  background: rgba(0, 0, 0, 0.6);
-
-  i {
-    margin: 0 16px;
-    font-size: 28px;
-    color: #fff;
-    cursor: url(../../../assets/pic/cursor.cur), pointer !important;
-  }
-}
-
-.ivu-upload {
-  width: 224px;
-  margin: 0 auto;
-
-  .upload-icon {
+  .el-upload--picture-card,
+  .el-upload-list__item {
     width: 224px;
     height: 184px;
-    line-height: 184px;
-    cursor: url(../../../assets/pic/cursor.cur), pointer !important;
-
-    i {
-      font-size: 36px !important;
-    }
-  }
-}
-</style>
-<style lang="scss">
-.upload-img {
-  .ivu-upload-drag {
-    position: relative;
-
-    &:hover {
-      border-color: #f60 !important;
-    }
+    margin-bottom: 0;
   }
 
-  .ivu-upload-list {
-    margin-top: 0;
+  .upload-icon {
+    height: 100%;
+    line-height: 182px;
+  }
 
-    .ivu-upload-list-file > span {
-      display: block;
-      width: 224px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+  .el-dialog__header {
+    padding-top: 10px;
+  }
+
+  .el-dialog__body {
+    padding-top: 0;
+  }
+
+  .el-form-item__content {
+    & > div:first-child:not(.el-overlay) > {
+      :last-child {
+        display: v-bind(hideupload);
+      }
     }
+  }
+
+  .el-upload-list--picture-card {
+    display: inline-block;
+    height: 184px;
+  }
+
+  .el-upload--picture-card {
+    &:hover,
+    &:focus {
+      color: #f60;
+      border-color: #f60;
+    }
+  }
+
+  .el-progress {
+    width: 279px;
+    margin-top: 10px;
   }
 }
 </style>
