@@ -85,7 +85,7 @@ const routes = [
   },
   {
     path: '/manage/edit/:id?',
-    component: () => import('@/views/manage/blog-list.vue'),
+    component: () => import('@/views/manage/blog-edit.vue'),
     name: 'edit',
     meta: { title: '新增博客', requireAuth: true }
   },
