@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, getCurrentInstance, computed } from 'vue'
+import { ref, Ref, getCurrentInstance, computed } from 'vue'
 import mavonEditor from '@/components/mavon-editor/mavon-editor.vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
@@ -16,6 +16,11 @@ import {
   deleteFile
 } from '@/service/api'
 
+interface FileListType {
+  name: string
+  url: string
+}
+
 const route = useRoute()
 const router = useRouter()
 const store = useStore()
@@ -31,7 +36,7 @@ const label = ref('')
 const blogCount: any = ref(0)
 const statusFlag = ref(true)
 const manualDeleteImg = ref(false)
-const defaultUploadList: any = ref([])
+const defaultUploadList: Ref<FileListType[]> = ref([])
 
 const status = computed(() => +statusFlag.value)
 // 从接口查询出分类
@@ -79,7 +84,7 @@ if (id.value) {
 const { proxy }: any = getCurrentInstance()
 const basePath = proxy.basePath
 const mdEditRef: any = ref(null)
-const addImg = async (pos: any, $file: any) => {
+const addImg = async (pos: any, $file: File) => {
   let formData = new FormData()
   formData.append('imgFile', $file)
   let thisId = id.value || blogCount.value + 1

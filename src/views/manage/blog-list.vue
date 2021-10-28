@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, watch, Ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { ElMessageBox, ElLoading, ElMessage } from 'element-plus'
@@ -10,7 +10,11 @@ const store = useStore()
 const route: any = useRoute()
 const router = useRouter()
 
-const blogList = ref([])
+interface BlogListType {
+  [propName: string]: string | number
+}
+
+const blogList: Ref<BlogListType[]> = ref([])
 const blogLen = ref(0)
 const status = ref(200)
 const pageNo = ref(+route.query.page || 1)
@@ -48,7 +52,7 @@ const handleChangeBlog = (reqData: any) => {
   let params = Object.keys(reqData).filter((item) => item !== 'id')
   let id = reqData.id
   let key = params[0]
-  for (let val of blogList.value as any) {
+  for (let val of blogList.value) {
     if (val.id === id) {
       val[key] = reqData[key]
       break
@@ -56,7 +60,7 @@ const handleChangeBlog = (reqData: any) => {
   }
 }
 const deleteBlog = (id: number) => {
-  blogList.value = blogList.value.filter((item: any) => item.id !== id)
+  blogList.value = blogList.value.filter((item: BlogListType) => item.id !== id)
   --blogLen.value
   if (blogList.value.length === 0) {
     pageNo.value = --pageNo.value > 0 ? pageNo.value : 1
@@ -111,7 +115,7 @@ const closeDialog = () => {
 }
 
 // 设置发布状态
-const setStatus = async (val: any, id: number) => {
+const setStatus = async (val: number, id: number) => {
   console.log(id, val)
   loadingInstance = ElLoading.service(getLoadingOpt('Modifying~~'))
   let reqData = {
@@ -129,7 +133,7 @@ const setStatus = async (val: any, id: number) => {
   loadingInstance.close()
 }
 // 设置置顶状态
-const setIsTop = async (val: any, id: number) => {
+const setIsTop = async (val: number, id: number) => {
   console.log(id, val)
   let reqData = {
     id: id,

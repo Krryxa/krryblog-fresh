@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, watch, Ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { ElMessageBox, ElLoading, ElMessage } from 'element-plus'
@@ -11,7 +11,11 @@ const route: any = useRoute()
 const router = useRouter()
 const store = useStore()
 
-const musicList: any = ref([])
+interface MusicListType {
+  [propName: string]: string | number
+}
+
+const musicList: Ref<MusicListType[]> = ref([])
 const musicLen = ref(0)
 const status = ref(200)
 const pageNo = ref(+route.query.page || 1)
@@ -40,7 +44,9 @@ const addCount = () => {
   ++musicLen.value
 }
 const deleteTargetMusic = (id: number) => {
-  musicList.value = musicList.value.filter((item: any) => item.id !== id)
+  musicList.value = musicList.value.filter(
+    (item: MusicListType) => item.id !== id
+  )
   --musicLen.value
   if (musicList.value.length === 0) {
     pageNo.value = --pageNo.value > 0 ? pageNo.value : 1

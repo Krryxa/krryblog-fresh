@@ -47,9 +47,10 @@ const handleSuccess = (res: any) => {
   if (res !== null) {
     emit('changeImg', res.oldName, res.url)
     showPercent.value = false
+    console.log('岳茜大宝宝')
   }
 }
-const beforeAvatarUpload = (file: any) => {
+const beforeAvatarUpload = (file: File) => {
   const isLt2M = file.size / 1024 / 1024 < 2
   if (!isLt2M) {
     ElMessage.error('Avatar picture size can not exceed 2MB!')
@@ -59,18 +60,18 @@ const beforeAvatarUpload = (file: any) => {
 
 const customUpload = (file: any) => {
   hide_upload.value = true
-  let FormDatas = new FormData()
-  FormDatas.append('imgFile', file.file)
+  let formDatas = new FormData()
+  formDatas.append('imgFile', file.file)
   Ax({
     url: '/krryblog/krry/uploadCover',
     method: 'post',
-    data: FormDatas,
+    data: formDatas,
     // 上传进度
-    onUploadProgress: (progressEvent: any) => {
+    onUploadProgress: (progressEvent: ProgressEvent) => {
       let num = ((progressEvent.loaded / progressEvent.total) * 100) | 0 // 百分比
       file.onProgress({ percent: num }) // 进度条
     }
-  }).then((data: any) => {
+  }).then((data: string) => {
     file.onSuccess(JSON.parse(data)) //上传成功
   })
 }
@@ -82,9 +83,12 @@ const handleError = () => {
   hide_upload.value = false
 }
 
+interface ProgressEventType {
+  percent: number
+}
 const uploadPercent = ref(0)
 const showPercent = ref(false)
-const handleProgress = (event: any) => {
+const handleProgress = (event: ProgressEventType) => {
   showPercent.value = true
   uploadPercent.value = event.percent
 }

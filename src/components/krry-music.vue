@@ -7,9 +7,13 @@ const store = useStore()
 const { proxy }: any = getCurrentInstance()
 const basePath = proxy.basePath
 
+interface MusicListType {
+  [propName: string]: string | number
+}
+
 const isPlay = ref(false)
 const firstTime = ref(true) // 是否是第一次播放
-const musicList: any = ref([])
+const musicList: Ref<Array<MusicListType>> = ref([])
 const isTransition = ref(false)
 const currIndex = ref(0)
 
