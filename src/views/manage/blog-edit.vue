@@ -239,7 +239,7 @@ const back = () => {
             v-model.trim="label"
             placeholder="为博客添加标签吧~~ 英文逗号 , 分割"
             :maxlength="60"
-            style="width: 360px"
+            style="width: 460px"
           ></el-input>
         </el-form-item>
         <el-form-item label="是否发布：">
@@ -277,6 +277,12 @@ section {
 }
 
 section :deep() {
+  .el-breadcrumb__inner a:hover,
+  .el-breadcrumb__inner.is-link:hover {
+    color: #eb5055;
+    cursor: url(../../assets/pic/cursor.cur), pointer !important;
+  }
+
   .blog-title {
     input {
       height: 40px;

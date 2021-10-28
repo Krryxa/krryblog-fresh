@@ -12,6 +12,7 @@ const previewImg = computed(
 )
 
 const uploadRef: any = ref(null)
+const hide_upload = ref(!!props.uploadImgUrl)
 
 const handleView = () => {
   visible.value = true
@@ -34,6 +35,7 @@ const handleRemove = () => {
         // 清空图片区域
         emit('changeImg', '', '', true)
         uploadRef.value.uploadFiles = []
+        hide_upload.value = false
       } else {
         ElMessage.error('删除失败！')
       }
@@ -55,11 +57,8 @@ const beforeAvatarUpload = (file: any) => {
   return isLt2M
 }
 
-const hide_upload = computed(() =>
-  props.uploadImgUrl ? 'none' : 'inline-block'
-)
-
 const customUpload = (file: any) => {
+  hide_upload.value = true
   let FormDatas = new FormData()
   FormDatas.append('imgFile', file.file)
   Ax({
@@ -80,6 +79,7 @@ const handleError = () => {
   ElMessage.error('上传失败！')
   uploadRef.value.uploadFiles = []
   showPercent.value = false
+  hide_upload.value = false
 }
 
 const uploadPercent = ref(0)
@@ -88,6 +88,10 @@ const handleProgress = (event: any) => {
   showPercent.value = true
   uploadPercent.value = event.percent
 }
+
+const upload_container = computed(() =>
+  hide_upload.value ? 'none' : 'inline-block'
+)
 </script>
 
 <template>
@@ -127,7 +131,7 @@ const handleProgress = (event: any) => {
     </el-upload>
     <el-progress
       v-if="showPercent"
-      :stroke-width="10"
+      :stroke-width="6"
       :percentage="uploadPercent"
     />
     <el-dialog v-model="visible" title="View Image" width="680px">
@@ -138,7 +142,9 @@ const handleProgress = (event: any) => {
 
 <style lang="scss" scoped>
 .upload-img :deep() {
-  position: relative;
+  .el-upload {
+    cursor: url(../../../assets/pic/cursor.cur), pointer !important;
+  }
 
   .el-upload--picture-card,
   .el-upload-list__item {
@@ -161,9 +167,11 @@ const handleProgress = (event: any) => {
   }
 
   .el-form-item__content {
+    height: 184px;
+
     & > div:first-child:not(.el-overlay) > {
       :last-child {
-        display: v-bind(hide_upload);
+        display: v-bind(upload_container);
       }
     }
   }
@@ -179,11 +187,19 @@ const handleProgress = (event: any) => {
       color: #f60;
       border-color: #f60;
     }
+
+    position: absolute;
+    left: 0;
+  }
+
+  .el-upload-list--picture-card {
+    position: relative;
+    z-index: 1;
   }
 
   .el-progress {
     width: 279px;
-    margin-top: 10px;
+    margin-top: 6px;
   }
 }
 </style>

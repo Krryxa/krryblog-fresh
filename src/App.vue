@@ -107,6 +107,10 @@ img {
   }
 }
 
+label {
+  cursor: url(./assets/pic/pointer.cur), pointer !important;
+}
+
 /* 遮罩层 */
 .ivu-modal-mask,
 .ivu-modal-wrap {
