@@ -55,7 +55,7 @@ const beforeAvatarUpload = (file: any) => {
   return isLt2M
 }
 
-const hideUpload = computed(() =>
+const hide_upload = computed(() =>
   props.uploadImgUrl ? 'none' : 'inline-block'
 )
 
@@ -163,7 +163,7 @@ const handleProgress = (event: any) => {
   .el-form-item__content {
     & > div:first-child:not(.el-overlay) > {
       :last-child {
-        display: v-bind(hideupload);
+        display: v-bind(hide_upload);
       }
     }
   }
