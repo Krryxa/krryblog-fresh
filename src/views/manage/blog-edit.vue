@@ -195,7 +195,7 @@ const back = () => {
         ></el-input>
         <mavon-editor
           ref="mdEditRef"
-          :value="markdownDesc"
+          :model-value="markdownDesc"
           :tab-size="2"
           code-style="github"
           placeholder="编辑内容，支持 Markdown"
