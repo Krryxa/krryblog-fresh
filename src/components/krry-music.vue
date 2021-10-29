@@ -9,6 +9,7 @@ const basePath = proxy.basePath
 
 interface MusicListType {
   [propName: string]: string | number
+  title: string
 }
 
 const isPlay = ref(false)
@@ -105,7 +106,7 @@ const next = (flag: boolean) => {
     isTransition.value = false
   }, 300)
 }
-const randomArray = (arr: Array<Object>) => {
+const randomArray = (arr: Array<MusicListType>) => {
   return arr.sort(() => 0.5 - Math.random())
 }
 </script>

@@ -74,9 +74,9 @@ const customUpload = (file: ElUploadRequestOptions) => {
     // 上传进度
     onUploadProgress: (progressEvent: ProgressEvent) => {
       let num = ((progressEvent.loaded / progressEvent.total) * 100) | 0 // 百分比
-      file.onProgress({ percent: num }) // 进度条
+      file.onProgress({ percent: num } as any) // 进度条
     }
-  }).then((data: string) => {
+  }).then((data) => {
     file.onSuccess(JSON.parse(data)) //上传成功
   })
 }
