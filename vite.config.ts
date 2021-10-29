@@ -21,7 +21,7 @@ export default defineConfig({
       // vue: 'https://esm.sh/vue@3.2.13',
       // 'vue-router': 'https://esm.sh/vue-router@4.0.11',
       // vuex: 'https://esm.sh/vuex@4.0.2',
-      // 'valine': 'https://cdn.jsdelivr.net/npm/valine@1.4.16/+esm',
+      valine: 'https://esm.sh/valine@1.4.16',
       // 'headroom.js': 'https://cdn.jsdelivr.net/npm/headroom.js@0.12.0/+esm',
       xss: 'https://esm.sh/xss@1.0.10'
     }
