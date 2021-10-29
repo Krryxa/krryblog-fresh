@@ -14,7 +14,16 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src')
+      '@': resolve(__dirname, 'src'),
+      mitt: 'https://esm.sh/mitt@3.0.0',
+      axios: 'https://esm.sh/axios@0.21.4',
+      qs: 'https://esm.sh/qs@6.10.1',
+      // vue: 'https://esm.sh/vue@3.2.13',
+      // 'vue-router': 'https://esm.sh/vue-router@4.0.11',
+      // vuex: 'https://esm.sh/vuex@4.0.2',
+      // 'valine': 'https://cdn.jsdelivr.net/npm/valine@1.4.16/+esm',
+      // 'headroom.js': 'https://cdn.jsdelivr.net/npm/headroom.js@0.12.0/+esm',
+      xss: 'https://esm.sh/xss@1.0.10'
     }
   },
   server: {
