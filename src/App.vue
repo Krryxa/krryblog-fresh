@@ -2,6 +2,7 @@
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import krryMusic from '@/components/krry-music.vue'
+import '@/util/mouseHeart'
 const route = useRoute()
 const store = useStore()
 store.dispatch('blog/SETCLASSIFY')
