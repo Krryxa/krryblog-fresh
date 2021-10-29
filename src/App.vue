@@ -168,22 +168,25 @@ label {
   font-size: 14px;
   text-align: center;
 
-  li {
-    min-width: 28px;
-    cursor: url(./assets/pic/cursor.cur), pointer !important;
+  .el-pager {
+    li {
+      min-width: 28px;
+      cursor: url(./assets/pic/cursor.cur), pointer !important;
 
-    &:hover {
-      color: #eb5055;
-    }
+      &:hover {
+        color: #eb5055;
+      }
 
-    &.active {
-      color: #eb5055;
+      &.active {
+        color: #eb5055;
+      }
     }
   }
 
   .btn-prev,
   .btn-next {
-    padding: 0;
+    min-width: 30px;
+    padding: 0 !important;
   }
 
   button:hover:not(:disabled) {
@@ -285,6 +288,10 @@ label {
     width: 100%;
   }
 
+  .el-pagination .el-pagination__jump {
+    margin-left: 8px;
+  }
+
   .section-article article {
     width: 70% !important;
     margin-right: 15% !important;
@@ -372,10 +379,10 @@ label {
   .head-page .nav .search i {
     top: 18px !important;
     z-index: 2 !important;
-    width: 34px !important;
-    height: 34px !important;
-    font-size: 26px !important;
-    line-height: 34px !important;
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 22px !important;
+    line-height: 35px !important;
   }
 
   .head-page .nav .search input {

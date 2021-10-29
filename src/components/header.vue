@@ -319,6 +319,7 @@ header {
           position: absolute;
           top: 20px;
           right: 0;
+          box-sizing: border-box;
           width: 0%;
           height: 30px;
           padding: 0 30px 0 18px;

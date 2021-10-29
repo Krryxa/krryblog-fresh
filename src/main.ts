@@ -1,8 +1,6 @@
 import { createApp } from 'vue'
 import router from '@/router'
 import store from '@/store'
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
 import components from './components'
 
 import App from './App.vue'
@@ -62,4 +60,4 @@ router.afterEach((to, from) => {
   }
 })
 
-app.use(router).use(store).use(ElementPlus).mount('#app')
+app.use(router).use(store).mount('#app')
