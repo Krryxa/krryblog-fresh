@@ -429,12 +429,6 @@ article {
 }
 </style>
 <style lang="scss">
-.detail-article {
-  .ivu-tooltip-inner {
-    max-width: 100%;
-  }
-}
-
 #directory {
   position: fixed;
   top: 50%;

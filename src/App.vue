@@ -41,7 +41,7 @@ body {
 }
 
 a,
-button {
+button:not(:disabled) {
   cursor: url(./assets/pic/cursor.cur), pointer !important;
 }
 
@@ -111,23 +111,6 @@ label {
   cursor: url(./assets/pic/pointer.cur), pointer !important;
 }
 
-/* 遮罩层 */
-.ivu-modal-mask,
-.ivu-modal-wrap {
-  z-index: 1010 !important;
-}
-
-/* message 提示信息 */
-.ivu-message {
-  z-index: 1011 !important;
-}
-
-/* 表单的验证信息右移 */
-.ivu-form-item-error-tip {
-  right: 0;
-  left: unset;
-}
-
 /* 代码字体 */
 .hljs {
   padding: 18px 15px 12px !important;
@@ -174,15 +157,6 @@ label {
   background: rgba(255, 111, 27, 0.9) !important;
 }
 
-/* 开关按钮 */
-.ivu-switch {
-  cursor: url(./assets/pic/cursor.cur), pointer !important;
-}
-
-.ivu-switch::after {
-  cursor: url(./assets/pic/cursor.cur), pointer !important;
-}
-
 /* 加载动画 */
 .icon-load {
   animation: ani-demo-spin 1s linear infinite;
@@ -195,6 +169,7 @@ label {
   text-align: center;
 
   li {
+    min-width: 28px;
     cursor: url(./assets/pic/cursor.cur), pointer !important;
 
     &:hover {
@@ -206,8 +181,17 @@ label {
     }
   }
 
+  .btn-prev,
+  .btn-next {
+    padding: 0;
+  }
+
   button:hover:not(:disabled) {
     color: #eb5055;
+  }
+
+  .el-pagination__jump {
+    margin-left: 16px;
   }
 }
 
@@ -266,7 +250,7 @@ label {
 /* 响应式 */
 @media screen and (max-width: 1080px) {
   /* 回到顶部 */
-  .ivu-back-top {
+  .el-backtop {
     right: 30px !important;
   }
 }
