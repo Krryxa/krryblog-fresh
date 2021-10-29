@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { ref, Ref, watch, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { ElMessageBox, ElLoading, ElMessage } from 'element-plus'
 import { deleteBlogCover } from '@/service/api'
 import Ax from '@/service/axios'
 import {
   ElUploadRequestOptions,
-  ElUploadProgressEvent,
-  ElUpload
-} from 'element-plus/lib/components/upload/src/upload.type'
+  ElUploadProgressEvent
+} from '../../../../node_modules/element-plus/lib/components/upload/src/upload.type.d'
 const props = defineProps(['id', 'uploadImgUrl', 'imgName', 'defaultList'])
 const emit = defineEmits(['changeImg'])
 
@@ -16,7 +15,7 @@ const previewImg = computed(
   () => window.location.origin + '/krryblog/' + props.uploadImgUrl
 )
 
-const uploadRef: Ref<ElUpload | null> = ref(null)
+const uploadRef: any = ref(null)
 const hide_upload = ref(!!props.uploadImgUrl)
 
 const handleView = () => {
@@ -76,7 +75,7 @@ const customUpload = (file: ElUploadRequestOptions) => {
       let num = ((progressEvent.loaded / progressEvent.total) * 100) | 0 // 百分比
       file.onProgress({ percent: num } as any) // 进度条
     }
-  }).then((data) => {
+  }).then((data: any) => {
     file.onSuccess(JSON.parse(data)) //上传成功
   })
 }
