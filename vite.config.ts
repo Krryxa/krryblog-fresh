@@ -26,6 +26,9 @@ export default defineConfig({
       xss: 'https://esm.sh/xss@1.0.10'
     }
   },
+  build: {
+    outDir: '../krryblog-back/src/main/webapp'
+  },
   server: {
     open: true,
     proxy: {
