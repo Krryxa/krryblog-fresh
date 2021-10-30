@@ -15,7 +15,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
-      mitt: 'https://esm.sh/mitt@3.0.0',
+      mitt: 'https://cdn.jsdelivr.net/npm/mitt@3.0.0/+esm',
       axios: 'https://esm.sh/axios@0.21.4',
       qs: 'https://esm.sh/qs@6.10.1',
       // vue: 'https://esm.sh/vue@3.2.13',
