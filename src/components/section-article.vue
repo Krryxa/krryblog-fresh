@@ -138,8 +138,9 @@ const setLink = (id: string | number, link: Object) => {
           <router-link :to="setLink(val.id, `/category/${val.classifyId}`)">
             <el-tooltip
               :content="val.classify || 'Krryblog'"
-              placement="top-end"
+              placement="top"
               effect="light"
+              :append-to-body="false"
             >
               <div
                 class="item-icon"
@@ -350,6 +351,12 @@ section {
         }
       }
     }
+  }
+}
+
+section :deep() {
+  .el-popper {
+    color: #666;
   }
 }
 
