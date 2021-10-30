@@ -205,8 +205,8 @@ const getComment = () => {
         {{ subTime(blog.createTime, 0) }}
         <i class="iconfont icon-eye-fill"></i>
         {{ blog.hit }}
-        <i class="iconfont icon-comments"></i>
-        <span ref="commentSpanRef">&nbsp;{{ blog.comment }}</span>
+        <i class="iconfont icon-comments"></i>&nbsp;
+        <span ref="commentSpanRef">{{ blog.comment }}</span>
       </div>
       <div v-if="hasShowTags" class="header-tag">
         <router-link
