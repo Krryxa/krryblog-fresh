@@ -18,9 +18,9 @@ const password = ref('')
 
 let loading: any = null
 const beforeSubmit = () => {
-  if (name.value === '') {
+  if (name.value.trim() === '') {
     ElMessage.warning('Please enter your username first~~')
-  } else if (password.value === '') {
+  } else if (password.value.trim() === '') {
     ElMessage.warning('Please enter your password first~~')
   } else {
     loading = ElLoading.service({
@@ -28,8 +28,8 @@ const beforeSubmit = () => {
       text: 'Loading'
     })
     let reqData: ReqDataType = {
-      name: name.value,
-      password: password.value
+      name: name.value.trim(),
+      password: password.value.trim()
     }
     submit(reqData)
   }
@@ -66,14 +66,14 @@ const back = () => {
     <el-form :label-width="73" label-position="top">
       <el-form-item label="username">
         <el-input
-          v-model.trim="name"
+          v-model="name"
           placeholder="Enter name..."
           @keyup.enter="beforeSubmit"
         ></el-input>
       </el-form-item>
       <el-form-item label="password">
         <el-input
-          v-model.trim="password"
+          v-model="password"
           type="password"
           placeholder="Enter password..."
           @keyup.enter="beforeSubmit"

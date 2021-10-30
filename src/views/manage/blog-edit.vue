@@ -128,11 +128,11 @@ const beforeCommit = () => {
     'fa-mavon-floppy-o'
   )[0] as HTMLElement
   markdownSaveBtn.click()
-  if (title.value === '') {
+  if (title.value.trim() === '') {
     ElMessage.warning('先输入博客标题哦~~')
   } else if (translateDesc.value.trim() === '') {
     ElMessage.warning('先输入博客内容哦~~')
-  } else if (description.value === '') {
+  } else if (description.value.trim() === '') {
     ElMessage.warning('先简单描述一下博客哦~~')
   } else if (uploadImgUrl.value === '') {
     ElMessage.warning('先上传封面图片哦~~')
@@ -165,10 +165,10 @@ const commit = async (reqData: any) => {
 const convertParams = () => {
   return {
     userId: userId.value,
-    title: title.value,
+    title: title.value.trim(),
     content_md: markdownDesc.value,
     content_hm: translateDesc.value,
-    description: description.value,
+    description: description.value.trim(),
     imageName: imgName.value,
     image: uploadImgUrl.value,
     classifyId: classifyId.value,
@@ -191,7 +191,7 @@ const back = () => {
       </el-breadcrumb>
       <el-form>
         <el-input
-          v-model.trim="title"
+          v-model="title"
           type="text"
           maxlength="36"
           class="blog-title"
@@ -211,7 +211,7 @@ const back = () => {
         ></mavon-editor>
         <el-form-item label="博客描述：" style="padding-top: 42px">
           <el-input
-            v-model.trim="description"
+            v-model="description"
             :autosize="{ minRows: 4, maxRows: 10 }"
             style="width: 460px"
             type="textarea"
@@ -241,7 +241,7 @@ const back = () => {
         </el-form-item>
         <el-form-item label="个性标签：">
           <el-input
-            v-model.trim="label"
+            v-model="label"
             placeholder="为博客添加标签吧~~ 英文逗号 , 分割"
             :maxlength="60"
             style="width: 460px"
@@ -314,6 +314,10 @@ section :deep() {
   .el-radio__input,
   .el-radio__inner {
     cursor: url(../../assets/pic/cursor.cur), pointer !important;
+  }
+
+  .el-input__inner {
+    line-height: 1.5;
   }
 }
 </style>

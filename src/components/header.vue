@@ -324,7 +324,7 @@ header {
           height: 30px;
           padding: 0 30px 0 18px;
           font-size: 12px;
-          line-height: 30px;
+          line-height: 1.5;
           color: #313131;
           visibility: hidden;
           background-color: #fff;
