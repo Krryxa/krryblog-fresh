@@ -108,7 +108,7 @@
       top 0
       left 0
       margin 0
-      padding 0
+      padding 8px 25px 15px 25px
       overflow-y hidden
       color #2C3E50
       &.no-border
