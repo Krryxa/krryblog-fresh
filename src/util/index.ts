@@ -26,7 +26,7 @@ export function formatKM(_value: any, _decimal: any) {
 }
 
 export function slideToogle(dom: any, duration = 1000) {
-  if (!dom.tagTimer) {
+  if (dom && !dom.tagTimer) {
     dom.status = dom.status || dom.style.display
     const flag = dom.status !== 'none' // 保存当前的显示状态，方便进行判断
     dom.status = flag ? 'none' : 'block' // 更改dom上的显示属性
