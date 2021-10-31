@@ -29,7 +29,6 @@ const noLoading = [
 
 $axios.interceptors.request.use(
   (config: any) => {
-    console.log(1212, config.url)
     // 判断请求是否是 getClassify，如果是 getClassify，不加载 LoadingBar
     const url = config.url
     if (!noLoading.includes(url.split('/').pop())) {
