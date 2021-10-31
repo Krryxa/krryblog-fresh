@@ -2,7 +2,8 @@ import actions from './actions'
 import mutations from './mutations'
 
 const state = {
-  classifyList: []
+  classifyList: [],
+  allLoading: false
 }
 
 // 计算属性

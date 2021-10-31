@@ -19,42 +19,42 @@ const $axios = axios.create({
   headers: { 'X-Requested-With': 'XMLHttpRequest' }
 })
 
-const noLoading = ['getClassify', 'getAllBlog']
-let flag = false
+const noLoading = [
+  'getClassify',
+  'getAllBlog',
+  'getMusic',
+  'getSummarizedData',
+  'getReviseList'
+]
 
 $axios.interceptors.request.use(
   (config: any) => {
+    console.log(1212, config.url)
     // 判断请求是否是 getClassify，如果是 getClassify，不加载 LoadingBar
     const url = config.url
-    if (noLoading.includes(url.split('/').pop())) {
-      flag = false
-    } else {
-      // iView.LoadingBar.start()
-      flag = true
+    if (!noLoading.includes(url.split('/').pop())) {
+      store.dispatch('blog/ALLLOADING', true)
     }
     return config
   },
-  (error) => {
+  (error: any) => {
     console.log(error)
     return Promise.reject(error)
   }
 )
 
 $axios.interceptors.response.use(
-  (res) => {
+  (res: any) => {
     const apiRes = res.data
     switch (+apiRes.code) {
       case codeStatus.NOTFOUND:
         document.title = '404 - 找不到页面'
-        // flag && iView.LoadingBar.error()
         // 可以在这里直接设置跳转到 404 页面，已经不需要啦，在组件中已经设置，为了不改变 url，实现转发的效果
         // router.push({name: 'error'})
         break
       case codeStatus.UNAUTHORIZED: {
         store.dispatch('user/CLEARUSER')
         sessionStorage.clear()
-        // iView.Message.error(apiRes.message)
-        // flag && iView.LoadingBar.finish()
         const returnUrl = window.location.href
         router.push({
           name: 'login',
@@ -63,13 +63,13 @@ $axios.interceptors.response.use(
         break
       }
       default:
-        // flag && iView.LoadingBar.finish()
         break
     }
+    store.dispatch('blog/ALLLOADING', false)
     return apiRes
   },
-  async (error) => {
-    // iView.LoadingBar.error()
+  async (error: any) => {
+    store.dispatch('blog/ALLLOADING', false)
     console.dir(error)
     return Promise.reject(error)
   }
