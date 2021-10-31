@@ -46,6 +46,7 @@ onMounted(() => {
   })
 })
 
+const showDirectory = ref(true)
 const router = useRouter()
 const gotoLink = (id: number) => {
   router.push('/' + id)
@@ -53,6 +54,7 @@ const gotoLink = (id: number) => {
   nextIndex.value = ''
   preIndex.value = ''
   emit('clearBlog')
+  showDirectory.value = false
   nextTick(() => {
     reFresh.value = true
   })
@@ -81,6 +83,7 @@ const getCatalogZoomsComment = () => {
         wrapper.style.display = 'none'
       }
     })
+    showDirectory.value = true
     // 设置图片点击放大
     // 事件委托，处理全部 img 标签的点击事件
     let blog = document.getElementById('blog') as HTMLElement
@@ -273,7 +276,7 @@ const getComment = () => {
       <div class="clear"></div>
     </div>
     <my-reward></my-reward>
-    <aside id="directory"></aside>
+    <aside v-if="showDirectory" id="directory"></aside>
     <div id="zooms" class="zoom-shadow">
       <img ref="zoomImgRef" class="zoom-big-img" />
     </div>
