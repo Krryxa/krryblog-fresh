@@ -7,9 +7,9 @@ const store = useStore()
 // rgb(235, 80, 85, 50%)
 const colorList = ref([
   'rgb(238, 102, 102)',
-  '#ff9595',
   'rgb(252, 132, 82)',
-  '#fff'
+  '#a8d991',
+  '#ff9595'
 ])
 
 const requesting = computed(() => store.state.blog.allLoading)
@@ -21,7 +21,7 @@ const third_color = ref('')
 
 let index = 0
 
-const getRandomColor = (notCopy?: boolean, pos?: number) => {
+const getOrderColor = (notCopy?: boolean, pos?: number) => {
   if (notCopy) {
     first_color.value = colorList.value[index]
     index = colorList.value.length - 1 === index ? 0 : index + 1
@@ -34,13 +34,13 @@ const getRandomColor = (notCopy?: boolean, pos?: number) => {
   }
   requesting.value &&
     flag.value &&
-    setTimeout(getRandomColor.bind(null, notCopy, pos), 1600)
+    setTimeout(getOrderColor.bind(null, notCopy, pos), 1600)
 }
 
 const initTimer = () => {
-  getRandomColor(true)
-  setTimeout(getRandomColor.bind(null, false, 2), 150)
-  setTimeout(getRandomColor.bind(null, false, 3), 300)
+  getOrderColor(true)
+  setTimeout(getOrderColor.bind(null, false, 2), 150)
+  setTimeout(getOrderColor.bind(null, false, 3), 300)
 }
 
 watch(
@@ -52,7 +52,6 @@ watch(
 
 onMounted(() => {
   window.onblur = () => {
-    console.log('暂停loading')
     flag.value = false
   }
 

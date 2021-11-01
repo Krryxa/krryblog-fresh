@@ -192,6 +192,10 @@
   font-size: 1em;
 }
 
+.markdown-body code:not([class]) {
+  color: #eb5055;
+}
+
 .markdown-body hr {
   box-sizing: content-box;
   height: 0;
