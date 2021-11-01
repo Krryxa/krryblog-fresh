@@ -193,6 +193,7 @@
 }
 
 .markdown-body code:not([class]) {
+  font-weight: 600;
   color: #eb5055;
 }
 
