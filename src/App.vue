@@ -140,6 +140,7 @@ label {
 
 /* 回到顶部 */
 .el-backtop {
+  right: unset !important;
   z-index: 1009;
   width: 40px;
   height: 40px;
@@ -255,7 +256,7 @@ label {
 @media screen and (max-width: 1080px) {
   /* 回到顶部 */
   .el-backtop {
-    right: 30px;
+    right: 30px !important;
   }
 }
 
