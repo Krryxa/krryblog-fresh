@@ -150,7 +150,7 @@ const getComment = () => {
   // 获取按钮的容器
   let buttonContainer = submitBtn.parentElement as HTMLElement
   submitBtn.style['display'] = 'none'
-  buttonContainer.removeChild(submitBtn)
+  // buttonContainer.removeChild(submitBtn)
 
   // 获取输入的昵称、邮箱、评论内容
   let nick = document.getElementsByName('nick')[0] as HTMLInputElement
@@ -180,7 +180,7 @@ const getComment = () => {
       ElMessage.warning('先输入评论哦~~')
     } else {
       // 触发提交按钮
-      buttonContainer.appendChild(submitBtn as HTMLElement)
+      // buttonContainer.appendChild(submitBtn as HTMLElement)
       submitBtn && submitBtn.click()
 
       const commentCount: any = await addBlogComment(props.blog?.id)
@@ -189,7 +189,7 @@ const getComment = () => {
         commentSpanRef.value.innerText = commentCount
       }
       // 移除评论按钮
-      buttonContainer.removeChild(submitBtn as HTMLElement)
+      // buttonContainer.removeChild(submitBtn as HTMLElement)
     }
   })
 }
