@@ -39,6 +39,12 @@ const routes = [
     meta: { title: '星茶会' }
   },
   {
+    path: '/love/:page?',
+    component: () => import('@/views/home/index.vue'),
+    name: 'love',
+    meta: { title: '双 K 之恋' }
+  },
+  {
     path: '/category/:id(\\d+)/:page?',
     component: () => import('@/views/home/index.vue'),
     name: 'category'

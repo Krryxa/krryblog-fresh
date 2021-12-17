@@ -38,6 +38,17 @@ export function getBlogByClassifyId(reqData: any) {
 }
 
 /**
+ * 获取爱情博客列表
+ * @param {*} id
+ * @param {*} reqData
+ */
+export function getLoveBlog(reqData: any) {
+  return Ax.get(`/krryblog/blog/getLoveBlog`, {
+    params: reqData
+  })
+}
+
+/**
  * 添加博客
  * @param {*} reqData
  */

@@ -2,7 +2,8 @@ import {
   getBlog,
   getBlogByTag,
   getBlogByKeyword,
-  getBlogByClassifyId
+  getBlogByClassifyId,
+  getLoveBlog
 } from '@/service/api'
 
 export const configMap: any = {
@@ -55,5 +56,16 @@ export const configMap: any = {
     paramMap: {
       id: 'id'
     }
+  },
+  love: {
+    pageSize: 9,
+    api: getLoveBlog,
+    pageParamName: 'page',
+    pageParamType: 'query',
+    header: {
+      title: 'name',
+      description: 'Love'
+    },
+    title: '$param - $documentTitle'
   }
 }

@@ -35,6 +35,7 @@ const classifyId = ref(1)
 const label = ref('')
 const blogCount: any = ref(0)
 const statusFlag = ref(true)
+const isLove = ref(0)
 const manualDeleteImg = ref(false)
 const defaultUploadList: Ref<FileListType[]> = ref([])
 
@@ -59,6 +60,7 @@ const getBlogInfo = async () => {
     description.value = blogObj['description']
     classifyId.value = blogObj['classifyId']
     label.value = blogObj['label']
+    isLove.value = blogObj.isLove
 
     imgName.value = blogObj.imageName
     uploadImgUrl.value = blogObj.image
@@ -173,7 +175,8 @@ const convertParams = () => {
     image: uploadImgUrl.value,
     classifyId: classifyId.value,
     label: label.value,
-    status: status.value
+    status: status.value,
+    isLove: isLove.value
   }
 }
 const back = () => {
@@ -246,6 +249,10 @@ const back = () => {
             :maxlength="60"
             style="width: 460px"
           ></el-input>
+        </el-form-item>
+        <el-form-item label="是否爱情：">
+          <el-switch v-model="isLove" :active-value="1" :inactive-value="0">
+          </el-switch>
         </el-form-item>
         <el-form-item label="是否发布：">
           <el-switch v-model="statusFlag"> </el-switch>

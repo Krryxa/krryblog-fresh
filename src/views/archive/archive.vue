@@ -20,7 +20,7 @@ const isRevise = computed(() => {
   return route.name === 'stars'
 })
 const title = computed(() => {
-  return isRevise.value ? '星茶会' : '时间归档'
+  return isRevise.value ? '风雨记录' : '时间归档'
 })
 const description = computed(() => {
   return isRevise.value ? 'Stars' : 'Archive'
