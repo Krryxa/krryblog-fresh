@@ -51,7 +51,6 @@ const handleSuccess = (res: any) => {
   if (res !== null) {
     emit('changeImg', res.oldName, res.url)
     showPercent.value = false
-    console.log('岳茜大宝宝')
   }
 }
 const beforeAvatarUpload = (file: File) => {
@@ -76,7 +75,7 @@ const customUpload = (file: ElUploadRequestOptions) => {
       file.onProgress({ percent: num } as any) // 进度条
     }
   }).then((data: any) => {
-    file.onSuccess(JSON.parse(data)) //上传成功
+    file.onSuccess(data) //上传成功
   })
 }
 
