@@ -36,7 +36,7 @@ const routes = [
     path: '/stars',
     component: () => import('@/views/archive/archive.vue'),
     name: 'stars',
-    meta: { title: '星茶会' }
+    meta: { title: '风雨记录' }
   },
   {
     path: '/love/:page?',
