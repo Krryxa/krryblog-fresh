@@ -16,7 +16,7 @@
       <span class="footer-flot sec-footer-flot">｜</span>
       <p class="link-git">
         <span class="name">
-          Copyright © 2022&nbsp;
+          Copyright © 2018 - {{ new Date().getFullYear() }}&nbsp;
           <a target="_blank" href="https://ainyi.com">ainyi.com</a>&nbsp;
         </span>
         <span class="github">
