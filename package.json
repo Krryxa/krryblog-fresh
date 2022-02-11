@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "element-plus": "^1.1.0-beta.16",
+    "mavon-editor": "^3.0.0-beta",
     "vue": "^3.2.13",
     "vue-router": "^4.0.11",
     "vuex": "^4.0.2"

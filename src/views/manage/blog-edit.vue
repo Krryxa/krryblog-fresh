@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref, Ref, getCurrentInstance, computed } from 'vue'
-import mavonEditor from '@/components/mavon-editor/mavon-editor.vue'
+import { mavonEditor } from 'mavon-editor'
 import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { ElLoading, ElMessage } from 'element-plus'
 import editUpload from './modules/edit-upload.vue'
 import '@/assets/css/markdown.css'
-import '@/assets/css/github.css'
+// import '@/assets/css/github.css'
+import 'mavon-editor/dist/css/index.css'
 import {
   getEditBlogDetail,
   updateBlog,
@@ -203,7 +204,7 @@ const back = () => {
         ></el-input>
         <mavon-editor
           ref="mdEditRef"
-          :model-value="markdownDesc"
+          v-model="markdownDesc"
           :tab-size="2"
           code-style="github"
           placeholder="编辑内容，支持 Markdown"
@@ -325,6 +326,15 @@ section :deep() {
 
   .el-input__inner {
     line-height: 1.5;
+  }
+
+  .content-input-wrapper {
+    height: 100%;
+    padding: 15px 0 !important;
+
+    .auto-textarea-wrapper .auto-textarea-input {
+      padding: 0 25px;
+    }
   }
 }
 </style>
