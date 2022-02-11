@@ -22,8 +22,7 @@ export default defineConfig({
       // 'vue-router': 'https://esm.sh/vue-router@4.0.11',
       // vuex: 'https://esm.sh/vuex@4.0.2',
       valine: 'https://esm.sh/valine@1.4.16',
-      'headroom.js': 'https://esm.sh/headroom.js@0.12.0',
-      xss: 'https://esm.sh/xss@1.0.10'
+      'headroom.js': 'https://esm.sh/headroom.js@0.12.0'
     }
   },
   build: {
