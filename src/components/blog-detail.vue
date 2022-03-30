@@ -242,7 +242,7 @@ const getComment = () => {
         <p>
           本文由
           <router-link to="/">{{ blog.userName }}</router-link
-          >&nbsp;创作，转载请注明
+          >&nbsp;创作，转载请注明来源
         </p>
         <p>最后编辑时间：{{ blog.updateTime }}</p>
       </div>
@@ -258,9 +258,7 @@ const getComment = () => {
         >
           <span @click="gotoLink(+allBlogList[+preIndex].id)">上一篇</span>
         </el-tooltip>
-        <span v-if="preIndex !== '' && nextIndex !== ''" style="margin: 0 8px"
-          >|</span
-        >
+        <span v-if="preIndex !== '' && nextIndex !== ''" class="split">|</span>
         <el-tooltip
           v-if="nextIndex !== ''"
           :content="
@@ -383,7 +381,11 @@ article {
     .footer-right {
       float: right;
 
-      span {
+      .split {
+        margin: 0 8px;
+      }
+
+      span:not(.split) {
         cursor: url(../assets/pic/cursor.cur), pointer;
         transition: 0.3s;
 
