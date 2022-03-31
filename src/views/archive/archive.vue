@@ -78,7 +78,7 @@ const getBlogData = async () => {
         day: timeList[2],
         imgUrl: ele.image,
         isShow: false,
-        remark: ele.remark
+        remark: ele.remark || ''
       })
     })
   nextTick(() => {
