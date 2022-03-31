@@ -56,9 +56,8 @@ const getBlogData = async () => {
   let year = ''
   let month = ''
   let temp: any = {}
-  blogLen.value = result && Array.isArray(result.data) && result.data.length
-  result &&
-    Array.isArray(result.data) &&
+  blogLen.value = Array.isArray(result?.data) && result.data.length
+  Array.isArray(result?.data) &&
     result.data.forEach((ele: any) => {
       const timeList = ele.createTime.split('-')
       if (timeList[0] !== year || timeList[1] !== month) {

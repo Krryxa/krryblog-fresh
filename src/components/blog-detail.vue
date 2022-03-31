@@ -112,8 +112,8 @@ const setNextPreBlog = async () => {
   const { result }: any = await getAllBlog({
     type: 'YES'
   })
-  allBlogList.value = (result && result.data) || []
-  if (result && result.data) {
+  allBlogList.value = result?.data || []
+  if (result?.data) {
     const currentIndex = result.data.findIndex(
       (ele: any) => ele.id === props.blog?.id
     )
