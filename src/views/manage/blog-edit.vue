@@ -197,7 +197,7 @@ const back = () => {
         <el-input
           v-model="title"
           type="text"
-          maxlength="36"
+          maxlength="72"
           class="blog-title"
           placeholder="博客标题..."
           style="width: 100%"
