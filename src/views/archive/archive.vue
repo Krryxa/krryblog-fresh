@@ -119,12 +119,12 @@ const getEntries = (obj: any) => Object.entries(obj) as any
           </li>
           <li>
             <span class="num"
-              >{{ formatKM(summarizedData.commentSum, 1) }}+</span
+              >{{ formatKM(summarizedData.commentSum, 2) }}+</span
             >
             <span>评论</span>
           </li>
           <li>
-            <span class="num">{{ formatKM(summarizedData.hitSum, 1) }}+</span>
+            <span class="num">{{ formatKM(summarizedData.hitSum, 2) }}+</span>
             <span>阅读</span>
           </li>
           <div class="clear"></div>
