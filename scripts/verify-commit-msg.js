@@ -1,9 +1,6 @@
-/* eslint-disable */
 const chalk = require('chalk')
-/* eslint-disable */
 const args = require('minimist')(process.argv.slice(2))
 const msgPath = args['name']
-/* eslint-disable */
 const msg = require('fs')
   .readFileSync(msgPath, 'utf-8')
   .trim()
@@ -23,13 +20,11 @@ if (!commitRE.test(msg)) {
       `    ${chalk.green(
         `fix(v-model): handle events on blur (close #28)`
       )}\n\n` +
-      chalk.red(`  See .gitlab/COMMIT_CONVENTION.md for more details.\n`) +
       chalk.red(
         `  You can also use ${chalk.cyan(
           `git cz`
         )} to interactively generate a commit message.\n`
       )
   )
-  /* eslint-disable */
   process.exit(1)
 }
