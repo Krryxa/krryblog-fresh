@@ -1,5 +1,4 @@
 import Ax from '@/service/axios'
-import qs from 'qs'
 
 /**
  * 获取博客列表
@@ -53,7 +52,7 @@ export function getLoveBlog(reqData: any) {
  * @param {*} reqData
  */
 export function addBlog(reqData: any) {
-  return Ax.post('/krry/addBlog', qs.stringify(reqData))
+  return Ax.post('/krry/addBlog', reqData)
 }
 
 /**
@@ -61,7 +60,7 @@ export function addBlog(reqData: any) {
  * @param {*} reqData
  */
 export function updateBlog(reqData: any) {
-  return Ax.post('/krry/updateBlog', qs.stringify(reqData))
+  return Ax.post('/krry/updateBlog', reqData)
 }
 
 /**
@@ -69,7 +68,7 @@ export function updateBlog(reqData: any) {
  * @param {*} reqData
  */
 export function updateBlogNoTime(reqData: any) {
-  return Ax.post('/blog/updateBlogNoTime', qs.stringify(reqData))
+  return Ax.post('/blog/updateBlogNoTime', reqData)
 }
 
 /**
@@ -86,7 +85,7 @@ export function addBlogComment(id: any) {
  * @param {*} reqData
  */
 export function deleteBlogCover(id: any, reqData: any) {
-  return Ax.post(`/krry/deleteBlogCover/${id}`, qs.stringify(reqData))
+  return Ax.post(`/krry/deleteBlogCover/${id}`, reqData)
 }
 
 /**
@@ -126,7 +125,7 @@ export function getBlogByKeyword(reqData: any) {
  * @param {*} reqData
  */
 export function getLogin(reqData: any) {
-  return Ax.post(`/part/login`, qs.stringify(reqData))
+  return Ax.post(`/part/login`, reqData)
 }
 
 /**
@@ -175,7 +174,7 @@ export function getMusic(reqData?: any) {
  * @param {*} reqData
  */
 export function deleteMusic(id: any, reqData: any) {
-  return Ax.post(`/krry/deleteMusic/${id}`, qs.stringify(reqData))
+  return Ax.post(`/krry/deleteMusic/${id}`, reqData)
 }
 
 /**
@@ -192,7 +191,7 @@ export function uploadContent(id: any, reqData: any) {
  * @param {*} reqData
  */
 export function deleteFile(reqData: any) {
-  return Ax.post('/krry/deleteFile', qs.stringify(reqData))
+  return Ax.post('/krry/deleteFile', reqData)
 }
 
 /**
