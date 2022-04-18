@@ -32,8 +32,9 @@ export default defineConfig({
     open: true,
     proxy: {
       '/krryblog': {
-        target: 'https://ainyi.com',
-        changeOrigin: true
+        target: 'http://127.0.0.1:7002',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/krryblog/, '')
       }
     }
   }
