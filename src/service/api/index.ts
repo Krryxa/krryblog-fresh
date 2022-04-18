@@ -6,7 +6,7 @@ import qs from 'qs'
  * @param {*} reqData
  */
 export function getBlog(reqData: any) {
-  return Ax.get('/blog/getBlog', { params: reqData })
+  return Ax.get('/blog/list', { params: reqData })
 }
 
 /**
@@ -14,7 +14,7 @@ export function getBlog(reqData: any) {
  * @param {*} id
  */
 export function getBlogDetail(id: any) {
-  return Ax.get(`/blog/getBlogDetail/${id}`)
+  return Ax.get(`/blog/list/${id}`)
 }
 
 /**
@@ -77,7 +77,7 @@ export function updateBlogNoTime(reqData: any) {
  * @param {*} id
  */
 export function addBlogComment(id: any) {
-  return Ax.post(`/blog/addBlogComment/${id}`)
+  return Ax.put(`/blog/list/${id}`)
 }
 
 /**
@@ -94,7 +94,7 @@ export function deleteBlogCover(id: any, reqData: any) {
  * @param {*} reqData
  */
 export function getLinkOrAbout(reqData: any) {
-  return Ax.get('/part/getLinkOrAbout', { params: reqData })
+  return Ax.get('/blog/getLinkOrAbout', { params: reqData })
 }
 
 /**
@@ -110,7 +110,7 @@ export function getEditBlogDetail(id: any) {
  * @param {*} reqData
  */
 export function getBlogByTag(reqData: any) {
-  return Ax.get(`/part/getBlogByTag`, { params: reqData })
+  return Ax.get(`/blog/getBlogByTag`, { params: reqData })
 }
 
 /**
@@ -118,7 +118,7 @@ export function getBlogByTag(reqData: any) {
  * @param {*} reqData
  */
 export function getBlogByKeyword(reqData: any) {
-  return Ax.get(`/part/getBlogBykeyword`, { params: reqData })
+  return Ax.get(`/blog/getBlogBykeyword`, { params: reqData })
 }
 
 /**
@@ -210,7 +210,7 @@ export function getAllBlog(reqData: any) {
  * @param {*} reqData
  */
 export function getReviseList() {
-  return Ax.get(`/blog/getReviseList`)
+  return Ax.get(`/part/getReviseList`)
 }
 
 /**
