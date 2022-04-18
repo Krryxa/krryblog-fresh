@@ -44,7 +44,7 @@ const status = computed(() => +statusFlag.value)
 // 从接口查询出分类
 const classifyList = computed(() => store.getters['blog/classify'])
 // 获取用户 ID
-const userId = computed(() => Cookies.get('id'))
+const userId = computed(() => +Cookies.get('id'))
 
 const getBlogInfo = async () => {
   // get blog when edit
@@ -156,7 +156,7 @@ const commit = async (reqData: any) => {
     console.log('是编辑，id：' + id.value)
     reqData = Object.assign({}, reqData, { id: id.value })
     console.log(reqData)
-    let msg: any = await updateBlog(reqData)
+    let msg: any = await updateBlog(+id.value, reqData)
     if (msg === 'success') {
       router.push(`/${id.value}`)
     } else {

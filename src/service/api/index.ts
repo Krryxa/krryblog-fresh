@@ -52,15 +52,15 @@ export function getLoveBlog(reqData: any) {
  * @param {*} reqData
  */
 export function addBlog(reqData: any) {
-  return Ax.post('/krry/addBlog', reqData)
+  return Ax.post('/krry/list', reqData)
 }
 
 /**
  * 修改博客
  * @param {*} reqData
  */
-export function updateBlog(reqData: any) {
-  return Ax.post('/krry/updateBlog', reqData)
+export function updateBlog(id: number, reqData: any) {
+  return Ax.put(`/krry/list/${id}`, reqData)
 }
 
 /**
