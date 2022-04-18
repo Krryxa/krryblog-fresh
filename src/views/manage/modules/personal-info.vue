@@ -22,7 +22,7 @@ watch(
   () => props.showModel,
   (val: boolean) => (dialogVisible.value = val)
 )
-const userId = Cookies.get('id')
+const userId = computed(() => Cookies.get('id'))
 const showPWmsg = computed(() =>
   showPW.value ? 'Pick up, No modify password' : 'Modify password'
 )
@@ -40,7 +40,7 @@ const confirmUser = () => {
           text: 'Modifying~~'
         })
         let reqData = {
-          id: userId.value,
+          id: +userId.value,
           name: userForm.value['newName']
         }
         if (showPW.value) {
@@ -50,7 +50,7 @@ const confirmUser = () => {
             password: userForm.value['newPW']
           })
         }
-        let res: any = await updateUser(reqData)
+        let res: any = await updateUser(reqData.id, reqData)
         loadingInstance.close()
         if (res !== 'success') {
           ElMessage.error(res)

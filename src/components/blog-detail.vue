@@ -34,7 +34,7 @@ const hasShowTags = computed(() => blogLabel.value.length > 0)
 const hasShowHeader = computed(
   () => props.blog?.title !== '关于我' && props.blog?.title !== '友情链接'
 )
-const isLogined = Cookies.get('username')
+const isLogined = computed(() => Cookies.get('username'))
 
 onMounted(() => {
   // 加载目录和评论插件

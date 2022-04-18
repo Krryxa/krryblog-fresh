@@ -149,8 +149,8 @@ export function getBlogCount() {
  * 修改用户信息
  * @param {*} reqData
  */
-export function updateUser(reqData: any) {
-  return Ax.post(`/krry/updateUser`, qs.stringify(reqData))
+export function updateUser(id: number, reqData: any) {
+  return Ax.put(`/krry/user/${id}`, reqData)
 }
 
 /**

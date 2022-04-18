@@ -45,7 +45,7 @@ const status = computed(() => +statusFlag.value)
 // 从接口查询出分类
 const classifyList = computed(() => store.getters['blog/classify'])
 // 获取用户 ID
-const userId = Cookies.get('id')
+const userId = computed(() => Cookies.get('id'))
 
 const getBlogInfo = async () => {
   // get blog when edit

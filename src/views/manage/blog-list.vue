@@ -90,7 +90,7 @@ watch(route, (to, from) => {
   flag = true
 })
 
-const userName = Cookies.get('username')
+const userName = computed(() => Cookies.get('username'))
 
 const Logout = () => {
   ElMessageBox.confirm('Do you want to logout ？', 'notification~', {
@@ -187,7 +187,7 @@ const remove = async (id: number) => {
 <template>
   <main v-if="!isEmpty">
     <section class="list">
-      <h1>~Wellcome {{ userName }}~</h1>
+      <h1>Wellcome {{ userName }}</h1>
       <div class="list-link">
         <router-link :to="{ name: 'edit' }">
           <el-button type="success" class="add-button">Add</el-button>
