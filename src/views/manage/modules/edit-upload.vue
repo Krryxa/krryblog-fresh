@@ -41,7 +41,7 @@ const handleRemove = () => {
         uploadRef.value && (uploadRef.value.uploadFiles = [])
         hide_upload.value = false
       } else {
-        ElMessage.error('删除失败！')
+        ElMessage.error(res || '删除失败！')
       }
       loadingInstance.close()
     })

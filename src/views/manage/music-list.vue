@@ -4,8 +4,9 @@ import { useRouter, useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { ElMessageBox, ElLoading, ElMessage } from 'element-plus'
 import krryWaves from '@/components/krry-waves.vue'
-import { getMusic, deleteMusic } from '@/service/api'
+import { getMusicByPage, deleteMusic } from '@/service/api'
 import emitter from '@/bus'
+import { getRequiredCookies } from '@/util'
 
 const route: any = useRoute()
 const router = useRouter()
@@ -29,7 +30,7 @@ const getMusicList = async () => {
     pageNo: pageNo.value,
     pageSize: pageSize.value
   }
-  let res: any = await getMusic(reqData)
+  let res: any = await getMusicByPage(reqData)
   status.value = res.code
   // 404 的标题在 axios 拦截器已经定义
   if (status.value === 200) {
@@ -119,7 +120,7 @@ const remove = async (id: number, url: string) => {
     deleteTargetMusic(id)
     ElMessage.success('Delete successful!')
   } else {
-    ElMessage.error('Error, Failure to delete...')
+    ElMessage.error(msg || 'Error, Failure to delete...')
   }
   loadingInstance.close()
 }
@@ -132,6 +133,7 @@ const operateMusic = (id: number) => {
     emitter.emit('operateMusic', id)
   }
 }
+const prefixMusicUrl = computed(() => (import.meta.env.PROD ? '' : '/krryblog'))
 </script>
 
 <template>
@@ -142,7 +144,8 @@ const operateMusic = (id: number) => {
         <el-upload
           class="music-upload"
           name="musicFile"
-          action="/krryblog/krry/uploadMusic"
+          :action="`${prefixMusicUrl}/krry/music`"
+          :headers="getRequiredCookies()"
           :on-success="handleSuccess"
           :format="['mp3', 'mp4', 'm4a', 'acc']"
           accept="audio/*"

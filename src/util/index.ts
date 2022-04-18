@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie'
+
 export function formatKM(_value: any, _decimal: any) {
   if (!_value || isNaN(Number(_value))) return 0
   let _k = 1000
@@ -57,3 +59,8 @@ function setData(dom: any) {
   dom.tagHeight = dom.clientHeight + 'px'
   dom.style.display = ''
 }
+
+export const getRequiredCookies = () => ({
+  Authorization: 'Bearer ' + Cookies.get('token'),
+  'x-csrf-token': Cookies.get('csrfToken')
+})

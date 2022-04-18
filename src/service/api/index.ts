@@ -101,7 +101,7 @@ export function getLinkOrAbout(reqData: any) {
  * @param {*} id
  */
 export function getEditBlogDetail(id: any) {
-  return Ax.get(`/krry/getBlogDetail/${id}`)
+  return Ax.get(`/krry/list/${id}`)
 }
 
 /**
@@ -169,12 +169,20 @@ export function getMusic(reqData?: any) {
 }
 
 /**
+ * 分页获取音乐
+ * @param {*} reqData
+ */
+export function getMusicByPage(reqData?: any) {
+  return Ax.get(`/krry/music`, { params: reqData })
+}
+
+/**
  * 删除音乐
  * @param {*} id
  * @param {*} reqData
  */
 export function deleteMusic(id: any, reqData: any) {
-  return Ax.post(`/krry/deleteMusic/${id}`, reqData)
+  return Ax.delete(`/krry/music/${id}`, { data: reqData })
 }
 
 /**

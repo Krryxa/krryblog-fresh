@@ -108,7 +108,7 @@ const delImg = async (fileArr: Array<any>) => {
   if (res === 'success') {
     ElMessage.success('删除成功！')
   } else {
-    ElMessage.error('删除失败！')
+    ElMessage.error(res || '删除失败！')
   }
   loadingInstance.close()
 }

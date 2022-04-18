@@ -34,7 +34,15 @@ $axios.interceptors.request.use(
     // 判断加入 token
     const token = Cookies.get('token')
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+      Object.assign(config.headers, {
+        Authorization: `Bearer ${token}`
+      })
+    }
+    const csrftoken = Cookies.get('csrfToken')
+    if (csrftoken) {
+      Object.assign(config.headers, {
+        'x-csrf-token': csrftoken
+      })
     }
     // 判断请求是否是 getClassify，如果是 getClassify，不加载 LoadingBar
     const url = config.url
