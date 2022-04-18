@@ -35,7 +35,6 @@ const imgName = ref('')
 const uploadImgUrl = ref('')
 const classifyId = ref(1)
 const label = ref('')
-const blogCount: any = ref(0)
 const statusFlag = ref(true)
 const isLove = ref(0)
 const manualDeleteImg = ref(false)
@@ -74,6 +73,8 @@ const getBlogInfo = async () => {
     ]
   }
 }
+
+const blogCount = ref(0)
 const getBlogCounting = async () => {
   blogCount.value = await getBlogCount()
 }
@@ -84,6 +85,8 @@ if (id.value) {
   // 新增查博客总数，用于 markdown 上传图片时文件夹的命名id
   getBlogCounting()
 }
+// 临时 id
+const tempId = computed(() => id.value || blogCount.value + 1)
 
 const { proxy }: any = getCurrentInstance()
 const basePath = proxy.basePath
@@ -91,8 +94,8 @@ const mdEditRef: any = ref(null)
 const addImg = async (pos: any, $file: File) => {
   let formData = new FormData()
   formData.append('imgFile', $file)
-  let thisId = id.value || blogCount.value + 1
-  let result: any = await uploadContent(thisId, formData)
+
+  let result: any = await uploadContent(tempId.value, formData)
   mdEditRef.value.$img2Url(pos, basePath + '/' + result.url)
 }
 
@@ -101,9 +104,9 @@ let loadingInstance = null
 const delImg = async (fileArr: Array<any>) => {
   loadingInstance = ElLoading.service({ lock: true, text: 'Deleting~~' })
   // fileArr: ['http://...', { name: 'xxx', ... }]
-  let thisId = id.value || blogCount.value + 1
+
   let res: any = await deleteFile({
-    filePath: `upload/content/${thisId}/${fileArr[1].name}`
+    filePath: `upload/content/${tempId.value}/${fileArr[1].name}`
   })
   if (res === 'success') {
     ElMessage.success('删除成功！')
@@ -228,6 +231,7 @@ const back = () => {
         <edit-upload
           v-if="id ? uploadImgUrl || manualDeleteImg : true"
           :id="id"
+          :temp-id="tempId"
           :default-list="defaultUploadList"
           :upload-img-url="uploadImgUrl"
           :img-name="imgName"

@@ -68,7 +68,7 @@ export function updateBlog(reqData: any) {
  * @param {*} reqData
  */
 export function updateBlogNoTime(reqData: any) {
-  return Ax.post('/blog/updateBlogNoTime', reqData)
+  return Ax.post('/krry/updateParts', reqData)
 }
 
 /**
@@ -85,7 +85,7 @@ export function addBlogComment(id: any) {
  * @param {*} reqData
  */
 export function deleteBlogCover(id: any, reqData: any) {
-  return Ax.post(`/krry/deleteBlogCover/${id}`, reqData)
+  return Ax.delete(`/krry/deleteCover/${id}`, { data: reqData })
 }
 
 /**
@@ -199,7 +199,7 @@ export function uploadContent(id: any, reqData: any) {
  * @param {*} reqData
  */
 export function deleteFile(reqData: any) {
-  return Ax.post('/krry/deleteFile', reqData)
+  return Ax.post('/krry/deleteContent', reqData)
 }
 
 /**
