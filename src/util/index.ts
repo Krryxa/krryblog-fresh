@@ -64,3 +64,5 @@ export const getRequiredCookies = () => ({
   Authorization: 'Bearer ' + Cookies.get('token'),
   'x-csrf-token': Cookies.get('csrfToken')
 })
+
+export const baseURL = import.meta.env.PROD ? '' : '/krryblog'

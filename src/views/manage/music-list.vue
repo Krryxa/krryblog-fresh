@@ -6,7 +6,7 @@ import { ElMessageBox, ElLoading, ElMessage } from 'element-plus'
 import krryWaves from '@/components/krry-waves.vue'
 import { getMusicByPage, deleteMusic } from '@/service/api'
 import emitter from '@/bus'
-import { getRequiredCookies } from '@/util'
+import { getRequiredCookies, baseURL } from '@/util'
 
 const route: any = useRoute()
 const router = useRouter()
@@ -133,7 +133,6 @@ const operateMusic = (id: number) => {
     emitter.emit('operateMusic', id)
   }
 }
-const prefixMusicUrl = computed(() => (import.meta.env.PROD ? '' : '/krryblog'))
 </script>
 
 <template>
@@ -144,7 +143,7 @@ const prefixMusicUrl = computed(() => (import.meta.env.PROD ? '' : '/krryblog'))
         <el-upload
           class="music-upload"
           name="musicFile"
-          :action="`${prefixMusicUrl}/krry/music`"
+          :action="`${baseURL}/krry/music`"
           :headers="getRequiredCookies()"
           :on-success="handleSuccess"
           :format="['mp3', 'mp4', 'm4a', 'acc']"

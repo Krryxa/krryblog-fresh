@@ -7,13 +7,7 @@ import store from '@/store'
 import { codeStatus } from '@/util/enum'
 import Cookies from 'js-cookie'
 import { ElMessage } from 'element-plus'
-
-const origin = window.location.protocol + '//' + window.location.hostname
-
-// 自动识别接口使用开发环境地址（开发环境地址做了 proxyTable 代理，故设置为空）或线上地址
-const baseURL = import.meta.env.PROD ? '' : '/krryblog'
-// 开发环境直接打包测试
-// axios.defaults.baseURL = '';
+import { baseURL } from '@/util'
 
 const $axios = axios.create({
   baseURL: baseURL,
