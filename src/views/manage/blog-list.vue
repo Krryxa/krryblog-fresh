@@ -5,6 +5,7 @@ import { useStore } from 'vuex'
 import { ElMessageBox, ElLoading, ElMessage } from 'element-plus'
 import { getAllBlogByPage, updateBlogNoTime, getLogout } from '@/service/api'
 import personalInfo from './modules/personal-info.vue'
+import Cookies from 'js-cookie'
 
 const store = useStore()
 const route: any = useRoute()
@@ -89,7 +90,7 @@ watch(route, (to, from) => {
   flag = true
 })
 
-const userName = computed(() => store.getters['user/username'])
+const userName = Cookies.get('username')
 
 const Logout = () => {
   ElMessageBox.confirm('Do you want to logout ？', 'notification~', {
@@ -99,8 +100,6 @@ const Logout = () => {
   })
     .then(async () => {
       await getLogout()
-      store.dispatch('user/CLEARUSER')
-      sessionStorage.clear()
       router.push('/')
     })
     .catch(() => {})

@@ -41,12 +41,6 @@ const submit = async (reqData: ReqDataType) => {
   } else {
     // 成功登录
     console.log('成功登录')
-    // 成功登录的返回值是 success+空格+用户id
-    let userId = +res.result
-    sessionStorage.setItem('id', String(userId))
-    sessionStorage.setItem('username', name.value)
-    store.dispatch('user/SETUSERID', userId)
-    store.dispatch('user/SETUSERNAME', name.value)
     if (route.query && route.query.returnUrl) {
       window.location.href = route.query.returnUrl as string
     } else {

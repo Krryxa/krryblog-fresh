@@ -5,6 +5,7 @@ import axios from 'axios'
 import router from '@/router'
 import store from '@/store'
 import { codeStatus } from '@/util/enum'
+import Cookies from 'js-cookie'
 
 const origin = window.location.protocol + '//' + window.location.hostname
 
@@ -29,6 +30,11 @@ const noLoading = [
 
 $axios.interceptors.request.use(
   (config: any) => {
+    // 判断加入 token
+    const token = Cookies.get('token')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
     // 判断请求是否是 getClassify，如果是 getClassify，不加载 LoadingBar
     const url = config.url
     if (!noLoading.includes(url.split('/').pop())) {
@@ -52,8 +58,7 @@ $axios.interceptors.response.use(
         // router.push({name: 'error'})
         break
       case codeStatus.UNAUTHORIZED: {
-        store.dispatch('user/CLEARUSER')
-        sessionStorage.clear()
+        Cookies.remove('username')
         const returnUrl = window.location.href
         router.push({
           name: 'login',
@@ -69,7 +74,18 @@ $axios.interceptors.response.use(
   },
   async (error: any) => {
     store.dispatch('blog/ALLLOADING', false)
-    console.dir(error)
+    // 服务端响应数据
+    const res = error.response
+    console.dir(res)
+    if (res.status === codeStatus.UNAUTHORIZED) {
+      Cookies.remove('username')
+      const returnUrl = window.location.href
+      // 跳转到登录页
+      router.push({
+        name: 'login',
+        query: { returnUrl }
+      })
+    }
     return Promise.reject(error)
   }
 )

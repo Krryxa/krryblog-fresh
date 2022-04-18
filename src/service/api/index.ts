@@ -158,7 +158,7 @@ export function updateUser(reqData: any) {
  * @param {*} reqData
  */
 export function getAllBlogByPage(reqData: any) {
-  return Ax.get(`/krry/getBlog`, { params: reqData })
+  return Ax.get(`/krry/list`, { params: reqData })
 }
 
 /**
