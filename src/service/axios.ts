@@ -6,6 +6,7 @@ import router from '@/router'
 import store from '@/store'
 import { codeStatus } from '@/util/enum'
 import Cookies from 'js-cookie'
+import { ElMessage } from 'element-plus'
 
 const origin = window.location.protocol + '//' + window.location.hostname
 
@@ -58,6 +59,7 @@ $axios.interceptors.response.use(
         // router.push({name: 'error'})
         break
       case codeStatus.UNAUTHORIZED: {
+        ElMessage.error(res.data.message || '未登录')
         Cookies.remove('username')
         const returnUrl = window.location.href
         router.push({
@@ -78,6 +80,7 @@ $axios.interceptors.response.use(
     const res = error.response
     console.dir(res)
     if (res.status === codeStatus.UNAUTHORIZED) {
+      ElMessage.error(res.data.message || '未登录')
       Cookies.remove('username')
       const returnUrl = window.location.href
       // 跳转到登录页
