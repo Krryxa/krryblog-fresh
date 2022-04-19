@@ -1,7 +1,6 @@
 import { createApp } from 'vue'
 import router from '@/router'
 import store from '@/store'
-import 'element-plus/dist/index.css'
 import components from './components'
 import Cookies from 'js-cookie'
 import { ElMessage } from 'element-plus'

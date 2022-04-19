@@ -1,7 +1,6 @@
 'use strict'
 
 import axios from 'axios'
-// import iView from 'iview'
 import router from '@/router'
 import store from '@/store'
 import { codeStatus } from '@/util/enum'
