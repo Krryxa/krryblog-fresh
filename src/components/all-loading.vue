@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue'
-import { useStore } from 'vuex'
+import { useBlogStore } from '@/store/blog'
 
-const store = useStore()
+const blogStore = useBlogStore()
 
 // rgb(235, 80, 85, 50%)
 const colorList = ref([
@@ -12,7 +12,7 @@ const colorList = ref([
   '#ff9595'
 ])
 
-const requesting = computed(() => store.state.blog.allLoading)
+const requesting = computed(() => blogStore.allLoading)
 const flag = ref(true)
 
 const first_color = ref('')

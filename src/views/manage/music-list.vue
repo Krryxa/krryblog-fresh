@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, Ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useStore } from 'vuex'
+import { useMusicStore } from '@/store/music'
 import { ElMessageBox, ElLoading, ElMessage } from 'element-plus'
 import krryWaves from '@/components/krry-waves.vue'
 import { getMusicByPage, deleteMusic } from '@/service/api'
@@ -10,7 +10,7 @@ import { getRequiredCookies, baseURL } from '@/util'
 
 const route: any = useRoute()
 const router = useRouter()
-const store = useStore()
+const musicStore = useMusicStore()
 
 interface MusicListType {
   [propName: string]: string | number
@@ -74,7 +74,7 @@ watch(route, (to, from) => {
   flag = true
 })
 
-const musicId = computed(() => store.state.music.music.id)
+const musicId = computed(() => musicStore.music.id)
 
 const handleSuccess = (res: any) => {
   if (res !== null) {

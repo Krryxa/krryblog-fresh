@@ -2,7 +2,7 @@
 import { ref, Ref, getCurrentInstance, computed } from 'vue'
 import { mavonEditor } from 'mavon-editor'
 import { useRouter, useRoute } from 'vue-router'
-import { useStore } from 'vuex'
+import { useBlogStore } from '@/store/blog'
 import { ElLoading, ElMessage } from 'element-plus'
 import editUpload from './modules/edit-upload.vue'
 import '@/assets/css/markdown.css'
@@ -25,7 +25,7 @@ interface FileListType {
 
 const route = useRoute()
 const router = useRouter()
-const store = useStore()
+const blogStore = useBlogStore()
 const id = ref(route.query.id || 0)
 const title = ref('')
 const markdownDesc = ref('')
@@ -42,7 +42,7 @@ const defaultUploadList: Ref<FileListType[]> = ref([])
 
 const status = computed(() => +statusFlag.value)
 // 从接口查询出分类
-const classifyList = computed(() => store.getters['blog/classify'])
+const classifyList = computed(() => blogStore.classify)
 // 获取用户 ID
 const userId = computed(() => +Cookies.get('id'))
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, Ref, computed, getCurrentInstance } from 'vue'
-import { useStore } from 'vuex'
 import { getMusic } from '@/service/api'
+import { useMusicStore } from '@/store/music'
 import emitter from '@/bus'
-const store = useStore()
+const musicStore = useMusicStore()
 const { proxy }: any = getCurrentInstance()
 const basePath = proxy.basePath
 
@@ -82,12 +82,12 @@ const play = () => {
     audioRef.value.play()
   }
   isPlay.value = true
-  store.dispatch('music/SETMUSIC', musicList.value[currIndex.value])
+  musicStore.setMusic(musicList.value[currIndex.value])
 }
 const pause = () => {
   audioRef.value && audioRef.value.pause()
   isPlay.value = false
-  store.dispatch('music/SETMUSIC', {})
+  musicStore.setMusic({})
 }
 const next = (flag: boolean) => {
   pause()

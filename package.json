@@ -12,9 +12,9 @@
   "dependencies": {
     "element-plus": "^1.1.0-beta.16",
     "mavon-editor": "^3.0.0-beta",
+    "pinia": "^2.0.13",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.11",
-    "vuex": "^4.0.2"
+    "vue-router": "^4.0.11"
   },
   "devDependencies": {
     "@types/headroom.js": "^0.12.1",

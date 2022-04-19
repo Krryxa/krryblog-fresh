@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { ref, watch, Ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useStore } from 'vuex'
 import { ElMessageBox, ElLoading, ElMessage } from 'element-plus'
 import { getAllBlogByPage, updateBlogNoTime, getLogout } from '@/service/api'
 import personalInfo from './modules/personal-info.vue'
 import Cookies from 'js-cookie'
 
-const store = useStore()
 const route: any = useRoute()
 const router = useRouter()
 

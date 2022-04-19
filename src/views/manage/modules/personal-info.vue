@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { useStore } from 'vuex'
 import { updateUser } from '@/service/api'
 import { ElLoading, ElMessage } from 'element-plus'
 import { PERSON_MODIFY_RULE } from '@/views/service/rules/index'
@@ -8,7 +7,6 @@ import Cookies from 'js-cookie'
 const props = defineProps(['showModel'])
 const emit = defineEmits(['closeDialog'])
 
-const store = useStore()
 const showPW = ref(false)
 const userForm = ref({
   newName: '',

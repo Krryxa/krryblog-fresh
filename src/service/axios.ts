@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 import router from '@/router'
-import store from '@/store'
+import { useBlogStore } from '@/store/blog'
 import { codeStatus } from '@/util/enum'
 import Cookies from 'js-cookie'
 import { ElMessage } from 'element-plus'
@@ -37,10 +37,11 @@ $axios.interceptors.request.use(
         'x-csrf-token': csrftoken
       })
     }
-    // 判断请求是否是 getClassify，如果是 getClassify，不加载 LoadingBar
+    // 判断请求是否是 getClassify，如果是 getClassify，不加载 Loading
     const url = config.url
     if (!noLoading.includes(url.split('/').pop())) {
-      store.dispatch('blog/ALLLOADING', true)
+      const blogStore = useBlogStore()
+      blogStore.setAllLoading(true)
     }
     return config
   },
@@ -72,11 +73,13 @@ $axios.interceptors.response.use(
       default:
         break
     }
-    store.dispatch('blog/ALLLOADING', false)
+    const blogStore = useBlogStore()
+    blogStore.setAllLoading(false)
     return apiRes
   },
   async (error: any) => {
-    store.dispatch('blog/ALLLOADING', false)
+    const blogStore = useBlogStore()
+    blogStore.setAllLoading(false)
     // 服务端响应数据
     const res = error.response
     console.dir(res)

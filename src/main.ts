@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import router from '@/router'
-import store from '@/store'
 import components from './components'
 import Cookies from 'js-cookie'
 import { ElMessage } from 'element-plus'
@@ -58,4 +58,4 @@ router.afterEach((to, from) => {
   }
 })
 
-app.use(router).use(store).mount('#app')
+app.use(router).use(createPinia()).mount('#app')

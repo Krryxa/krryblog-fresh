@@ -2,11 +2,9 @@
 import { ref } from 'vue'
 import { getLogin } from '@/service/api'
 import { useRouter, useRoute } from 'vue-router'
-import { useStore } from 'vuex'
 import { ElLoading, ElMessage } from 'element-plus'
 const router = useRouter()
 const route = useRoute()
-const store = useStore()
 
 interface ReqDataType {
   name: string
