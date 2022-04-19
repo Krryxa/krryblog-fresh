@@ -4,6 +4,7 @@ import store from '@/store'
 import 'element-plus/dist/index.css'
 import components from './components'
 import Cookies from 'js-cookie'
+import { ElMessage } from 'element-plus'
 
 import App from './App.vue'
 
@@ -36,6 +37,7 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       // 否则进入登录页面
+      ElMessage.error('请您先登录')
       next({
         name: 'login',
         query: { returnUrl: window.location.href }
