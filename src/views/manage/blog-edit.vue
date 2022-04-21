@@ -2,7 +2,7 @@
 import { ref, Ref, getCurrentInstance, computed } from 'vue'
 import { mavonEditor } from 'mavon-editor'
 import { useRouter, useRoute } from 'vue-router'
-import { useStore } from 'vuex'
+import { useBlogStore } from '@/store/blog'
 import { ElLoading, ElMessage } from 'element-plus'
 import editUpload from './modules/edit-upload.vue'
 import '@/assets/css/markdown.css'
@@ -16,6 +16,7 @@ import {
   uploadContent,
   deleteFile
 } from '@/service/api'
+import Cookies from 'js-cookie'
 
 interface FileListType {
   name: string
@@ -24,7 +25,7 @@ interface FileListType {
 
 const route = useRoute()
 const router = useRouter()
-const store = useStore()
+const blogStore = useBlogStore()
 const id = ref(route.query.id || 0)
 const title = ref('')
 const markdownDesc = ref('')
@@ -34,7 +35,6 @@ const imgName = ref('')
 const uploadImgUrl = ref('')
 const classifyId = ref(1)
 const label = ref('')
-const blogCount: any = ref(0)
 const statusFlag = ref(true)
 const isLove = ref(0)
 const manualDeleteImg = ref(false)
@@ -42,9 +42,9 @@ const defaultUploadList: Ref<FileListType[]> = ref([])
 
 const status = computed(() => +statusFlag.value)
 // 从接口查询出分类
-const classifyList = computed(() => store.getters['blog/classify'])
+const classifyList = computed(() => blogStore.classify)
 // 获取用户 ID
-const userId = computed(() => store.getters['user/id'])
+const userId = computed(() => +Cookies.get('id'))
 
 const getBlogInfo = async () => {
   // get blog when edit
@@ -73,6 +73,8 @@ const getBlogInfo = async () => {
     ]
   }
 }
+
+const blogCount = ref(0)
 const getBlogCounting = async () => {
   blogCount.value = await getBlogCount()
 }
@@ -83,6 +85,8 @@ if (id.value) {
   // 新增查博客总数，用于 markdown 上传图片时文件夹的命名id
   getBlogCounting()
 }
+// 临时 id
+const tempId = computed(() => id.value || blogCount.value + 1)
 
 const { proxy }: any = getCurrentInstance()
 const basePath = proxy.basePath
@@ -90,8 +94,8 @@ const mdEditRef: any = ref(null)
 const addImg = async (pos: any, $file: File) => {
   let formData = new FormData()
   formData.append('imgFile', $file)
-  let thisId = id.value || blogCount.value + 1
-  let result: any = await uploadContent(thisId, formData)
+
+  let result: any = await uploadContent(tempId.value, formData)
   mdEditRef.value.$img2Url(pos, basePath + '/' + result.url)
 }
 
@@ -100,14 +104,14 @@ let loadingInstance = null
 const delImg = async (fileArr: Array<any>) => {
   loadingInstance = ElLoading.service({ lock: true, text: 'Deleting~~' })
   // fileArr: ['http://...', { name: 'xxx', ... }]
-  let thisId = id.value || blogCount.value + 1
+
   let res: any = await deleteFile({
-    filePath: `upload/content/${thisId}/${fileArr[1].name}`
+    filePath: `upload/content/${tempId.value}/${fileArr[1].name}`
   })
   if (res === 'success') {
     ElMessage.success('删除成功！')
   } else {
-    ElMessage.error('删除失败！')
+    ElMessage.error(res || '删除失败！')
   }
   loadingInstance.close()
 }
@@ -152,7 +156,7 @@ const commit = async (reqData: any) => {
     console.log('是编辑，id：' + id.value)
     reqData = Object.assign({}, reqData, { id: id.value })
     console.log(reqData)
-    let msg: any = await updateBlog(reqData)
+    let msg: any = await updateBlog(+id.value, reqData)
     if (msg === 'success') {
       router.push(`/${id.value}`)
     } else {
@@ -227,6 +231,7 @@ const back = () => {
         <edit-upload
           v-if="id ? uploadImgUrl || manualDeleteImg : true"
           :id="id"
+          :temp-id="tempId"
           :default-list="defaultUploadList"
           :upload-img-url="uploadImgUrl"
           :img-name="imgName"

@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { useStore } from 'vuex'
+import { useBlogStore } from '@/store/blog'
 import krryMusic from '@/components/krry-music.vue'
 import allLoading from '@/components/all-loading.vue'
 import '@/util/mouseHeart'
 const route = useRoute()
-const store = useStore()
-store.dispatch('blog/SETCLASSIFY')
+const blogStore = useBlogStore()
+blogStore.setClassify()
 </script>
 
 <template>

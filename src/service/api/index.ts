@@ -1,12 +1,11 @@
 import Ax from '@/service/axios'
-import qs from 'qs'
 
 /**
  * 获取博客列表
  * @param {*} reqData
  */
 export function getBlog(reqData: any) {
-  return Ax.get('/krryblog/blog/getBlog', { params: reqData })
+  return Ax.get('/blog/list', { params: reqData })
 }
 
 /**
@@ -14,14 +13,14 @@ export function getBlog(reqData: any) {
  * @param {*} id
  */
 export function getBlogDetail(id: any) {
-  return Ax.get(`/krryblog/blog/getBlogDetail/${id}`)
+  return Ax.get(`/blog/list/${id}`)
 }
 
 /**
  * 获取博客分类名称
  */
 export function getClassify() {
-  return Ax.get('/krryblog/blog/getClassify')
+  return Ax.get('/blog/getClassify')
 }
 
 /**
@@ -32,7 +31,7 @@ export function getClassify() {
 export function getBlogByClassifyId(reqData: any) {
   const id = reqData.id
   delete reqData.id
-  return Ax.get(`/krryblog/blog/getBlogByClassifyId/${id}`, {
+  return Ax.get(`/blog/getBlogByClassifyId/${id}`, {
     params: reqData
   })
 }
@@ -43,7 +42,7 @@ export function getBlogByClassifyId(reqData: any) {
  * @param {*} reqData
  */
 export function getLoveBlog(reqData: any) {
-  return Ax.get(`/krryblog/blog/getLoveBlog`, {
+  return Ax.get(`/blog/getLoveBlog`, {
     params: reqData
   })
 }
@@ -53,15 +52,15 @@ export function getLoveBlog(reqData: any) {
  * @param {*} reqData
  */
 export function addBlog(reqData: any) {
-  return Ax.post('/krryblog/krry/addBlog', qs.stringify(reqData))
+  return Ax.post('/krry/list', reqData)
 }
 
 /**
  * 修改博客
  * @param {*} reqData
  */
-export function updateBlog(reqData: any) {
-  return Ax.post('/krryblog/krry/updateBlog', qs.stringify(reqData))
+export function updateBlog(id: number, reqData: any) {
+  return Ax.put(`/krry/list/${id}`, reqData)
 }
 
 /**
@@ -69,7 +68,7 @@ export function updateBlog(reqData: any) {
  * @param {*} reqData
  */
 export function updateBlogNoTime(reqData: any) {
-  return Ax.post('/krryblog/blog/updateBlogNoTime', qs.stringify(reqData))
+  return Ax.post('/krry/updateParts', reqData)
 }
 
 /**
@@ -77,7 +76,7 @@ export function updateBlogNoTime(reqData: any) {
  * @param {*} id
  */
 export function addBlogComment(id: any) {
-  return Ax.post(`/krryblog/blog/addBlogComment/${id}`)
+  return Ax.put(`/blog/list/${id}`)
 }
 
 /**
@@ -86,7 +85,7 @@ export function addBlogComment(id: any) {
  * @param {*} reqData
  */
 export function deleteBlogCover(id: any, reqData: any) {
-  return Ax.post(`/krryblog/krry/deleteBlogCover/${id}`, qs.stringify(reqData))
+  return Ax.delete(`/krry/deleteCover/${id}`, { data: reqData })
 }
 
 /**
@@ -94,7 +93,7 @@ export function deleteBlogCover(id: any, reqData: any) {
  * @param {*} reqData
  */
 export function getLinkOrAbout(reqData: any) {
-  return Ax.get('/krryblog/part/getLinkOrAbout', { params: reqData })
+  return Ax.get('/blog/getLinkOrAbout', { params: reqData })
 }
 
 /**
@@ -102,7 +101,7 @@ export function getLinkOrAbout(reqData: any) {
  * @param {*} id
  */
 export function getEditBlogDetail(id: any) {
-  return Ax.get(`/krryblog/krry/getBlogDetail/${id}`)
+  return Ax.get(`/krry/list/${id}`)
 }
 
 /**
@@ -110,7 +109,7 @@ export function getEditBlogDetail(id: any) {
  * @param {*} reqData
  */
 export function getBlogByTag(reqData: any) {
-  return Ax.get(`/krryblog/part/getBlogByTag`, { params: reqData })
+  return Ax.get(`/blog/getBlogByTag`, { params: reqData })
 }
 
 /**
@@ -118,7 +117,7 @@ export function getBlogByTag(reqData: any) {
  * @param {*} reqData
  */
 export function getBlogByKeyword(reqData: any) {
-  return Ax.get(`/krryblog/part/getBlogBykeyword`, { params: reqData })
+  return Ax.get(`/blog/getBlogBykeyword`, { params: reqData })
 }
 
 /**
@@ -126,7 +125,7 @@ export function getBlogByKeyword(reqData: any) {
  * @param {*} reqData
  */
 export function getLogin(reqData: any) {
-  return Ax.post(`/krryblog/part/login`, qs.stringify(reqData))
+  return Ax.post(`/part/login`, reqData)
 }
 
 /**
@@ -134,7 +133,7 @@ export function getLogin(reqData: any) {
  * @param {*}
  */
 export function getLogout() {
-  return Ax.get(`/krryblog/part/logout`)
+  return Ax.get(`/part/logout`)
 }
 
 /**
@@ -142,15 +141,15 @@ export function getLogout() {
  * @param {*} reqData
  */
 export function getBlogCount() {
-  return Ax.get(`/krryblog/krry/getBlogCount`, {})
+  return Ax.get(`/krry/getBlogCount`, {})
 }
 
 /**
  * 修改用户信息
  * @param {*} reqData
  */
-export function updateUser(reqData: any) {
-  return Ax.post(`/krryblog/krry/updateUser`, qs.stringify(reqData))
+export function updateUser(id: number, reqData: any) {
+  return Ax.put(`/krry/user/${id}`, reqData)
 }
 
 /**
@@ -158,7 +157,7 @@ export function updateUser(reqData: any) {
  * @param {*} reqData
  */
 export function getAllBlogByPage(reqData: any) {
-  return Ax.get(`/krryblog/krry/getBlog`, { params: reqData })
+  return Ax.get(`/krry/list`, { params: reqData })
 }
 
 /**
@@ -166,7 +165,15 @@ export function getAllBlogByPage(reqData: any) {
  * @param {*} reqData
  */
 export function getMusic(reqData?: any) {
-  return Ax.get(`/krryblog/part/getMusic`, { params: reqData })
+  return Ax.get(`/part/getMusic`, { params: reqData })
+}
+
+/**
+ * 分页获取音乐
+ * @param {*} reqData
+ */
+export function getMusicByPage(reqData?: any) {
+  return Ax.get(`/krry/music`, { params: reqData })
 }
 
 /**
@@ -175,7 +182,7 @@ export function getMusic(reqData?: any) {
  * @param {*} reqData
  */
 export function deleteMusic(id: any, reqData: any) {
-  return Ax.post(`/krryblog/krry/deleteMusic/${id}`, qs.stringify(reqData))
+  return Ax.delete(`/krry/music/${id}`, { data: reqData })
 }
 
 /**
@@ -184,7 +191,7 @@ export function deleteMusic(id: any, reqData: any) {
  * @param {*} reqData
  */
 export function uploadContent(id: any, reqData: any) {
-  return Ax.post(`/krryblog/krry/uploadContent/${id}`, reqData)
+  return Ax.post(`/krry/uploadContent/${id}`, reqData)
 }
 
 /**
@@ -192,7 +199,7 @@ export function uploadContent(id: any, reqData: any) {
  * @param {*} reqData
  */
 export function deleteFile(reqData: any) {
-  return Ax.post('/krryblog/krry/deleteFile', qs.stringify(reqData))
+  return Ax.post('/krry/deleteContent', reqData)
 }
 
 /**
@@ -200,7 +207,7 @@ export function deleteFile(reqData: any) {
  * @param {*} reqData
  */
 export function getAllBlog(reqData: any) {
-  return Ax.get(`/krryblog/blog/getAllBlog`, {
+  return Ax.get(`/blog/getAllBlog`, {
     params: reqData
   })
 }
@@ -210,7 +217,7 @@ export function getAllBlog(reqData: any) {
  * @param {*} reqData
  */
 export function getReviseList() {
-  return Ax.get(`/krryblog/blog/getReviseList`)
+  return Ax.get(`/part/getReviseList`)
 }
 
 /**
@@ -218,5 +225,5 @@ export function getReviseList() {
  * @param {*} reqData
  */
 export function getSummarizedData() {
-  return Ax.get(`/krryblog/blog/getSummarizedData`)
+  return Ax.get(`/blog/getSummarizedData`)
 }

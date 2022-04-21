@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { useStore } from 'vuex'
 import { updateUser } from '@/service/api'
 import { ElLoading, ElMessage } from 'element-plus'
 import { PERSON_MODIFY_RULE } from '@/views/service/rules/index'
+import Cookies from 'js-cookie'
 const props = defineProps(['showModel'])
 const emit = defineEmits(['closeDialog'])
 
-const store = useStore()
 const showPW = ref(false)
 const userForm = ref({
   newName: '',
@@ -21,7 +20,7 @@ watch(
   () => props.showModel,
   (val: boolean) => (dialogVisible.value = val)
 )
-const userId = computed(() => store.getters['user/id'])
+const userId = computed(() => Cookies.get('id'))
 const showPWmsg = computed(() =>
   showPW.value ? 'Pick up, No modify password' : 'Modify password'
 )
@@ -39,7 +38,7 @@ const confirmUser = () => {
           text: 'Modifying~~'
         })
         let reqData = {
-          id: userId.value,
+          id: +userId.value,
           name: userForm.value['newName']
         }
         if (showPW.value) {
@@ -49,14 +48,11 @@ const confirmUser = () => {
             password: userForm.value['newPW']
           })
         }
-        let res: any = await updateUser(reqData)
+        let res: any = await updateUser(reqData.id, reqData)
         loadingInstance.close()
         if (res !== 'success') {
           ElMessage.error(res)
         } else {
-          // 修改成功，更改 session 和 vuex 中的数据
-          sessionStorage.setItem('username', reqData.name)
-          store.dispatch('user/SETUSERNAME', reqData.name)
           ElMessage.success('Modified success!')
           cancel()
         }

@@ -1,8 +1,9 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import router from '@/router'
-import store from '@/store'
-import 'element-plus/dist/index.css'
 import components from './components'
+import Cookies from 'js-cookie'
+import { ElMessage } from 'element-plus'
 
 import App from './App.vue'
 
@@ -20,26 +21,22 @@ Object.keys(components).forEach((key) => {
 
 router.beforeEach((to, from, next) => {
   const toRouteName = to.name
-  const username = sessionStorage.getItem('username')
-  const id = sessionStorage.getItem('id')
+  const username = Cookies.get('username')
   if (toRouteName === 'login') {
-    if (username && id) {
+    if (username) {
       // 已登录，进入列表页
-      store.dispatch('user/SETUSERID', +id)
-      store.dispatch('user/SETUSERNAME', username)
       next({ name: 'list' })
     } else {
       next()
     }
   } else if (to.meta.requireAuth) {
     // 如果需要进入需登录的页面
-    if (username && id) {
+    if (username) {
       // 已登录，进入下一个页面
-      store.dispatch('user/SETUSERID', +id)
-      store.dispatch('user/SETUSERNAME', username)
       next()
     } else {
       // 否则进入登录页面
+      ElMessage.error('请您先登录')
       next({
         name: 'login',
         query: { returnUrl: window.location.href }
@@ -61,4 +58,4 @@ router.afterEach((to, from) => {
   }
 })
 
-app.use(router).use(store).mount('#app')
+app.use(router).use(createPinia()).mount('#app')

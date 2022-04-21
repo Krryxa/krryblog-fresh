@@ -1,17 +1,12 @@
 'use strict'
 
 import axios from 'axios'
-// import iView from 'iview'
 import router from '@/router'
-import store from '@/store'
+import { useBlogStore } from '@/store/blog'
 import { codeStatus } from '@/util/enum'
-
-const origin = window.location.protocol + '//' + window.location.hostname
-
-// 自动识别接口使用开发环境地址（开发环境地址做了 proxyTable 代理，故设置为空）或线上地址
-const baseURL = ''
-// 开发环境直接打包测试
-// axios.defaults.baseURL = '';
+import Cookies from 'js-cookie'
+import { ElMessage } from 'element-plus'
+import { baseURL } from '@/util'
 
 const $axios = axios.create({
   baseURL: baseURL,
@@ -29,10 +24,24 @@ const noLoading = [
 
 $axios.interceptors.request.use(
   (config: any) => {
-    // 判断请求是否是 getClassify，如果是 getClassify，不加载 LoadingBar
+    // 判断加入 token
+    const token = Cookies.get('token')
+    if (token) {
+      Object.assign(config.headers, {
+        Authorization: `Bearer ${token}`
+      })
+    }
+    const csrftoken = Cookies.get('csrfToken')
+    if (csrftoken) {
+      Object.assign(config.headers, {
+        'x-csrf-token': csrftoken
+      })
+    }
+    // 判断请求是否是 getClassify，如果是 getClassify，不加载 Loading
     const url = config.url
     if (!noLoading.includes(url.split('/').pop())) {
-      store.dispatch('blog/ALLLOADING', true)
+      const blogStore = useBlogStore()
+      blogStore.setAllLoading(true)
     }
     return config
   },
@@ -52,8 +61,8 @@ $axios.interceptors.response.use(
         // router.push({name: 'error'})
         break
       case codeStatus.UNAUTHORIZED: {
-        store.dispatch('user/CLEARUSER')
-        sessionStorage.clear()
+        ElMessage.error(res.data.message || '未登录')
+        Cookies.remove('username')
         const returnUrl = window.location.href
         router.push({
           name: 'login',
@@ -64,12 +73,26 @@ $axios.interceptors.response.use(
       default:
         break
     }
-    store.dispatch('blog/ALLLOADING', false)
+    const blogStore = useBlogStore()
+    blogStore.setAllLoading(false)
     return apiRes
   },
   async (error: any) => {
-    store.dispatch('blog/ALLLOADING', false)
-    console.dir(error)
+    const blogStore = useBlogStore()
+    blogStore.setAllLoading(false)
+    // 服务端响应数据
+    const res = error.response
+    console.dir(res)
+    if (res.status === codeStatus.UNAUTHORIZED) {
+      ElMessage.error(res.data.message || '未登录')
+      Cookies.remove('username')
+      const returnUrl = window.location.href
+      // 跳转到登录页
+      router.push({
+        name: 'login',
+        query: { returnUrl }
+      })
+    }
     return Promise.reject(error)
   }
 )

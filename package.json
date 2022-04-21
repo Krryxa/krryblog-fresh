@@ -12,14 +12,13 @@
   "dependencies": {
     "element-plus": "^1.1.0-beta.16",
     "mavon-editor": "^3.0.0-beta",
+    "pinia": "^2.0.13",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.11",
-    "vuex": "^4.0.2"
+    "vue-router": "^4.0.11"
   },
   "devDependencies": {
     "@types/headroom.js": "^0.12.1",
     "@types/node": "^16.10.1",
-    "@types/qs": "^6.9.7",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
     "@vitejs/plugin-vue": "^1.9.0",
@@ -59,7 +58,8 @@
     "stylus": "^0.55.0",
     "stylus-loader": "^6.2.0",
     "typescript": "^4.4.3",
-    "unplugin-vue-components": "^0.16.0",
+    "unplugin-element-plus": "^0.4.0",
+    "unplugin-vue-components": "^0.19.3",
     "vite": "^2.5.10",
     "vue-eslint-parser": "^7.11.0"
   }

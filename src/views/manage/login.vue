@@ -2,11 +2,9 @@
 import { ref } from 'vue'
 import { getLogin } from '@/service/api'
 import { useRouter, useRoute } from 'vue-router'
-import { useStore } from 'vuex'
 import { ElLoading, ElMessage } from 'element-plus'
 const router = useRouter()
 const route = useRoute()
-const store = useStore()
 
 interface ReqDataType {
   name: string
@@ -41,12 +39,6 @@ const submit = async (reqData: ReqDataType) => {
   } else {
     // 成功登录
     console.log('成功登录')
-    // 成功登录的返回值是 success+空格+用户id
-    let userId = +res.result
-    sessionStorage.setItem('id', String(userId))
-    sessionStorage.setItem('username', name.value)
-    store.dispatch('user/SETUSERID', userId)
-    store.dispatch('user/SETUSERNAME', name.value)
     if (route.query && route.query.returnUrl) {
       window.location.href = route.query.returnUrl as string
     } else {

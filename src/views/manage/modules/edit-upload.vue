@@ -7,7 +7,13 @@ import {
   ElUploadRequestOptions,
   ElUploadProgressEvent
 } from '../../../../node_modules/element-plus/lib/components/upload/src/upload.type.d'
-const props = defineProps(['id', 'uploadImgUrl', 'imgName', 'defaultList'])
+const props = defineProps([
+  'id',
+  'tempId',
+  'uploadImgUrl',
+  'imgName',
+  'defaultList'
+])
 const emit = defineEmits(['changeImg'])
 
 const visible = ref(false)
@@ -41,7 +47,7 @@ const handleRemove = () => {
         uploadRef.value && (uploadRef.value.uploadFiles = [])
         hide_upload.value = false
       } else {
-        ElMessage.error('删除失败！')
+        ElMessage.error(res || '删除失败！')
       }
       loadingInstance.close()
     })
@@ -66,7 +72,7 @@ const customUpload = (file: ElUploadRequestOptions) => {
   let formDatas = new FormData()
   formDatas.append('imgFile', file.file)
   Ax({
-    url: '/krryblog/krry/uploadCover',
+    url: `/krry/uploadCover/${props.tempId}`,
     method: 'post',
     data: formDatas,
     // 上传进度

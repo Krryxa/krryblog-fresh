@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Ref, ref, computed, onMounted } from 'vue'
-import { useStore } from 'vuex'
+import { useBlogStore } from '@/store/blog'
 import { useRouter } from 'vue-router'
 import Headroom from 'headroom.js'
 
 const router = useRouter()
-const store = useStore() // 相当于 vue2 中的 this.$store
+const blogStore = useBlogStore()
 
-const classifyList = computed(() => store.getters['blog/classify'])
+const classifyList = computed(() => blogStore.classify)
 let keyWord = ref('')
 let isVisibleNavFar = ref(false)
 const collMenuNavFar: Ref<HTMLElement | null> = ref(null)

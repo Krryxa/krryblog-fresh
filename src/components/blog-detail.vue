@@ -8,6 +8,7 @@ import Valine from 'valine'
 import { ElMessage } from 'element-plus'
 import { addBlogComment, getAllBlog } from '@/service/api'
 import myReward from './models/my-reward.vue'
+import Cookies from 'js-cookie'
 
 interface BlogItemType {
   [propName: string]: string | number
@@ -33,7 +34,7 @@ const hasShowTags = computed(() => blogLabel.value.length > 0)
 const hasShowHeader = computed(
   () => props.blog?.title !== '关于我' && props.blog?.title !== '友情链接'
 )
-const isLogined = computed(() => sessionStorage.getItem('username') !== null)
+const isLogined = computed(() => Cookies.get('username'))
 
 onMounted(() => {
   // 加载目录和评论插件
