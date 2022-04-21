@@ -41,7 +41,7 @@ export default ({ mode }) => {
       open: true,
       proxy: {
         '/krryblog': {
-          target: 'http://127.0.0.1:7002',
+          target: 'http://127.0.0.1:7001',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/krryblog/, '')
         }
