@@ -10,7 +10,7 @@ import App from './App.vue'
 const app = createApp(App)
 
 app.config.globalProperties.basePath =
-  window.location.protocol + '//' + window.location.hostname
+  window.location.protocol + '//' + window.location.host
 
 app.config.globalProperties.documentTitle = '你的美好，我都记得'
 
