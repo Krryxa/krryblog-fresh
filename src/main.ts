@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import router from '@/router'
-import components from '@/components/i1ndex'
+import components from '@/components'
 import Cookies from 'js-cookie'
 import { ElMessage } from 'element-plus'
 
