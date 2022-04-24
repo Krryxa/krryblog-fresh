@@ -18,7 +18,7 @@ const emit = defineEmits(['changeImg'])
 
 const visible = ref(false)
 const previewImg = computed(
-  () => window.location.origin + '/krryblog/' + props.uploadImgUrl
+  () => window.location.origin + '/' + props.uploadImgUrl
 )
 
 const uploadRef: any = ref(null)

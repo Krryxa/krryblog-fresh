@@ -68,7 +68,7 @@ const getBlogInfo = async () => {
     defaultUploadList.value = [
       {
         name: imgName.value,
-        url: window.location.origin + '/krryblog/' + uploadImgUrl.value
+        url: window.location.origin + '/' + uploadImgUrl.value
       }
     ]
   }
