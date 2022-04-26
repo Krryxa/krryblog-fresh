@@ -149,6 +149,18 @@ label {
   background: rgba(255, 152, 49, 0.8);
   border-radius: 50%;
   transition: 0.4s ease;
+
+  &.el-fade-in-enter-to {
+    bottom: 0 !important;
+    opacity: 0;
+    transform: rotate(360deg);
+  }
+
+  &.el-fade-in-leave-to {
+    bottom: 0 !important;
+    opacity: 0;
+    transform: rotate(360deg);
+  }
 }
 
 .el-backtop i {
