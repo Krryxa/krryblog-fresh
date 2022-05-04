@@ -24,12 +24,12 @@ export default ({ mode }) => {
       alias: {
         '@': resolve(__dirname, 'src'),
         mitt: 'https://cdn.jsdelivr.net/npm/mitt@3.0.0/+esm',
-        axios: 'https://esm.sh/axios@0.21.4',
-        // vue: 'https://esm.sh/vue@3.2.13',
-        // 'vue-router': 'https://esm.sh/vue-router@4.0.11',
+        axios: 'https://cdn.jsdelivr.net/npm/axios@0.21.4/+esm',
+        // vue: 'https://cdn.jsdelivr.net/npm/vue@3.2.13/+esm',
+        // 'vue-router': 'https://cdn.jsdelivr.net/npm/vue-router@4.0.11/+esm',
         'js-cookie': 'https://cdn.jsdelivr.net/npm/js-cookie/+esm',
-        valine: 'https://esm.sh/valine@1.4.16',
-        'headroom.js': 'https://esm.sh/headroom.js@0.12.0'
+        valine: 'https://cdn.jsdelivr.net/npm/valine@1.4.16/+esm',
+        'headroom.js': 'https://cdn.jsdelivr.net/npm/headroom.js@0.12.0/+esm'
       }
     },
     base: env.VITE_APP_BASE_URL, // 静态资源在 egg 访问的路径前缀
