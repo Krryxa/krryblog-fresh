@@ -441,12 +441,11 @@ label {
 
 @keyframes fadeIn {
   from {
-    margin-top: -20px;
     opacity: 0;
+    transform: translateY(-20px);
   }
 
   to {
-    margin-top: 0;
     opacity: 1;
   }
 }

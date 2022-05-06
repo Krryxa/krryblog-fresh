@@ -359,14 +359,4 @@ section :deep() {
     color: #666;
   }
 }
-
-@keyframes fadeInNoOpa {
-  from {
-    margin-top: -20px;
-  }
-
-  to {
-    margin-top: 0;
-  }
-}
 </style>
