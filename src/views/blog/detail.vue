@@ -20,6 +20,7 @@ const route = useRoute()
 const blog: Ref<BlogItemType> = ref({})
 const status = ref(200)
 const reFreshDetail = ref(true)
+const beforeRouterName = ref('')
 const routerName = computed(() => route.name as string)
 const isNoBlog = computed(() => status.value === 404)
 
@@ -64,14 +65,18 @@ watch(route, (to) => {
   if ([...Object.keys(linkOrAboutMap), 'blog'].includes(currentName)) {
     blog.value = {}
     getBlog()
-    // 友情链接 or 关于我，则刷新 blog-detail
-    if (isOthers.value) {
+    // 友情链接 or 关于我，或从友情、关于 跳转到详情页，则刷新 blog-detail
+    if (
+      isOthers.value ||
+      Object.keys(linkOrAboutMap).includes(beforeRouterName.value)
+    ) {
       reFreshDetail.value = false
       nextTick(() => {
         reFreshDetail.value = true
       })
     }
   }
+  beforeRouterName.value = currentName
 })
 </script>
 
