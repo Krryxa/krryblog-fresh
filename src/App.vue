@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useBlogStore } from '@/store/blog'
 import krryMusic from '@/components/krry-music.vue'
@@ -7,6 +8,11 @@ import '@/util/mouseHeart'
 const route = useRoute()
 const blogStore = useBlogStore()
 blogStore.setClassify()
+const showFooter = ref(false)
+const mainPageMounted = () => {
+  // 因为 footer 是在页面底部，且在 App.vue 直接渲染的，所以要放在主路由文件挂载完毕后渲染，防止 footer 先行挂载，造成 CLS 偏移
+  showFooter.value = true
+}
 </script>
 
 <template>
@@ -14,12 +20,20 @@ blogStore.setClassify()
   <krry-music></krry-music>
   <router-view v-slot="{ Component }">
     <keep-alive>
-      <component :is="Component" v-if="$route.meta.keepAlive" />
+      <component
+        :is="Component"
+        v-if="$route.meta.keepAlive"
+        @vnode-mounted="mainPageMounted"
+      />
     </keep-alive>
-    <component :is="Component" v-if="!$route.meta.keepAlive" />
+    <component
+      :is="Component"
+      v-if="!$route.meta.keepAlive"
+      @vnode-mounted="mainPageMounted"
+    />
   </router-view>
   <!-- <all-loading></all-loading> -->
-  <my-footer></my-footer>
+  <my-footer v-if="showFooter"></my-footer>
 </template>
 
 <style lang="scss">
@@ -39,7 +53,6 @@ body {
 
 html,
 body {
-  height: 100%;
   cursor: url(./assets/pic/pointer.cur), default;
 }
 
