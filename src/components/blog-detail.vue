@@ -65,9 +65,13 @@ const gotoLink = (id: number) => {
 const subTime = (time: any, index: number) =>
   time ? time.split(' ')[index] : ''
 
+const existBlog = computed(
+  () => JSON.stringify(props.blog) !== '{}' && props.blog !== null
+)
+
 const zoomImgRef: Ref<HTMLImageElement | null> = ref(null)
 const getCatalogZoomsComment = () => {
-  if (JSON.stringify(props.blog) !== '{}' && props.blog !== null) {
+  if (existBlog.value) {
     setNextPreBlog()
     // 设置文章目录
     nextTick(() => {
@@ -199,18 +203,23 @@ const getComment = () => {
 <template>
   <article v-if="reFresh" ref="article" class="detail-article">
     <div v-if="hasShowHeader" class="art-header">
-      <h1>{{ blog.title }}</h1>
+      <h1 v-if="existBlog">{{ blog.title }}</h1>
+      <div v-else class="skeleton-title"></div>
       <div class="header-info">
         <i class="iconfont icon-tags-fill"></i>
-        <router-link :to="`/category/${blog.classifyId}`"
-          >&nbsp;{{ blog.classify }}</router-link
-        >
+        <router-link v-if="existBlog" :to="`/category/${blog.classifyId}`">{{
+          blog.classify
+        }}</router-link>
+        <span v-else class="d-b-skeleton"></span>
         <i class="iconfont icon-PC-date"></i>
-        {{ subTime(blog.createTime, 0) }}
+        <span v-if="existBlog">{{ subTime(blog.createTime, 0) }}</span>
+        <span v-else class="d-b-skeleton"></span>
         <i class="iconfont icon-eye-fill"></i>
-        {{ blog.hit }}
-        <i class="iconfont icon-comments"></i>&nbsp;
-        <span ref="commentSpanRef">{{ blog.comment }}</span>
+        <span v-if="existBlog">{{ blog.hit }}</span>
+        <span v-else class="d-b-skeleton tiny"></span>
+        <i class="iconfont icon-comments"></i>
+        <span v-if="existBlog" ref="commentSpanRef">{{ blog.comment }}</span>
+        <span v-else class="d-b-skeleton tiny"></span>
       </div>
       <div v-if="hasShowTags" class="header-tag">
         <router-link
@@ -238,6 +247,15 @@ const getComment = () => {
       >修改</router-link
     >
     <div id="blog" class="content markdown-body" v-html="blog.content_hm"></div>
+    <div v-if="!existBlog" class="skeleton-content">
+      <ul>
+        <li
+          v-for="(ele, index) in Array(5)"
+          :key="index"
+          :style="{ width: (1 - (index / 10) * 2) * 100 + '%' }"
+        ></li>
+      </ul>
+    </div>
     <div class="content-footer">
       <div class="footer-left">
         <p>
@@ -287,6 +305,8 @@ const getComment = () => {
 </template>
 
 <style lang="scss" scoped>
+@import '@/assets/css/common.scss';
+
 article {
   position: relative;
   box-sizing: border-box;
@@ -309,6 +329,13 @@ article {
       color: #222;
     }
 
+    .skeleton-title {
+      @extend .skeleton-base;
+
+      height: 38px;
+      border-radius: 5px;
+    }
+
     .header-info {
       margin: 12px 0 0;
 
@@ -317,7 +344,22 @@ article {
           margin-left: 12px;
         }
 
+        margin-right: 4px;
         font-size: 14px;
+      }
+
+      .d-b-skeleton {
+        @extend .skeleton-base;
+
+        display: inline-block;
+        width: 62px;
+        height: 14px;
+        vertical-align: text-top;
+        border-radius: 5px;
+
+        &.tiny {
+          width: 26px;
+        }
       }
     }
 
@@ -367,6 +409,22 @@ article {
 
   .content {
     margin: 26px 0;
+  }
+
+  .skeleton-content {
+    margin-top: -26px;
+    margin-bottom: 26px;
+
+    ul li {
+      height: 21px;
+      border-radius: 5px;
+
+      &:not(:last-child) {
+        margin-bottom: 16px;
+      }
+
+      @extend .skeleton-base;
+    }
   }
 
   .content-footer {

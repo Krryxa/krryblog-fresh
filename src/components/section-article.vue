@@ -158,6 +158,8 @@ const descBottomList = shallowRef([
 </template>
 
 <style lang="scss" scoped>
+@import '@/assets/css/common.scss';
+
 section {
   box-sizing: border-box;
   max-width: 960px;
@@ -341,6 +343,7 @@ section {
             display: inline-block;
             height: 14px;
             vertical-align: text-top;
+            border-radius: 5px;
           }
         }
 
@@ -361,28 +364,6 @@ section {
         }
       }
     }
-  }
-}
-
-.skeleton-base {
-  background-image: linear-gradient(
-    90deg,
-    #f2f2f2 25%,
-    #e6e6e6 37%,
-    #f2f2f2 63%
-  );
-  background-position: 100% 50%;
-  background-size: 400% 100%;
-  animation: skeleton-loading 0.8s ease infinite;
-}
-
-@keyframes skeleton-loading {
-  0% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0 50%;
   }
 }
 
