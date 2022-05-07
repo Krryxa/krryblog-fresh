@@ -16,7 +16,7 @@ const config = computed(() =>
   routerName.value ? configMap[routerName.value] : ''
 )
 
-const main_margintop = ref('')
+const main_margintop = ref('90px')
 const article_paddingtop = ref('')
 const showHeader = ref(true)
 const description = ref(
