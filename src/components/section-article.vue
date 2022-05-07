@@ -4,6 +4,7 @@ import {
   toRefs,
   Ref,
   ref,
+  shallowRef,
   watch,
   computed,
   getCurrentInstance
@@ -28,8 +29,8 @@ let blogShowList: Ref<Array<BlogItemType>> = ref(
     id: '',
     image: '',
     createTime: '2018-08-23',
-    hit: 20,
-    comment: 20,
+    hit: 200,
+    comment: 200,
     classifyId: 1
   })
 )
@@ -67,6 +68,24 @@ const basePath = proxy.basePath
 const setLink = (id: string | number, link: Object) => {
   return id ? link : ''
 }
+
+const descBottomList = shallowRef([
+  {
+    icon: 'icon-PC-date',
+    key: 'createTime',
+    width: '62px'
+  },
+  {
+    icon: 'icon-eye-fill',
+    key: 'hit',
+    width: '26px'
+  },
+  {
+    icon: 'icon-comments',
+    key: 'comment',
+    width: '26px'
+  }
+])
 </script>
 
 <template>
@@ -101,18 +120,22 @@ const setLink = (id: string | number, link: Object) => {
       <div class="other-bgcover right-bgcover"></div>
       <div class="other-bgcover"></div>
       <div class="desc">
-        <!-- 这里直接用 id 作为路径，使用过滤器控制骨架屏的链接 -->
-        <router-link :to="setLink(val.id, `/${val.id}`)">
+        <!-- 骨架屏标题 -->
+        <router-link v-if="val.id" :to="setLink(val.id, `/${val.id}`)">
           <p class="title" :title="val.title">{{ val.title }}</p>
         </router-link>
+        <div v-else class="skeleton-title"></div>
         <div class="desc-bottom">
-          <div :class="{ 'd-detail': true, 'hidden-detail': !val.id }">
-            <i class="iconfont icon-PC-date"></i>
-            <span>{{ val.createTime }}</span>
-            <i class="iconfont icon-eye-fill"></i>
-            <span>{{ val.hit }}</span>
-            <i class="iconfont icon-comments"></i>
-            <span>{{ val.comment }}</span>
+          <div class="d-detail">
+            <template v-for="ele in descBottomList" :key="ele.key">
+              <i :class="['iconfont', ele.icon]"></i>
+              <span v-if="val.id">{{ val[ele.key] }}</span>
+              <span
+                v-else
+                :style="{ width: ele.width }"
+                class="d-b-skeleton"
+              ></span>
+            </template>
           </div>
           <router-link :to="setLink(val.id, `/category/${val.classifyId}`)">
             <el-tooltip
@@ -194,31 +217,22 @@ section {
 
     .bg-container {
       &::before {
+        @extend .skeleton-base;
+
         position: absolute;
         left: 0;
-        z-index: -1;
         width: 100%;
         font-size: 26px;
         line-height: 230px;
-        color: #333;
+        color: #999;
         text-align: center;
         content: 'Loading...';
-        background-color: rgba(169, 169, 169, 0.75);
-        border-radius: 5px 5px 0 0;
-      }
-
-      &::after {
-        position: absolute;
-        left: 0;
-        z-index: -1;
-        width: 100%;
-        line-height: 230px;
-        content: '';
-        background-color: rgba(255, 255, 255, 0);
         border-radius: 5px 5px 0 0;
       }
 
       .bg-img {
+        position: relative;
+        z-index: 0;
         height: 230px;
         border-radius: 5px 5px 0 0;
         transition: all 0.5s ease;
@@ -276,6 +290,15 @@ section {
       padding: 7px 15px 10px;
       background: #fff;
 
+      .skeleton-title {
+        @extend .skeleton-base;
+
+        width: 100%;
+        height: 32px;
+        margin-top: 8px;
+        border-radius: 5px;
+      }
+
       .title {
         display: -webkit-inline-box;
         overflow: hidden;
@@ -311,13 +334,21 @@ section {
               margin-left: 12px;
             }
           }
-        }
 
-        .hidden-detail {
-          span {
-            visibility: hidden;
+          .d-b-skeleton {
+            @extend .skeleton-base;
+
+            display: inline-block;
+            height: 14px;
+            vertical-align: text-top;
           }
         }
+
+        // .hidden-detail {
+        //   span {
+        //     visibility: hidden;
+        //   }
+        // }
 
         .item-icon {
           float: right;
@@ -330,6 +361,28 @@ section {
         }
       }
     }
+  }
+}
+
+.skeleton-base {
+  background-image: linear-gradient(
+    90deg,
+    #f2f2f2 25%,
+    #e6e6e6 37%,
+    #f2f2f2 63%
+  );
+  background-position: 100% 50%;
+  background-size: 400% 100%;
+  animation: skeleton-loading 0.8s ease infinite;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
   }
 }
 

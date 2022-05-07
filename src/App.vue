@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router'
 import { useBlogStore } from '@/store/blog'
 import krryMusic from '@/components/krry-music.vue'
-import allLoading from '@/components/all-loading.vue'
+// import allLoading from '@/components/all-loading.vue'
 import '@/util/mouseHeart'
 const route = useRoute()
 const blogStore = useBlogStore()
@@ -18,7 +18,7 @@ blogStore.setClassify()
     </keep-alive>
     <component :is="Component" v-if="!$route.meta.keepAlive" />
   </router-view>
-  <all-loading></all-loading>
+  <!-- <all-loading></all-loading> -->
   <my-footer></my-footer>
 </template>
 

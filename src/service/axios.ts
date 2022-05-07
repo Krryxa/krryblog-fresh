@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 import router from '@/router'
-import { useBlogStore } from '@/store/blog'
+// import { useBlogStore } from '@/store/blog'
 import { codeStatus } from '@/util/enum'
 import Cookies from 'js-cookie'
 import { ElMessage } from 'element-plus'
@@ -14,13 +14,13 @@ const $axios = axios.create({
   headers: { 'X-Requested-With': 'XMLHttpRequest' }
 })
 
-const noLoading = [
-  'getClassify',
-  'getAllBlog',
-  'getMusic',
-  'getSummarizedData',
-  'getReviseList'
-]
+// const noLoading = [
+//   'getClassify',
+//   'getAllBlog',
+//   'getMusic',
+//   'getSummarizedData',
+//   'getReviseList'
+// ]
 
 $axios.interceptors.request.use(
   (config: any) => {
@@ -38,11 +38,12 @@ $axios.interceptors.request.use(
       })
     }
     // 判断请求是否是 getClassify，如果是 getClassify，不加载 Loading
-    const url = config.url
-    if (!noLoading.includes(url.split('/').pop())) {
-      const blogStore = useBlogStore()
-      blogStore.setAllLoading(true)
-    }
+    // 已有骨架屏动画，删去 loading
+    // const url = config.url
+    // if (!noLoading.includes(url.split('/').pop())) {
+    //   const blogStore = useBlogStore()
+    //   blogStore.setAllLoading(true)
+    // }
     return config
   },
   (error: any) => {
@@ -73,13 +74,13 @@ $axios.interceptors.response.use(
       default:
         break
     }
-    const blogStore = useBlogStore()
-    blogStore.setAllLoading(false)
+    // const blogStore = useBlogStore()
+    // blogStore.setAllLoading(false)
     return apiRes
   },
   async (error: any) => {
-    const blogStore = useBlogStore()
-    blogStore.setAllLoading(false)
+    // const blogStore = useBlogStore()
+    // blogStore.setAllLoading(false)
     // 服务端响应数据
     const res = error.response
     console.dir(res)
