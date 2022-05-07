@@ -15,7 +15,8 @@ interface BlogItemType {
 }
 
 const props = defineProps({
-  blog: { type: Object as PropType<BlogItemType>, default: () => ({}) }
+  blog: { type: Object as PropType<BlogItemType>, default: () => ({}) },
+  hasShowHeader: { type: Boolean, default: true }
 })
 
 const emit = defineEmits(['clearBlog'])
@@ -30,10 +31,6 @@ const blogLabel = computed(() =>
   props.blog?.label ? (props.blog['label'] as string).split(',') : []
 )
 const hasShowTags = computed(() => blogLabel.value.length > 0)
-// 当标题是 关于我 或 友情链接，不显示文章头部信息
-const hasShowHeader = computed(
-  () => props.blog?.title !== '关于我' && props.blog?.title !== '友情链接'
-)
 const isLogined = computed(() => Cookies.get('username'))
 
 onMounted(() => {
@@ -190,7 +187,7 @@ const getComment = () => {
 
       const commentCount: any = await addBlogComment(props.blog?.id)
       // 需要展示头部的文章，就设置当前评论量
-      if (hasShowHeader.value && commentSpanRef.value) {
+      if (props.hasShowHeader && commentSpanRef.value) {
         commentSpanRef.value.innerText = commentCount
       }
       // 移除评论按钮

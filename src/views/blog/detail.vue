@@ -94,6 +94,7 @@ watch(route, (to) => {
     <blog-detail
       v-if="reFreshDetail"
       :blog="blog"
+      :has-show-header="!showHeader"
       @clearBlog="clearBlog"
     ></blog-detail>
   </main>
