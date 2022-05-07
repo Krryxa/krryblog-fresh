@@ -10,12 +10,14 @@ export const configMap: any = {
   home: {
     api: getBlog,
     pageParamName: 'pageIndex',
-    pageParamType: 'params'
+    pageParamType: 'params',
+    defaultNum: 12
   },
   homePage: {
     api: getBlog,
     pageParamName: 'pageIndex',
-    pageParamType: 'params'
+    pageParamType: 'params',
+    defaultNum: 12
   },
   search: {
     pageSize: 9,

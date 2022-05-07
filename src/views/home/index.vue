@@ -120,6 +120,7 @@ watch(route, (to, from) => {
     <section-article
       v-if="!hasNoResult"
       :blog-list="blogList"
+      :default-num="config.defaultNum"
       class="wrapper"
     ></section-article>
     <no-result v-else></no-result>

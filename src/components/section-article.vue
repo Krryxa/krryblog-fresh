@@ -16,11 +16,12 @@ interface BlogItemType {
 }
 
 const props = defineProps({
-  blogList: { type: Array as PropType<Array<BlogItemType>>, default: () => [] }
+  blogList: { type: Array as PropType<Array<BlogItemType>>, default: () => [] },
+  defaultNum: { type: Number, default: 3 }
 })
 
-let blogShowList: Ref<Array<BlogItemType>> = ref([
-  {
+let blogShowList: Ref<Array<BlogItemType>> = ref(
+  Array(props.defaultNum).fill({
     classify: '',
     title: '',
     description: '',
@@ -30,30 +31,8 @@ let blogShowList: Ref<Array<BlogItemType>> = ref([
     hit: 20,
     comment: 20,
     classifyId: 1
-  },
-  {
-    classify: '',
-    title: '',
-    description: '',
-    id: '',
-    image: '',
-    createTime: '2018-08-23',
-    hit: 20,
-    comment: 20,
-    classifyId: 2
-  },
-  {
-    classify: '',
-    title: '',
-    description: '',
-    id: '',
-    image: '',
-    createTime: '2018-08-23',
-    hit: 20,
-    comment: 20,
-    classifyId: 3
-  }
-])
+  })
+)
 
 if (props.blogList.length > 0) {
   const { blogList } = toRefs(props)
