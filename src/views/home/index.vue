@@ -119,8 +119,9 @@ watch(route, (to, from) => {
   if (flag && config.value) {
     pageNo.value =
       +to[config.value.pageParamType][config.value.pageParamName] || 1
-    // 重置博客列表为骨架屏
+    blogLen.value = 0 // 重置分页数量
     status.value = 200 // 消除 hasNoResult 的影响
+    // 重置博客列表为骨架屏
     sectionArticleRef.value?.initBlogList(config.value.defaultNum || 3)
     setStyle()
     getBlogList()
