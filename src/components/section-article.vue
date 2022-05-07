@@ -40,7 +40,7 @@ const initBlogList = (defaultNum: number = props.defaultNum) => {
   refresh.value = true
   setTimeout(() => {
     refresh.value = false
-  }, 600)
+  }, 800)
 }
 // 初始化
 initBlogList()
