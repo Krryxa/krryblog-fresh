@@ -30,38 +30,37 @@ let loadingInstance = null
 const userFormRef: any = ref(null)
 // 确认修改个人信息
 const confirmUser = () => {
-  userFormRef.value &&
-    userFormRef.value.validate(async (valid: boolean) => {
-      if (valid) {
-        loadingInstance = ElLoading.service({
-          lock: true,
-          text: 'Modifying~~'
-        })
-        let reqData = {
-          id: +userId.value,
-          name: userForm.value['newName']
-        }
-        if (showPW.value) {
-          // 如果修改密码
-          reqData = Object.assign({}, reqData, {
-            originWord: userForm.value['originPW'],
-            password: userForm.value['newPW']
-          })
-        }
-        let res: any = await updateUser(reqData.id, reqData)
-        loadingInstance.close()
-        if (res !== 'success') {
-          ElMessage.error(res)
-        } else {
-          ElMessage.success('Modified success!')
-          cancel()
-        }
+  userFormRef.value?.validate(async (valid: boolean) => {
+    if (valid) {
+      loadingInstance = ElLoading.service({
+        lock: true,
+        text: 'Modifying~~'
+      })
+      let reqData = {
+        id: +userId.value,
+        name: userForm.value['newName']
       }
-    })
+      if (showPW.value) {
+        // 如果修改密码
+        reqData = Object.assign({}, reqData, {
+          originWord: userForm.value['originPW'],
+          password: userForm.value['newPW']
+        })
+      }
+      let res: any = await updateUser(reqData.id, reqData)
+      loadingInstance.close()
+      if (res !== 'success') {
+        ElMessage.error(res)
+      } else {
+        ElMessage.success('Modified success!')
+        cancel()
+      }
+    }
+  })
 }
 const cancel = () => {
   emit('closeDialog')
-  userFormRef.value && userFormRef.value.resetFields()
+  userFormRef.value?.resetFields()
   showPW.value = false
 }
 </script>

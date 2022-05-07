@@ -9,7 +9,8 @@ interface BlogItemType {
   [propName: string]: string | number
 }
 interface ObjectType {
-  [propName: string]: Object | string
+  params: { title: string }
+  description: string
 }
 interface LinkOrAboutMapType {
   [propName: string]: ObjectType
@@ -17,13 +18,10 @@ interface LinkOrAboutMapType {
 
 const route = useRoute()
 const blog: Ref<BlogItemType> = ref({})
-const showHeader = ref(false)
 const status = ref(200)
 const reFreshDetail = ref(true)
-const beforeRouterName = ref('')
 const routerName = computed(() => route.name as string)
 const isNoBlog = computed(() => status.value === 404)
-const description: Ref<string | Object> = ref('Krryblog')
 
 const linkOrAboutMap: LinkOrAboutMapType = {
   link: { params: { title: '友情链接' }, description: 'Website link' },
@@ -33,11 +31,12 @@ const linkOrAboutMap: LinkOrAboutMapType = {
 const isOthers = computed(() =>
   Object.keys(linkOrAboutMap).includes(routerName.value)
 )
-
-// 判断第一次进来
-if (isOthers.value) {
-  showHeader.value = true
-}
+const description = computed(() =>
+  isOthers.value ? linkOrAboutMap[routerName.value].description : 'Krryblog'
+)
+const headerTitle = computed(() =>
+  isOthers.value ? linkOrAboutMap[routerName.value].params.title : 'Krryblog'
+)
 
 const { proxy }: any = getCurrentInstance()
 const documentTitle = proxy.documentTitle
@@ -51,22 +50,6 @@ const getBlog = async () => {
   if (status.value === 200) {
     blog.value = res.result.data
     document.title = `${blog.value.title} - ${documentTitle}`
-    // 保证接口数据返回赋值
-    description.value = isOthers.value
-      ? linkOrAboutMap[routerName.value].description
-      : ''
-    // 友情链接 or 关于我，则刷新 blog-detail
-    if (
-      isOthers.value ||
-      Object.keys(linkOrAboutMap).includes(beforeRouterName.value)
-    ) {
-      reFreshDetail.value = false
-      nextTick(() => {
-        reFreshDetail.value = true
-      })
-    }
-    beforeRouterName.value = routerName.value
-    showHeader.value = isOthers.value
   }
 }
 
@@ -79,7 +62,15 @@ const clearBlog = () => {
 watch(route, (to) => {
   const currentName = to.name as string
   if ([...Object.keys(linkOrAboutMap), 'blog'].includes(currentName)) {
+    blog.value = {}
     getBlog()
+    // 友情链接 or 关于我，则刷新 blog-detail
+    if (isOthers.value) {
+      reFreshDetail.value = false
+      nextTick(() => {
+        reFreshDetail.value = true
+      })
+    }
   }
 })
 </script>
@@ -87,14 +78,14 @@ watch(route, (to) => {
 <template>
   <main v-if="!isNoBlog">
     <section-header
-      v-if="showHeader"
-      :title="blog.title"
+      v-if="isOthers"
+      :title="headerTitle"
       :description="description"
     ></section-header>
     <blog-detail
       v-if="reFreshDetail"
       :blog="blog"
-      :has-show-header="!showHeader"
+      :has-show-header="!isOthers"
       @clearBlog="clearBlog"
     ></blog-detail>
   </main>

@@ -51,7 +51,15 @@ export const configMap: any = {
     pageParamName: 'page',
     pageParamType: 'query',
     header: {
-      title: 'categoryName', // 从接口的 categoryName 字段读取
+      title: {
+        param: 'id', // 从路由 id 匹配映射
+        map: {
+          1: '知识总结',
+          2: '代码分享',
+          3: '算法｜模式',
+          4: '生活之谈'
+        }
+      },
       description: '相关内容 —— 存档'
     },
     title: '$param - $documentTitle',
@@ -65,7 +73,9 @@ export const configMap: any = {
     pageParamName: 'page',
     pageParamType: 'query',
     header: {
-      title: 'name',
+      title: {
+        name: '双 K 之恋'
+      },
       description: 'Love'
     },
     title: '$param - $documentTitle'

@@ -20,9 +20,12 @@ const props = defineProps({
   blogList: { type: Array as PropType<Array<BlogItemType>>, default: () => [] },
   defaultNum: { type: Number, default: 3 }
 })
+const refresh = ref(false)
 
-let blogShowList: Ref<Array<BlogItemType>> = ref(
-  Array(props.defaultNum).fill({
+const blogShowList: Ref<Array<BlogItemType>> = ref([])
+// 初始化博客骨架屏
+const initBlogList = (defaultNum: number = props.defaultNum) => {
+  blogShowList.value = Array(defaultNum).fill({
     classify: '',
     title: '',
     description: '',
@@ -33,7 +36,21 @@ let blogShowList: Ref<Array<BlogItemType>> = ref(
     comment: 200,
     classifyId: 1
   })
-)
+  // 共用组件，每次数据变化产生过渡效果
+  refresh.value = true
+  setTimeout(() => {
+    refresh.value = false
+  }, 600)
+}
+// 初始化
+initBlogList()
+// 暴露出去，外面可通过 ref 调用
+defineExpose({
+  initBlogList
+})
+export interface SectionArticleType {
+  initBlogList: (defaultNum: number) => void
+}
 
 if (props.blogList.length > 0) {
   const { blogList } = toRefs(props)
@@ -45,20 +62,10 @@ const isHome = computed(
   () => route.name === 'home' || route.name === 'homePage'
 )
 
-const blogSectionRef: Ref<HTMLElement | null> = ref(null)
-
 watch(
   () => props.blogList,
   (newVal, oldVal) => {
     blogShowList.value = newVal
-    if (oldVal.length !== 0 && blogSectionRef.value) {
-      // 共用组件，每次数据变化产生过渡效果
-      blogSectionRef.value.style['display'] = 'none'
-      setTimeout(() => {
-        blogSectionRef.value &&
-          (blogSectionRef.value.style['display'] = 'block')
-      }, 0)
-    }
   }
 )
 
@@ -89,7 +96,7 @@ const descBottomList = shallowRef([
 </script>
 
 <template>
-  <section ref="blogSectionRef" class="section-article">
+  <section :class="{ 'animation-fade-in': refresh }" class="section-article">
     <article v-for="(val, index) in blogShowList" :key="index">
       <span v-if="val.isTop && isHome" class="top-icon">
         <i class="iconfont icon-Up-1" />
@@ -160,11 +167,14 @@ const descBottomList = shallowRef([
 <style lang="scss" scoped>
 @import '@/assets/css/common.scss';
 
+.animation-fade-in {
+  animation: fadeIn 0.6s linear;
+}
+
 section {
   box-sizing: border-box;
   max-width: 960px;
   margin: 0 auto;
-  animation: fadeIn 0.6s linear;
 
   article {
     position: relative;

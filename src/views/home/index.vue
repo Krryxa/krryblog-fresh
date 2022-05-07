@@ -3,7 +3,9 @@ import { ref, watch, computed, getCurrentInstance } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { configMap } from './config'
 import sectionHeader from '@/components/section-header.vue'
-import sectionArticle from '@/components/section-article.vue'
+import sectionArticle, {
+  SectionArticleType
+} from '@/components/section-article.vue'
 import noResult from './no-result.vue'
 
 const route: any = useRoute()
@@ -16,16 +18,31 @@ const config = computed(() =>
   routerName.value ? configMap[routerName.value] : ''
 )
 
+const sectionArticleRef = ref<SectionArticleType>()
 const main_margintop = ref('90px')
 const article_paddingtop = ref('')
 const showHeader = ref(true)
+const headerTitle = ref('')
 const description = ref(
   config.value.header ? config.value.header.description : ''
 )
+// 设置标题
+const setHeaderTitle = () => {
+  const configTitle = config.value?.header?.title
+  if (configTitle) {
+    if (configTitle.name) {
+      headerTitle.value = configTitle.name
+    } else {
+      const id = +route.params[configTitle.param]
+      headerTitle.value = configTitle.map[id]
+    }
+  }
+}
 const setStyle = () => {
   main_margintop.value = config.value.header ? '' : '90px'
   article_paddingtop.value = config.value.header ? '20px' : ''
   showHeader.value = !!config.value.header
+  setHeaderTitle()
 }
 setStyle()
 
@@ -36,7 +53,6 @@ const pageNo = ref(
 const blogList = ref([])
 const blogLen = ref(0)
 let flag = true
-const headerTitle = ref('')
 const status = ref(200)
 
 const hasNoResult = computed(() => status.value === 406)
@@ -74,19 +90,15 @@ const getBlogList = async () => {
   if (res.code === 200) {
     blogList.value = res.result.data
     blogLen.value = res.result.blogLen
-    config.value?.header?.title &&
-      (headerTitle.value = res.result[config.value.header.title])
   }
   if (hasNoResult.value) {
     blogLen.value = 0
   }
-  setStyle()
 }
 getBlogList()
 
 const changePage = async (pageIndex: number) => {
   pageNo.value = pageIndex
-  await getBlogList()
   flag = false
   if (routerName.value === 'home' || routerName.value === 'homePage') {
     if (pageIndex === 1) {
@@ -98,12 +110,19 @@ const changePage = async (pageIndex: number) => {
     const query = pageNo.value === 1 ? {} : { page: pageNo.value }
     router.push({ name: routerName.value as string, query })
   }
+  // 重置博客列表为骨架屏
+  sectionArticleRef.value?.initBlogList(config.value.defaultNum || 3)
+  getBlogList()
 }
 
 watch(route, (to, from) => {
   if (flag && config.value) {
     pageNo.value =
       +to[config.value.pageParamType][config.value.pageParamName] || 1
+    // 重置博客列表为骨架屏
+    status.value = 200 // 消除 hasNoResult 的影响
+    sectionArticleRef.value?.initBlogList(config.value.defaultNum || 3)
+    setStyle()
     getBlogList()
   }
   flag = true
@@ -118,12 +137,13 @@ watch(route, (to, from) => {
       :description="description"
     ></section-header>
     <section-article
-      v-if="!hasNoResult"
+      v-show="!hasNoResult"
+      ref="sectionArticleRef"
       :blog-list="blogList"
       :default-num="config.defaultNum"
       class="wrapper"
     ></section-article>
-    <no-result v-else></no-result>
+    <no-result v-show="hasNoResult"></no-result>
     <el-pagination
       v-if="blogLen > pageSize"
       v-model:currentPage="pageNo"
