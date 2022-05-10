@@ -1,30 +1,37 @@
 import Cookies from 'js-cookie'
 
-export function formatKM(_value: any, _decimal: any) {
-  if (!_value || isNaN(Number(_value))) return 0
-  let _k = 1000
-  let _m = 10000
-  let _d: any = '1'
-  let _y = 100000000
-  if (_decimal > 0) {
-    for (let i = 0; i < _decimal; i++) {
-      _d += '0'
+/**
+ * @description: 数值单位
+ * @param {number} num 数据
+ * @param {*} decimal 小数位，默认 2
+ * @param {*} separation 单位是否分开，默认 false
+ * @return {*}
+ */
+export const convertNum = (num: number, decimal = 2, separation = false) => {
+  // 小数点位数
+  const ws = Math.pow(10, decimal)
+  // 基础单位值
+  const base = 1e4
+  // 最终输出值
+  let value = 0
+  // 单位
+  const unitList = ['', '万', '亿', '万亿']
+  // 单位下标
+  let unitIndex = 0
+  // 小于最低值
+  if (num < base) {
+    value = num
+  } else {
+    unitIndex = Math.floor(Math.log(num) / Math.log(base)) || 0
+    if (unitIndex > 3) {
+      unitIndex = 3
     }
+    value = Math.floor((num / Math.pow(base, unitIndex)) * ws) / ws || 0
   }
-  _d = Number(_d)
-  _k = _k / _d
-  _m = _m / _d
-  _y = _y / _d
 
-  _value = Number(_value)
-  if (_value > 100000000) {
-    _value = Math.round(_value / _y) / _d + '亿'
-  } else if (_value > 100000) {
-    _value = Math.round(_value / _m) / _d + 'w'
-  } else if (_value > 10000) {
-    _value = Math.round(_value / _k) / _d + 'k'
-  }
-  return _value
+  return separation
+    ? { value, unit: unitList[unitIndex] }
+    : value + unitList[unitIndex]
 }
 
 export function slideToogle(dom: any, duration = 1000) {

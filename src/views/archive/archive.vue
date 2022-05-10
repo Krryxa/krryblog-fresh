@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { ref, Ref, watch, toRefs, nextTick, computed } from 'vue'
 import { getAllBlog, getReviseList, getSummarizedData } from '@/service/api'
-import { formatKM, slideToogle } from '@/util'
+import { convertNum, slideToogle } from '@/util'
 import { useRoute } from 'vue-router'
 import sectionHeader from '@/components/section-header.vue'
 
 interface SummarizedDataType {
-  commentSum?: number
-  hitSum?: number
+  commentSum?: { value: number; unit: string }
+  hitSum?: { value: number; unit: string }
 }
 
-const summarizedData: Ref<SummarizedDataType> = ref({})
+const summarizedData: Ref<SummarizedDataType> = ref({
+  commentSum: { value: 0, unit: '' },
+  hitSum: { value: 0, unit: '' }
+})
 const dataObj: any = ref({})
 const blogLen: Ref<number | string> = ref(0)
 const spinShow = ref(true)
@@ -40,7 +43,13 @@ watch(route, (to, from) => {
 
 const summarize = async () => {
   const { result }: any = await getSummarizedData()
-  summarizedData.value = result ? result.data : {}
+  summarizedData.value = result
+    ? {
+        ...result.data,
+        commentSum: convertNum(result.data.commentSum, 2, true),
+        hitSum: convertNum(result.data.hitSum, 2, true)
+      }
+    : {}
 }
 
 !isRevise.value && summarize()
@@ -118,13 +127,21 @@ const getEntries = (obj: any) => Object.entries(obj) as any
             <span>存档</span>
           </li>
           <li>
-            <span class="num"
-              >{{ formatKM(summarizedData.commentSum, 2) }}+</span
-            >
+            <p class="num">
+              <span>{{
+                summarizedData.commentSum.value.toLocaleString()
+              }}</span>
+              <span class="unit">{{ summarizedData.commentSum.unit }}</span
+              >+
+            </p>
             <span>评论</span>
           </li>
           <li>
-            <span class="num">{{ formatKM(summarizedData.hitSum, 2) }}+</span>
+            <p class="num">
+              <span>{{ summarizedData.hitSum.value.toLocaleString() }}</span>
+              <span class="unit">{{ summarizedData.hitSum.unit }}</span
+              >+
+            </p>
             <span>阅读</span>
           </li>
           <div class="clear"></div>
@@ -233,6 +250,12 @@ article {
         width: 100%;
         font-size: 32px;
         color: #adabab;
+
+        .unit {
+          font-size: 19px;
+          font-weight: bolder;
+          vertical-align: middle;
+        }
       }
     }
   }
