@@ -18,6 +18,11 @@ import {
 } from '@/service/api'
 import Cookies from 'js-cookie'
 
+interface FileListType {
+  name: string
+  url: string
+}
+
 const route = useRoute()
 const router = useRouter()
 const blogStore = useBlogStore()
@@ -33,6 +38,8 @@ const classifyId = ref(1)
 const label = ref('')
 const statusFlag = ref(true)
 const isLove = ref(0)
+const defaultUpload: Ref<FileListType[]> = ref([])
+const defaultUploadWebp: Ref<FileListType[]> = ref([])
 
 const status = computed(() => +statusFlag.value)
 // 从接口查询出分类
@@ -60,6 +67,8 @@ const getBlogInfo = async () => {
     imgName.value = blogObj.imageName
     uploadImgUrl.value = blogObj.image
     uploadWebpImgUrl.value = blogObj.imageWebp
+    defaultUpload.value = getDefaultUploadList(uploadImgUrl.value)
+    defaultUploadWebp.value = getDefaultUploadList(uploadWebpImgUrl.value)
   }
 }
 
@@ -234,7 +243,7 @@ const back = () => {
           :id="id"
           title="封面 AVIF："
           :temp-id="tempId"
-          :default-list="getDefaultUploadList(uploadImgUrl)"
+          :default-list="defaultUpload"
           :upload-img-url="uploadImgUrl"
           :img-name="imgName"
           @changeImg="changeImg"
@@ -243,7 +252,7 @@ const back = () => {
           :id="id"
           title="封面 WebP："
           :temp-id="tempId"
-          :default-list="getDefaultUploadList(uploadWebpImgUrl)"
+          :default-list="defaultUploadWebp"
           :upload-img-url="uploadWebpImgUrl"
           :img-name="imgName"
           :is-backup="true"
