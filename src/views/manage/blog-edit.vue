@@ -18,11 +18,6 @@ import {
 } from '@/service/api'
 import Cookies from 'js-cookie'
 
-interface FileListType {
-  name: string
-  url: string
-}
-
 const route = useRoute()
 const router = useRouter()
 const blogStore = useBlogStore()
@@ -33,12 +28,11 @@ const translateDesc = ref('')
 const description = ref('')
 const imgName = ref('')
 const uploadImgUrl = ref('')
+const uploadWebpImgUrl = ref('')
 const classifyId = ref(1)
 const label = ref('')
 const statusFlag = ref(true)
 const isLove = ref(0)
-const manualDeleteImg = ref(false)
-const defaultUploadList: Ref<FileListType[]> = ref([])
 
 const status = computed(() => +statusFlag.value)
 // 从接口查询出分类
@@ -65,14 +59,19 @@ const getBlogInfo = async () => {
 
     imgName.value = blogObj.imageName
     uploadImgUrl.value = blogObj.image
-    defaultUploadList.value = [
-      {
-        name: imgName.value,
-        url: window.location.origin + '/' + uploadImgUrl.value
-      }
-    ]
+    uploadWebpImgUrl.value = blogObj.imageWebp
   }
 }
+
+const getDefaultUploadList = (url: string) =>
+  url
+    ? [
+        {
+          name: imgName.value,
+          url: window.location.origin + '/' + url
+        }
+      ]
+    : []
 
 const blogCount = ref(0)
 const getBlogCounting = async () => {
@@ -123,10 +122,12 @@ const markdownSave = (value: string, render: string) => {
 }
 
 // from child
-const changeImg = (name: string, url: string, isDelete: boolean) => {
-  isDelete && (manualDeleteImg.value = true)
+const changeImg = (name: string, url: string) => {
   imgName.value = name
   uploadImgUrl.value = url
+}
+const changeWebpImg = (name: string, url: string) => {
+  uploadWebpImgUrl.value = url
 }
 
 // save and commit
@@ -142,7 +143,7 @@ const beforeCommit = () => {
   } else if (description.value.trim() === '') {
     ElMessage.warning('先简单描述一下博客哦~~')
   } else if (uploadImgUrl.value === '') {
-    ElMessage.warning('先上传封面图片哦~~')
+    ElMessage.warning('先上传封面图片 AVIF 哦~~')
   } else {
     let reqData = convertParams()
     commit(reqData)
@@ -178,6 +179,7 @@ const convertParams = () => {
     description: description.value.trim(),
     imageName: imgName.value,
     image: uploadImgUrl.value,
+    imageWebp: uploadWebpImgUrl.value,
     classifyId: classifyId.value,
     label: label.value,
     status: status.value,
@@ -197,7 +199,7 @@ const back = () => {
         <el-breadcrumb-item :to="{ name: 'list' }">后台中心</el-breadcrumb-item>
         <el-breadcrumb-item>博客编辑页</el-breadcrumb-item>
       </el-breadcrumb>
-      <el-form>
+      <el-form label-width="96px">
         <el-input
           v-model="title"
           type="text"
@@ -229,13 +231,23 @@ const back = () => {
         </el-form-item>
         <!-- upload image -->
         <edit-upload
-          v-if="id ? uploadImgUrl || manualDeleteImg : true"
           :id="id"
+          title="封面 AVIF："
           :temp-id="tempId"
-          :default-list="defaultUploadList"
+          :default-list="getDefaultUploadList(uploadImgUrl)"
           :upload-img-url="uploadImgUrl"
           :img-name="imgName"
           @changeImg="changeImg"
+        ></edit-upload>
+        <edit-upload
+          :id="id"
+          title="封面 WebP："
+          :temp-id="tempId"
+          :default-list="getDefaultUploadList(uploadWebpImgUrl)"
+          :upload-img-url="uploadWebpImgUrl"
+          :img-name="imgName"
+          :is-backup="true"
+          @changeImg="changeWebpImg"
         ></edit-upload>
         <el-form-item label="分类存档：">
           <el-radio-group v-model="classifyId">

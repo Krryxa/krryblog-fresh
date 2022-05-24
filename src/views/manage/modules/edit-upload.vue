@@ -8,10 +8,12 @@ import {
   ElUploadProgressEvent
 } from '../../../../node_modules/element-plus/lib/components/upload/src/upload.type.d'
 const props = defineProps([
+  'title',
   'id',
   'tempId',
   'uploadImgUrl',
   'imgName',
+  'isBackup',
   'defaultList'
 ])
 const emit = defineEmits(['changeImg'])
@@ -38,12 +40,13 @@ const handleRemove = () => {
     .then(async () => {
       loadingInstance = ElLoading.service({ lock: true, text: 'Deleting~~' })
       let res: any = await deleteBlogCover(props.id, {
-        filePath: props.uploadImgUrl
+        filePath: props.uploadImgUrl,
+        isBackup: props.isBackup
       })
       if (res === 'success') {
         ElMessage.success('删除成功！')
         // 清空图片区域
-        emit('changeImg', '', '', true)
+        emit('changeImg', '', '')
         uploadRef.value && (uploadRef.value.uploadFiles = [])
         hide_upload.value = false
       } else {
@@ -105,7 +108,7 @@ const upload_container = computed(() =>
 </script>
 
 <template>
-  <el-form-item label="封面图片：" class="upload-img">
+  <el-form-item :label="title || '封面图片：'" class="upload-img">
     <el-upload
       ref="uploadRef"
       :on-success="handleSuccess"
