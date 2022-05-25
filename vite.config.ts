@@ -23,13 +23,18 @@ export default ({ mode }) => {
     resolve: {
       alias: {
         '@': resolve(__dirname, 'src'),
-        mitt: 'https://cdn.jsdelivr.net/npm/mitt@3.0.0/+esm',
-        axios: 'https://cdn.jsdelivr.net/npm/axios@0.21.4/+esm',
+        // mitt: 'https://cdn.jsdelivr.net/npm/mitt@3.0.0/+esm',
+        mitt: getLocalJsEsm(env, 'js-esm/mitt@3.0.0.js'),
+        // axios: 'https://cdn.jsdelivr.net/npm/axios@0.21.4/+esm',
+        axios: getLocalJsEsm(env, 'js-esm/axios@0.21.4.js'),
         // vue: 'https://cdn.jsdelivr.net/npm/vue@3.2.13/+esm',
         // 'vue-router': 'https://cdn.jsdelivr.net/npm/vue-router@4.0.11/+esm',
-        'js-cookie': 'https://cdn.jsdelivr.net/npm/js-cookie/+esm',
-        valine: 'https://cdn.jsdelivr.net/npm/valine@1.4.16/+esm',
-        'headroom.js': 'https://cdn.jsdelivr.net/npm/headroom.js@0.12.0/+esm'
+        // 'js-cookie': 'https://cdn.jsdelivr.net/npm/js-cookie/+esm',
+        'js-cookie': getLocalJsEsm(env, 'js-esm/js-cookie.js'),
+        // valine: 'https://cdn.jsdelivr.net/npm/valine@1.4.16/+esm',
+        valine: getLocalJsEsm(env, 'js-esm/valine@1.4.16.js'),
+        // 'headroom.js': 'https://cdn.jsdelivr.net/npm/headroom.js@0.12.0/+esm'
+        'headroom.js': getLocalJsEsm(env, 'js-esm/headroom.js@0.12.0.js')
       }
     },
     base: env.VITE_APP_BASE_URL, // 静态资源在 egg 访问的路径前缀
@@ -49,3 +54,6 @@ export default ({ mode }) => {
     }
   })
 }
+
+const getLocalJsEsm = (env, url) =>
+  env.PROD ? env.VITE_SERVER_HOST + url : resolve(__dirname, `public/${url}`)

@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const SERVER_HOST = ref(import.meta.env.VITE_SERVER_HOST as string)
+</script>
+
 <template>
   <footer>
     <div class="container">
@@ -17,7 +23,7 @@
       <p class="link-git">
         <span class="name">
           Copyright © 2018 - {{ new Date().getFullYear() }}&nbsp;
-          <a target="_blank" href="https://ainyi.com">ainyi.com</a>&nbsp;
+          <a target="_blank" :href="SERVER_HOST">ainyi.com</a>&nbsp;
         </span>
         <span class="github">
           <a target="_blank" href="https://github.com/Krryxa">
