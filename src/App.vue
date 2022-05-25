@@ -304,15 +304,15 @@ label {
   }
 
   .section-article article {
-    margin-right: 20px !important;
-    margin-left: 20px !important;
+    margin: 20px !important;
   }
 }
 
 @media screen and (max-width: 647px) {
   /* 每行显示一个博客，大小根据屏幕变化 */
   .section-article {
-    width: 100%;
+    width: 56%;
+    min-width: 280px;
   }
 
   .el-pagination .el-pagination__jump {
@@ -320,9 +320,8 @@ label {
   }
 
   .section-article article {
-    width: 70% !important;
-    margin-right: 15% !important;
-    margin-left: 15% !important;
+    width: 100% !important;
+    margin: 20px 0 !important;
   }
 
   /* 底部响应式 */
@@ -345,32 +344,6 @@ label {
   /* 汇总数据分行 */
   article .summarize ul li {
     width: 50% !important;
-  }
-}
-
-@media screen and (max-width: 408px) {
-  /* 每行显示一个博客，左右外边框变小 */
-  .section-article {
-    width: 100%;
-  }
-
-  .section-article article {
-    width: 80% !important;
-    margin-right: 10% !important;
-    margin-left: 10% !important;
-  }
-}
-
-@media screen and (max-width: 330px) {
-  /* 每行显示一个博客，左右外边框再次变小 */
-  .section-article {
-    width: 100%;
-  }
-
-  .section-article article {
-    width: 86% !important;
-    margin-right: 7% !important;
-    margin-left: 7% !important;
   }
 }
 
