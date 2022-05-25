@@ -56,4 +56,6 @@ export default ({ mode }) => {
 }
 
 const getLocalJsEsm = (env, url) =>
-  env.PROD ? env.VITE_SERVER_HOST + url : resolve(__dirname, `public/${url}`)
+  env.VITE_PROD
+    ? env.VITE_SERVER_HOST + url
+    : resolve(__dirname, `public/${url}`)
