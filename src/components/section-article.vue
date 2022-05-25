@@ -10,6 +10,9 @@ import {
   getCurrentInstance
 } from 'vue'
 import { useRoute } from 'vue-router'
+export interface SectionArticleType {
+  initBlogList: (defaultNum: number) => void
+}
 
 interface BlogItemType {
   [propName: string]: string | number
@@ -48,9 +51,6 @@ initBlogList()
 defineExpose({
   initBlogList
 })
-export interface SectionArticleType {
-  initBlogList: (defaultNum: number) => void
-}
 
 if (props.blogList.length > 0) {
   const { blogList } = toRefs(props)
@@ -102,14 +102,15 @@ const descBottomList = shallowRef([
         <i class="iconfont icon-Up-1" />
       </span>
       <div class="bg-container">
-        <div
-          class="bg-img"
-          :style="
-            setLink(val.id, {
-              background: `url(${basePath}/${val.image}) 0% 0% / cover`
-            })
-          "
-        ></div>
+        <picture
+          v-if="val.image || val.imageWebp"
+          class="bg-container__picture"
+        >
+          <!-- use if possible -->
+          <source :srcset="`${basePath}/${val.image}`" type="image/avif" />
+          <!-- fallback -->
+          <img :src="`${basePath}/${val.imageWebp}`" :alt="val.title" />
+        </picture>
       </div>
       <!-- 这里使用命名路由，效果与下面一样，使用过滤器控制骨架屏的链接 -->
       <router-link
@@ -192,9 +193,11 @@ section {
       background: #fff;
       box-shadow: 1px 2px 12px 1px rgba(0, 0, 0, 0.15);
 
-      .bg-img {
-        filter: blur(3px);
-        transform: scale(1.1);
+      .bg-container__picture {
+        img {
+          filter: blur(2px);
+          transform: scale(1.1);
+        }
       }
 
       .bg-cover {
@@ -228,6 +231,8 @@ section {
     }
 
     .bg-container {
+      height: 230px;
+
       &::before {
         @extend .skeleton-base;
 
@@ -242,12 +247,15 @@ section {
         border-radius: 5px 5px 0 0;
       }
 
-      .bg-img {
+      &__picture {
         position: relative;
-        z-index: 0;
-        height: 230px;
-        border-radius: 5px 5px 0 0;
-        transition: all 0.5s ease;
+
+        img {
+          width: 100%;
+          height: 230px;
+          transition: all 0.5s ease;
+          object-fit: cover;
+        }
       }
     }
 
