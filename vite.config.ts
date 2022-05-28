@@ -31,8 +31,8 @@ export default ({ mode }) => {
         // 'vue-router': 'https://cdn.jsdelivr.net/npm/vue-router@4.0.11/+esm',
         // 'js-cookie': 'https://cdn.jsdelivr.net/npm/js-cookie/+esm',
         'js-cookie': getLocalJsEsm(env, 'js-esm/js-cookie.js'),
-        // valine: 'https://cdn.jsdelivr.net/npm/valine@1.4.16/+esm',
-        valine: getLocalJsEsm(env, 'js-esm/valine@1.4.16.js'),
+        // valine: 'https://cdn.jsdelivr.net/npm/valine@1.4.18/+esm',
+        valine: getLocalJsEsm(env, 'js-esm/valine@1.4.18.js'),
         // 'headroom.js': 'https://cdn.jsdelivr.net/npm/headroom.js@0.12.0/+esm'
         'headroom.js': getLocalJsEsm(env, 'js-esm/headroom.js@0.12.0.js')
       }
