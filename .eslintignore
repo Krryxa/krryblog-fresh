@@ -14,5 +14,4 @@ dist
 .eslintrc.js
 .prettierrc.yml
 /src/mock/*
-/src/components/mavon-editor/*
 /scripts

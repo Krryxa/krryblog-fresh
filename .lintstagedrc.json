@@ -3,6 +3,6 @@
     "yarn lint"
   ],
   "*.{vue,css,scss}": [
-    "stylelint --fix"
+    "stylelint --fix --allow-empty-input"
   ]
 }
