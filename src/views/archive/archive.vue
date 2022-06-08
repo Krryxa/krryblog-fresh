@@ -26,7 +26,7 @@ const title = computed(() => {
   return isRevise.value ? '风雨记录' : '时间归档'
 })
 const description = computed(() => {
-  return isRevise.value ? 'Stars' : 'Archive'
+  return isRevise.value ? 'Krryblog 历程' : 'Archive'
 })
 
 const containerRef: Ref<HTMLElement | null> = ref(null)
