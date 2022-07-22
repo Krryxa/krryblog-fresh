@@ -39,6 +39,8 @@ rm -rf krryblog-egg
 rm -rf krryblog-egg-config
 # 安装生产环境依赖
 cd new_krryblog && yarn install --production
+# 安装 alinode
+nodeinstall --install-alinode
 cd ..
 echo $(date +"%Y-%m-%d %H:%M:%S") 'server end'
 
