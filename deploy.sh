@@ -52,7 +52,7 @@ if [ -d krryblog ]; then
   # 如果有，先停止服务
   cd krryblog && yarn stop
   # 然后将资源文件转移到新目录
-  mv app/public/music ../new_krryblog/app/public && mv app/public/upload ../new_krryblog/app/public
+  mv app/public/upload ../new_krryblog/app/public
   # 再删除目录
   cd .. && rm -rf krryblog
 fi
