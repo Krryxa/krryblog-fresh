@@ -231,18 +231,17 @@ const getComment = () => {
         {{ subTime(blog.createTime, 1) }}
       </div>
     </div>
-    <router-link
-      v-if="isLogined"
-      class="modifyBtn"
-      :style="hasShowHeader || 'margin-top: -15px;'"
-      :to="{
-        name: 'edit',
-        query: {
-          id: blog.id
-        }
-      }"
-      >修改</router-link
-    >
+    <div v-if="isLogined" class="modify-container">
+      <router-link
+        :to="{
+          name: 'edit',
+          query: {
+            id: blog.id
+          }
+        }"
+        >修改</router-link
+      >
+    </div>
     <div id="blog" class="content markdown-body" v-html="blog.content_hm"></div>
     <div v-if="!existBlog" class="skeleton-content">
       <ul>
@@ -296,6 +295,7 @@ const getComment = () => {
     </div>
     <p v-if="isloaded" class="comments-desc">
       <span>发表评论</span>
+      <span class="other-tips">由于站点升级，暂时下线评论功能</span>
     </p>
     <div id="vcomments" ref="vcomments"></div>
   </article>
@@ -316,7 +316,7 @@ article {
   .art-header {
     position: relative;
     padding-top: 100px;
-    padding-bottom: 12px;
+    padding-bottom: 14px;
     border-bottom: 1px dashed #e0e0e0;
 
     h1 {
@@ -398,14 +398,17 @@ article {
     }
   }
 
-  .modifyBtn {
-    position: absolute;
-    right: 26px;
+  .modify-container {
     margin-top: 4px;
+    text-align: right;
+
+    & + .content {
+      margin-top: 0;
+    }
   }
 
   .content {
-    margin: 26px 0;
+    margin: 20px 0;
   }
 
   .skeleton-content {
@@ -583,7 +586,7 @@ article {
   }
 
   position: relative;
-  margin-top: 52px;
+  margin-top: 42px;
   margin-bottom: 16px;
   font-size: 1.4em;
   color: #24292e;
@@ -644,11 +647,12 @@ article {
       .vh {
         border: none;
 
-        &:hover {
-          & .vmeta .vat {
-            display: block;
-          }
-        }
+        // &:hover {
+        //   & .vmeta .vat {
+        //     // 暂时隐藏评论
+        //     // display: block;
+        //   }
+        // }
 
         .vhead {
           .vnick {
@@ -752,5 +756,14 @@ article {
       }
     }
   }
+}
+// 暂时隐藏评论
+.vpanel {
+  display: none;
+}
+
+.other-tips {
+  font-size: 12px;
+  color: #9f9f9f;
 }
 </style>
