@@ -5,7 +5,7 @@ const routes = [
     path: '/',
     name: 'home',
     component: () => import('@/views/home/index.vue'),
-    meta: { title: 'Krryblog' }
+    meta: { title: '乐诗生活', cover: true }
   },
   {
     path: '/page/:pageIndex(\\d+)',
