@@ -295,7 +295,7 @@ const getComment = () => {
     </div>
     <p v-if="isloaded" class="comments-desc">
       <span>发表评论</span>
-      <span class="other-tips">由于站点升级，暂时下线评论功能</span>
+      <!-- <span class="other-tips">由于站点升级，暂时下线评论功能</span> -->
     </p>
     <div id="vcomments" ref="vcomments"></div>
   </article>
@@ -647,12 +647,12 @@ article {
       .vh {
         border: none;
 
-        // &:hover {
-        //   & .vmeta .vat {
-        //     // 暂时隐藏评论
-        //     // display: block;
-        //   }
-        // }
+        &:hover {
+          & .vmeta .vat {
+            // nono 暂时隐藏评论
+            display: block;
+          }
+        }
 
         .vhead {
           .vnick {
@@ -758,9 +758,9 @@ article {
   }
 }
 // 暂时隐藏评论
-.vpanel {
-  display: none;
-}
+// .vpanel {
+//   display: none;
+// }
 
 .other-tips {
   font-size: 12px;
