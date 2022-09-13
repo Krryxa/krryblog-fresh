@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { useBlogStore } from '@/store/blog'
 import krryMusic from '@/components/krry-music.vue'
-// import allLoading from '@/components/all-loading.vue'
 import '@/util/mouseHeart'
 const route = useRoute()
 const blogStore = useBlogStore()
