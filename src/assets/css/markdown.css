@@ -40,6 +40,19 @@
   border: none;
 }
 
+.markdown-body .link-desc > span > span > a {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  margin-top: 2px;
+}
+
+.markdown-body .link-desc > span > span > a i {
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+}
+
 .markdown-body .link-desc span .no-link {
   margin-bottom: 1.8px;
   font-size: 14px !important;
