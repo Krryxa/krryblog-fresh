@@ -21,7 +21,8 @@ interface BlogItemType {
 
 const props = defineProps({
   blogList: { type: Array as PropType<Array<BlogItemType>>, default: () => [] },
-  defaultNum: { type: Number, default: 3 }
+  defaultNum: { type: Number, default: 3 },
+  animeCover: { type: Number, default: 1 }
 })
 const refresh = ref(false)
 
@@ -106,10 +107,16 @@ const descBottomList = shallowRef([
           v-if="val.image || val.imageWebp"
           class="bg-container__picture"
         >
-          <!-- use if possible -->
-          <source :srcset="`${basePath}/${val.image}`" type="image/avif" />
-          <!-- fallback -->
-          <img :src="`${basePath}/${val.imageWebp}`" :alt="val.title" />
+          <template v-if="animeCover">
+            <!-- use if possible -->
+            <source :srcset="`${basePath}/${val.image}`" type="image/avif" />
+            <!-- fallback -->
+            <img :src="`${basePath}/${val.imageWebp}`" :alt="val.title" />
+          </template>
+          <img
+            v-else
+            :src="`https://api.ixiaowai.cn/gqapi/gqapi.php?${val.id}`"
+          />
         </picture>
       </div>
       <!-- 这里使用命名路由，效果与下面一样，使用过滤器控制骨架屏的链接 -->

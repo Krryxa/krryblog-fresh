@@ -153,6 +153,14 @@ export function updateUser(id: number, reqData: any) {
 }
 
 /**
+ * 修改博客配置
+ * @param {*} reqData
+ */
+export function updateConfig(reqData: any) {
+  return Ax.put(`/krry/user/updateConfig/${reqData.id}`, reqData)
+}
+
+/**
  * 分页获取所有博客
  * @param {*} reqData
  */

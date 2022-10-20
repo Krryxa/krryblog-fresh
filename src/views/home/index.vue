@@ -26,6 +26,7 @@ const headerTitle = ref('')
 const description = ref(
   config.value.header ? config.value.header.description : ''
 )
+const animeCover = ref(1)
 // 设置标题
 const setHeaderTitle = () => {
   const configTitle = config.value?.header?.title
@@ -85,6 +86,7 @@ const getBlogList = async () => {
   if (res.code === 200) {
     blogList.value = res.result.data
     blogLen.value = res.result.blogLen
+    animeCover.value = res.result.config?.animeCover ?? 1
   }
   if (hasNoResult.value) {
     blogLen.value = 0
@@ -137,6 +139,7 @@ watch(route, (to, from) => {
       ref="sectionArticleRef"
       :blog-list="blogList"
       :default-num="config.defaultNum"
+      :anime-cover="animeCover"
       class="wrapper"
     ></section-article>
     <no-result v-show="hasNoResult"></no-result>

@@ -2,7 +2,12 @@
 import { ref, watch, Ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { ElMessageBox, ElLoading, ElMessage } from 'element-plus'
-import { getAllBlogByPage, updateBlogNoTime, getLogout } from '@/service/api'
+import {
+  getAllBlogByPage,
+  updateBlogNoTime,
+  getLogout,
+  updateConfig
+} from '@/service/api'
 import personalInfo from './modules/personal-info.vue'
 import Cookies from 'js-cookie'
 
@@ -45,6 +50,7 @@ const getBlog = async () => {
     }
     blogList.value = res.result.data
     blogLen.value = res.result.blogLen
+    animeCover.value = res.result.config?.animeCover ?? 1
   }
 }
 const handleChangeBlog = (reqData: any) => {
@@ -180,6 +186,14 @@ const remove = async (id: number) => {
   }
   loadingInstance.close()
 }
+// 二次元封面开关
+const animeCover = ref(1)
+const changeConfig = async (val: number) => {
+  const { result } = await updateConfig({ id: 1, animeCover: val })
+  result
+    ? ElMessage.success('Modified success!')
+    : ElMessage.error('Error, Failure to Modify...')
+}
 </script>
 
 <template>
@@ -190,6 +204,15 @@ const remove = async (id: number) => {
         <router-link :to="{ name: 'edit' }">
           <el-button type="success" class="add-button">Add</el-button>
         </router-link>
+        <div class="left-switch">
+          二次元封面：
+          <el-switch
+            v-model="animeCover"
+            :inactive-value="0"
+            :active-value="1"
+            @change="changeConfig"
+          />
+        </div>
         <a href="javascript:void(0)" class="modify-buttom" @click="Logout"
           >Logout</a
         >
@@ -342,6 +365,13 @@ section {
   .list-link {
     overflow: hidden;
     line-height: 32px;
+
+    .left-switch {
+      display: flex;
+      align-items: center;
+      float: left;
+      margin-left: 18px;
+    }
   }
 
   .list-table {
