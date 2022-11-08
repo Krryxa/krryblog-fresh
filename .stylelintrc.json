@@ -1,6 +1,8 @@
 {
   "extends": [
     "stylelint-config-standard",
+    "stylelint-config-standard-scss",
+    "stylelint-config-recommended-vue",
     "stylelint-config-recess-order"
   ],
   "plugins": [
@@ -17,6 +19,9 @@
     "at-rule-no-unknown": null,
     "scss/at-rule-no-unknown": true,
     "no-descending-specificity": null,
+    "selector-class-pattern": null,
+    "string-quotes": null,
+    "function-url-quotes": null,
     "no-duplicate-selectors": null,
     "no-empty-source": null,
     "selector-pseudo-class-no-unknown": [

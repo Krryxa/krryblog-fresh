@@ -302,7 +302,7 @@ const getComment = () => {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/css/common.scss';
+@import '@/assets/css/common';
 
 article {
   position: relative;
@@ -327,7 +327,7 @@ article {
     }
 
     .skeleton-title {
-      @extend .skeleton-base;
+      @extend %skeleton-base;
 
       height: 38px;
       border-radius: 5px;
@@ -346,7 +346,7 @@ article {
       }
 
       .d-b-skeleton {
-        @extend .skeleton-base;
+        @extend %skeleton-base;
 
         display: inline-block;
         width: 62px;
@@ -423,7 +423,7 @@ article {
         margin-bottom: 16px;
       }
 
-      @extend .skeleton-base;
+      @extend %skeleton-base;
     }
   }
 
@@ -474,7 +474,7 @@ article {
   width: 100%;
   height: 100%;
   visibility: hidden;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgb(0 0 0 / 60%);
   opacity: 0;
   transition: 0.3s;
 
@@ -757,6 +757,7 @@ article {
     }
   }
 }
+
 // 暂时隐藏评论
 // .vpanel {
 //   display: none;

@@ -173,7 +173,7 @@ const descBottomList = shallowRef([
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/css/common.scss';
+@import '@/assets/css/common';
 
 .animation-fade-in {
   animation: fadeIn 0.6s linear;
@@ -192,13 +192,13 @@ section {
     height: 340px;
     margin: 20px;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgb(255 255 255 / 50%);
     border-radius: 5px;
-    box-shadow: 0 2px 9px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 9px 0 rgb(0 0 0 / 8%);
 
     &:hover {
       background: #fff;
-      box-shadow: 1px 2px 12px 1px rgba(0, 0, 0, 0.15);
+      box-shadow: 1px 2px 12px 1px rgb(0 0 0 / 15%);
 
       .bg-container__picture {
         img {
@@ -208,7 +208,7 @@ section {
       }
 
       .bg-cover {
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgb(0 0 0 / 50%);
         transition: 0.5s;
 
         p {
@@ -241,7 +241,7 @@ section {
       height: 230px;
 
       &::before {
-        @extend .skeleton-base;
+        @extend %skeleton-base;
 
         position: absolute;
         left: 0;
@@ -277,7 +277,7 @@ section {
       cursor: url(../assets/pic/cursor.cur), pointer !important;
 
       p {
-        display: -webkit-box;
+        display: box;
         padding: 0;
         margin: 0;
         margin-top: 26px;
@@ -304,7 +304,7 @@ section {
     }
 
     .right-bgcover {
-      background-color: rgba(0, 0, 0, 0.5) !important;
+      background-color: rgb(0 0 0 / 50%) !important;
       opacity: 0.7;
       transform: rotate(-10deg) translate(10px, -30px);
     }
@@ -318,7 +318,7 @@ section {
       background: #fff;
 
       .skeleton-title {
-        @extend .skeleton-base;
+        @extend %skeleton-base;
 
         width: 100%;
         height: 32px;
@@ -327,7 +327,7 @@ section {
       }
 
       .title {
-        display: -webkit-inline-box;
+        display: inline-box;
         overflow: hidden;
         font-size: 16px;
         color: #000;
@@ -363,7 +363,7 @@ section {
           }
 
           .d-b-skeleton {
-            @extend .skeleton-base;
+            @extend %skeleton-base;
 
             display: inline-block;
             height: 14px;
