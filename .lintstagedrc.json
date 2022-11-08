@@ -1,8 +1,8 @@
 {
   "*.{js,jsx,vue,ts,tsx}": [
-    "yarn lint"
+    "eslint --fix"
   ],
   "*.{vue,css,scss}": [
-    "stylelint --fix --allow-empty-input"
+    "stylelint --fix"
   ]
 }
