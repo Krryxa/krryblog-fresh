@@ -34,7 +34,7 @@ const musicLink = computed(() => {
   return `${basePath}/music/${musicList.value[currIndex.value].title}`
 })
 
-emitter.on('operateMusic', (id) => {
+emitter.on('operateMusic', (id: number) => {
   if (id) {
     currIndex.value = musicList.value.findIndex((ele: any) => ele.id === id)
     play()
