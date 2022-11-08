@@ -26,8 +26,8 @@ defineProps(['title', 'description'])
     margin-bottom: 10px;
     font-size: 30px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.89);
-    text-shadow: 0 4px 8px rgba(7, 17, 27, 0.4);
+    color: rgb(255 255 255 / 89%);
+    text-shadow: 0 4px 8px rgb(7 17 27 / 40%);
     letter-spacing: 0.1em;
 
     .e-left {
@@ -55,7 +55,7 @@ defineProps(['title', 'description'])
   h4 {
     font-size: 16px;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.54);
+    color: rgb(255 255 255 / 54%);
   }
 }
 </style>

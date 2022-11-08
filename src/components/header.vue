@@ -198,8 +198,8 @@ header {
   z-index: 1;
   width: 100%;
   height: 70px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  background: rgb(255 255 255 / 94%);
+  box-shadow: 0 1px 5px rgb(0 0 0 / 10%);
 
   .container {
     width: 1080px;
@@ -258,6 +258,7 @@ header {
               top: 100%;
               visibility: visible;
               opacity: 0.98;
+
               // transition: all .3s ease-in-out;
             }
 
@@ -266,7 +267,7 @@ header {
               top: 80%;
               z-index: 1501;
               visibility: hidden;
-              background: rgba(255, 255, 255, 0.94);
+              background: rgb(255 255 255 / 94%);
               box-shadow: 0 0 10px 0 #cacaca;
               opacity: 0;
               transition: all 0.3s ease-in-out;
@@ -337,7 +338,7 @@ header {
           outline: 0;
           opacity: 0;
           transition: 0.6s;
-          -webkit-appearance: none;
+          appearance: none;
 
           &:focus {
             width: 100%;
@@ -443,10 +444,11 @@ header {
         margin-top: 0;
         font-size: 14px;
         visibility: hidden;
-        background: rgba(255, 255, 255, 0.92);
+        background: rgb(255 255 255 / 92%);
         box-shadow: 0 0 4px 0 #d4d4d4;
         opacity: 0;
         transition: 0.4s;
+
         // border-radius: 5px;
         li {
           position: relative;
@@ -470,6 +472,7 @@ header {
               top: 100%;
               visibility: visible;
               opacity: 0.98;
+
               // transition: all .3s ease-in-out;
             }
 
@@ -479,7 +482,7 @@ header {
               left: 60px;
               z-index: 1501;
               visibility: hidden;
-              background: rgba(255, 255, 255, 0.94);
+              background: rgb(255 255 255 / 94%);
               box-shadow: 0 0 4px 0 #d4d4d4;
               opacity: 0;
               transition: all 0.3s ease-in-out;

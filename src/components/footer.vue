@@ -40,7 +40,7 @@ const SERVER_HOST = ref(import.meta.env.VITE_SERVER_HOST as string)
 footer {
   height: 120px;
   margin-top: 16px;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgb(255 255 255 / 50%);
 
   .container {
     position: relative;
