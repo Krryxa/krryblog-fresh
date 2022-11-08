@@ -245,7 +245,6 @@ const back = () => {
           :temp-id="tempId"
           :default-list="defaultUpload"
           :upload-img-url="uploadImgUrl"
-          :img-name="imgName"
           @changeImg="changeImg"
         ></edit-upload>
         <edit-upload
@@ -254,7 +253,6 @@ const back = () => {
           :temp-id="tempId"
           :default-list="defaultUploadWebp"
           :upload-img-url="uploadWebpImgUrl"
-          :img-name="imgName"
           :is-backup="true"
           @changeImg="changeWebpImg"
         ></edit-upload>

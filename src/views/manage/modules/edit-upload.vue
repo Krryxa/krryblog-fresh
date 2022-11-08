@@ -7,15 +7,14 @@ import {
   ElUploadRequestOptions,
   ElUploadProgressEvent
 } from '../../../../node_modules/element-plus/lib/components/upload/src/upload.type.d'
-const props = defineProps([
-  'title',
-  'id',
-  'tempId',
-  'uploadImgUrl',
-  'imgName',
-  'isBackup',
-  'defaultList'
-])
+const props = defineProps<{
+  title: string
+  id: any
+  tempId: any
+  uploadImgUrl: string
+  isBackup?: boolean
+  defaultList: any[]
+}>()
 const emit = defineEmits(['changeImg'])
 
 const visible = ref(false)

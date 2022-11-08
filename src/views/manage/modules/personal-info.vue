@@ -4,7 +4,9 @@ import { updateUser } from '@/service/api'
 import { ElLoading, ElMessage } from 'element-plus'
 import { PERSON_MODIFY_RULE } from '@/views/service/rules/index'
 import Cookies from 'js-cookie'
-const props = defineProps(['showModel'])
+const props = defineProps<{
+  showModel: boolean
+}>()
 const emit = defineEmits(['closeDialog'])
 
 const showPW = ref(false)
