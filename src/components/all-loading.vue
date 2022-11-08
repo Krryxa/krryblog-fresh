@@ -96,23 +96,24 @@ onMounted(() => {
     path {
       &:nth-child(1) {
         opacity: 0;
-        animation: firstHeartOpacity 0.8s ease-in-out infinite alternate;
+        animation: first-heart-opacity 0.8s ease-in-out infinite alternate;
       }
 
       &:nth-child(2) {
         opacity: 0;
-        animation: secondHeartOpacity 0.8s ease-in-out 0.15s infinite alternate;
+        animation: second-heart-opacity 0.8s ease-in-out 0.15s infinite
+          alternate;
       }
 
       &:nth-child(3) {
         opacity: 0;
-        animation: thirdHeartOpacity 0.8s ease-in-out 0.3s infinite alternate;
+        animation: third-heart-opacity 0.8s ease-in-out 0.3s infinite alternate;
       }
     }
   }
 }
 
-@keyframes firstHeartOpacity {
+@keyframes first-heart-opacity {
   from {
     fill: v-bind(first_color);
   }
@@ -123,7 +124,7 @@ onMounted(() => {
   }
 }
 
-@keyframes secondHeartOpacity {
+@keyframes second-heart-opacity {
   from {
     fill: v-bind(second_color);
   }
@@ -134,7 +135,7 @@ onMounted(() => {
   }
 }
 
-@keyframes thirdHeartOpacity {
+@keyframes third-heart-opacity {
   from {
     fill: v-bind(third_color);
   }

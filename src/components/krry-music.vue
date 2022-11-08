@@ -160,13 +160,13 @@ section {
     position: absolute;
     right: 64px;
     margin-top: 3.5px;
-    color: rgba(255, 97, 92, 1);
+    color: rgb(255 97 92 / 100%);
     visibility: hidden;
   }
 
   .titleIn {
     visibility: visible;
-    animation: bounceInRight 1s linear, outText 10s linear forwards;
+    animation: bounceInRight 1s linear, out-text 10s linear forwards;
   }
 
   .titleOut {
@@ -187,10 +187,10 @@ section {
     }
 
     img {
-      animation: outBtn 4s linear forwards;
+      animation: out-btn 4s linear forwards;
 
       &:hover {
-        animation: inBtn 1s forwards;
+        animation: in-btn 1s forwards;
       }
     }
   }
@@ -247,7 +247,7 @@ section {
   }
 }
 
-@keyframes outText {
+@keyframes out-text {
   from {
     opacity: 1;
   }
@@ -257,7 +257,7 @@ section {
   }
 }
 
-@keyframes outBtn {
+@keyframes out-btn {
   from {
     opacity: 1;
   }
@@ -267,7 +267,7 @@ section {
   }
 }
 
-@keyframes inBtn {
+@keyframes in-btn {
   from {
     opacity: 0.6;
   }
