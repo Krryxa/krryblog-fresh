@@ -144,7 +144,7 @@ const getComment = () => {
   const urlInp = document.getElementsByClassName(
     'vlink vinput'
   )[0] as HTMLInputElement
-  nickInp.placeholder = '昵称（QQ号）'
+  nickInp.placeholder = '昵称（或QQ号）'
   urlInp.placeholder = '网址'
 
   // 获取提交按钮并移除提交按钮
