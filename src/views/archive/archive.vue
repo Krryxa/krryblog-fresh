@@ -131,8 +131,7 @@ const getEntries = (obj: any) => Object.entries(obj) as any
               <span>{{
                 summarizedData.commentSum.value.toLocaleString()
               }}</span>
-              <span class="unit">{{ summarizedData.commentSum.unit }}</span
-              >+
+              <span class="unit">{{ summarizedData.commentSum.unit }}</span>
             </p>
             <span>评论</span>
           </li>
