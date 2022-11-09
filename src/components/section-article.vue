@@ -99,9 +99,6 @@ const descBottomList = shallowRef([
 <template>
   <section :class="{ 'animation-fade-in': refresh }" class="section-article">
     <article v-for="(val, index) in blogShowList" :key="index">
-      <span v-if="val.isTop && isHome" class="top-icon">
-        <i class="iconfont icon-Up-1" />
-      </span>
       <div class="bg-container">
         <picture
           v-if="val.image || val.imageWebp"
@@ -119,6 +116,9 @@ const descBottomList = shallowRef([
           />
         </picture>
       </div>
+      <span v-if="val.isTop && isHome" class="top-icon">
+        <i class="iconfont icon-Up-1" />
+      </span>
       <!-- 这里使用命名路由，效果与下面一样，使用过滤器控制骨架屏的链接 -->
       <router-link
         :to="
