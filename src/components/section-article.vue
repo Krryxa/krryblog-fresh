@@ -19,11 +19,18 @@ interface BlogItemType {
   title: string
 }
 
-const props = defineProps({
-  blogList: { type: Array as PropType<Array<BlogItemType>>, default: () => [] },
-  defaultNum: { type: Number, default: 3 },
-  animeCover: { type: Number, default: 1 }
-})
+const props = withDefaults(
+  defineProps<{
+    blogList: BlogItemType[]
+    defaultNum: number
+    animeCover: number
+  }>(),
+  {
+    blogList: () => [],
+    defaultNum: 3,
+    animeCover: 1
+  }
+)
 const refresh = ref(false)
 
 const blogShowList: Ref<Array<BlogItemType>> = ref([])

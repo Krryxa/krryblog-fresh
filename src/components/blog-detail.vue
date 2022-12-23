@@ -14,10 +14,16 @@ interface BlogItemType {
   [propName: string]: string | number
 }
 
-const props = defineProps({
-  blog: { type: Object as PropType<BlogItemType>, default: () => ({}) },
-  hasShowHeader: { type: Boolean, default: true }
-})
+const props = withDefaults(
+  defineProps<{
+    blog: BlogItemType
+    hasShowHeader: boolean
+  }>(),
+  {
+    blog: () => ({}),
+    hasShowHeader: true
+  }
+)
 
 const emit = defineEmits(['clearBlog'])
 
