@@ -699,6 +699,10 @@
   background-color: #f6f8fa;
 }
 
+.markdown-body .hljs-right {
+  text-align: right;
+}
+
 .markdown-body img {
   box-sizing: content-box;
   display: block;
