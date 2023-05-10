@@ -726,6 +726,10 @@
   padding-right: 20px;
 }
 
+.markdown-body video, .markdown-body iframe {
+  width: 100%;
+}
+
 .markdown-body code {
   padding: 0;
   padding-top: 0.2em;
