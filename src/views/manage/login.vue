@@ -17,9 +17,9 @@ const password = ref('')
 let loading: any = null
 const beforeSubmit = () => {
   if (name.value.trim() === '') {
-    ElMessage.warning('Please enter your username first~~')
+    ElMessage.warning('Please enter your username first~')
   } else if (password.value.trim() === '') {
-    ElMessage.warning('Please enter your password first~~')
+    ElMessage.warning('Please enter your password first~')
   } else {
     loading = ElLoading.service({
       lock: true,
