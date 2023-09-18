@@ -6,7 +6,7 @@ import Ax from '@/service/axios'
 import {
   ElUploadRequestOptions,
   ElUploadProgressEvent
-} from '../../../../node_modules/element-plus/lib/components/upload/src/upload.type.d'
+} from 'element-plus/lib/components/upload/src/upload.type.d'
 const props = defineProps<{
   title: string
   id: any

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, Ref, PropType, onMounted, computed, nextTick } from 'vue'
+import { ref, watch, Ref, onMounted, computed, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import '@/assets/css/markdown.css'
 import '@/assets/css/github.css'
