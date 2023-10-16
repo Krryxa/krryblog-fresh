@@ -14,7 +14,7 @@ interface MusicListType {
 
 const isPlay = ref(false)
 const firstTime = ref(true) // 是否是第一次播放
-const musicList: Ref<Array<MusicListType>> = ref([])
+const musicList: Ref<MusicListType[]> = ref([])
 const isTransition = ref(false)
 const currIndex = ref(0)
 
@@ -106,7 +106,7 @@ const next = (flag: boolean) => {
     isTransition.value = false
   }, 300)
 }
-const randomArray = (arr: Array<MusicListType>) => {
+const randomArray = (arr: MusicListType[]) => {
   return arr.sort(() => 0.5 - Math.random())
 }
 </script>

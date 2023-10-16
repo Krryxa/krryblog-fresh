@@ -4,10 +4,8 @@ import { useRoute } from 'vue-router'
 import { getBlogDetail, getLinkOrAbout } from '@/service/api'
 import blogDetail from '@/components/blog-detail.vue'
 import sectionHeader from '@/components/section-header.vue'
+import { BlogItemType } from '@/util/const'
 
-interface BlogItemType {
-  [propName: string]: string | number
-}
 interface ObjectType {
   params: { title: string }
   description: string

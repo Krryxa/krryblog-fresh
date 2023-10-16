@@ -109,7 +109,7 @@ const addImg = async (pos: any, $file: File) => {
 
 let loadingInstance = null
 
-const delImg = async (fileArr: Array<any>) => {
+const delImg = async (fileArr: any[]) => {
   loadingInstance = ElLoading.service({ lock: true, text: 'Deleting~~' })
   // fileArr: ['http://...', { name: 'xxx', ... }]
 

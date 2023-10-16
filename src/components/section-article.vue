@@ -9,18 +9,19 @@ import {
   getCurrentInstance
 } from 'vue'
 import { useRoute } from 'vue-router'
+import { BlogItemType } from '@/util/const'
+
+interface BlogType extends BlogItemType {
+  title: string
+}
+
 export interface SectionArticleType {
   initBlogList: (defaultNum: number) => void
 }
 
-interface BlogItemType {
-  [propName: string]: string | number
-  title: string
-}
-
 const props = withDefaults(
   defineProps<{
-    blogList: BlogItemType[]
+    blogList: BlogType[]
     defaultNum: number
     animeCover: number
   }>(),
@@ -32,7 +33,7 @@ const props = withDefaults(
 )
 const refresh = ref(false)
 
-const blogShowList: Ref<Array<BlogItemType>> = ref([])
+const blogShowList: Ref<BlogType[]> = ref([])
 // 初始化博客骨架屏
 const initBlogList = (defaultNum: number = props.defaultNum) => {
   blogShowList.value = Array(defaultNum).fill({

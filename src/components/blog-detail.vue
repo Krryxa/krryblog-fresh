@@ -9,10 +9,7 @@ import { ElMessage } from 'element-plus'
 import { addBlogComment, getAllBlog } from '@/service/api'
 import myReward from './models/my-reward.vue'
 import Cookies from 'js-cookie'
-
-interface BlogItemType {
-  [propName: string]: string | number
-}
+import { BlogItemType } from '@/util/const'
 
 const props = withDefaults(
   defineProps<{
@@ -28,7 +25,7 @@ const props = withDefaults(
 const emit = defineEmits(['clearBlog'])
 
 let isloaded = ref(false)
-let allBlogList: Ref<Array<BlogItemType>> = ref([])
+let allBlogList: Ref<BlogItemType[]> = ref([])
 let reFresh = ref(true)
 let preIndex: Ref<string | number> = ref('')
 let nextIndex: Ref<string | number> = ref('')
