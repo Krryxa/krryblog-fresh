@@ -26,6 +26,7 @@
     "no-duplicate-selectors": null,
     "no-empty-source": null,
     "max-line-length": null,
+    "keyframes-name-pattern": null,
     "selector-pseudo-class-no-unknown": [
       true,
       {

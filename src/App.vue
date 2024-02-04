@@ -118,7 +118,7 @@ img {
 
   &:focus {
     border-color: #f60 !important;
-    box-shadow: 0 0 0 2px rgba(255, 118, 19, 0.2) !important;
+    box-shadow: 0 0 0 2px rgb(255 118 19 / 20%) !important;
   }
 }
 
@@ -141,7 +141,7 @@ label {
 }
 
 .hljs-keyword {
-  color: rgb(153, 6, 154) !important;
+  color: rgb(153 6 154) !important;
 }
 
 .hljs-comment,
@@ -158,7 +158,7 @@ label {
   height: 40px;
   margin-left: 1020px;
   cursor: url(./assets/pic/cursor.cur), pointer !important;
-  background: rgba(255, 152, 49, 0.8);
+  background: rgb(255 152 49 / 80%);
   border-radius: 50%;
   transition: 0.4s ease;
 
@@ -180,7 +180,7 @@ label {
 }
 
 .el-backtop:hover {
-  background: rgba(255, 111, 27, 0.9) !important;
+  background: rgb(255 111 27 / 90%) !important;
 }
 
 /* 加载动画 */
@@ -232,8 +232,6 @@ label {
 
 ::-webkit-scrollbar-track {
   background-color: transparent;
-  -webkit-border-radius: 2em;
-  -moz-border-radius: 2em;
   border-radius: 2em;
 }
 
@@ -243,18 +241,16 @@ label {
 
 ::-webkit-scrollbar-thumb {
   background-color: #ff8b18;
-  background-image: -webkit-linear-gradient(
+  background-image: linear-gradient(
     45deg,
-    rgba(255, 255, 255, 0.4) 25%,
+    rgb(255 255 255 / 40%) 25%,
     transparent 25%,
     transparent 50%,
-    rgba(255, 255, 255, 0.4) 50%,
-    rgba(255, 255, 255, 0.4) 75%,
+    rgb(255 255 255 / 40%) 50%,
+    rgb(255 255 255 / 40%) 75%,
     transparent 75%,
     transparent
   );
-  -webkit-border-radius: 2em;
-  -moz-border-radius: 2em;
   border-radius: 2em;
 }
 
