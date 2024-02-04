@@ -72,8 +72,8 @@ const back = () => {
         ></el-input>
       </el-form-item>
       <el-form-item class="my-button">
-        <el-button type="primary" @click="beforeSubmit">Submit</el-button>
-        <el-button style="margin-top: 18px" @click="back">Cancel</el-button>
+        <el-button type="primary" @click="beforeSubmit">Sign in</el-button>
+        <el-button @click="back">Cancel</el-button>
       </el-form-item>
     </el-form>
   </section>
@@ -99,7 +99,7 @@ section {
 
 .login :deep(.el-form) {
   .el-form-item {
-    margin-bottom: 18px;
+    margin-bottom: 12px;
 
     &__label {
       display: inline;
@@ -108,23 +108,27 @@ section {
   }
 
   input {
-    height: 32px;
+    height: 38px;
     padding: 0 10px;
     line-height: 1.5;
   }
 
   .my-button {
-    margin-top: 60px;
+    margin-top: 40px;
 
     .el-form-item__content {
       text-align: center;
 
       button {
         width: 100%;
-        height: 32px;
+        height: 38px;
         min-height: unset;
         padding: 0;
         margin-left: 0;
+
+        & + button {
+          margin-top: 18px;
+        }
       }
     }
   }
