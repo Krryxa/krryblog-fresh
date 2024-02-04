@@ -72,7 +72,7 @@ const isHome = computed(
 
 watch(
   () => props.blogList,
-  (newVal, oldVal) => {
+  (newVal) => {
     blogShowList.value = newVal
   }
 )
