@@ -358,9 +358,10 @@ section {
         .d-detail {
           position: absolute;
           bottom: 10px;
+          display: flex;
+          align-items: center;
 
           i {
-            margin-top: -2px;
             margin-right: 4px;
             font-size: 14px;
 
@@ -372,9 +373,7 @@ section {
           .d-b-skeleton {
             @extend %skeleton-base;
 
-            display: inline-block;
             height: 14px;
-            vertical-align: text-top;
             border-radius: 5px;
           }
         }

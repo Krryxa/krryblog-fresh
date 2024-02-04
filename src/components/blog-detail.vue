@@ -337,6 +337,8 @@ article {
     }
 
     .header-info {
+      display: flex;
+      align-items: center;
       margin: 12px 0 0;
 
       i {
@@ -351,10 +353,8 @@ article {
       .d-b-skeleton {
         @extend %skeleton-base;
 
-        display: inline-block;
         width: 62px;
         height: 14px;
-        vertical-align: text-top;
         border-radius: 5px;
 
         &.tiny {
@@ -392,10 +392,11 @@ article {
       position: absolute;
       right: 0;
       bottom: 12px;
+      display: flex;
+      align-items: center;
       line-height: 14px;
 
       i {
-        margin-top: -2px;
         font-size: 14px;
       }
     }
