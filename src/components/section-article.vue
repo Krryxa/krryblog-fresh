@@ -103,9 +103,15 @@ const descBottomList = shallowRef([
 ])
 
 // 获取随机风景图
-const getRandomScenery = (min = 1, max = 16) => {
+const randomList: { [propName: string]: string } = {}
+const getRandomScenery = (blog: BlogType) => {
+  if (randomList[blog.id]) return randomList[blog.id]
+  const min = 1,
+    max = 16
   const index = Math.floor(Math.random() * (max - min + 1)) + min
-  return `resource/scenery/${index}`
+  const url = `resource/scenery/${index}`
+  randomList[blog.id] = url
+  return url
 }
 </script>
 
@@ -126,12 +132,12 @@ const getRandomScenery = (min = 1, max = 16) => {
           <template v-else>
             <!-- use if possible -->
             <source
-              :srcset="`${basePath}/${getRandomScenery()}.avif`"
+              :srcset="`${basePath}/${getRandomScenery(val)}.avif`"
               type="image/avif"
             />
             <!-- fallback -->
             <img
-              :src="`${basePath}/${getRandomScenery()}.webp`"
+              :src="`${basePath}/${getRandomScenery(val)}.webp`"
               :alt="val.title"
             />
           </template>
