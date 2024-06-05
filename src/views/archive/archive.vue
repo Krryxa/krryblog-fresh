@@ -54,6 +54,9 @@ const summarize = async () => {
 
 !isRevise.value && summarize()
 
+// 判断如果是风景封面，就不展示hover时的封面了
+const showHover = ref(true)
+
 const getBlogData = async () => {
   dataObj.value = {}
   const { result }: any = isRevise.value
@@ -62,6 +65,7 @@ const getBlogData = async () => {
         type: 'NO'
       })
   spinShow.value = false
+  showHover.value = result?.config?.animeCover === 1
   let year = ''
   let month = ''
   let temp: any = {}
@@ -170,6 +174,7 @@ const getEntries = (obj: any) => Object.entries(obj) as any
                   >
                   <el-popover
                     v-if="!isRevise"
+                    :disabled="!showHover"
                     trigger="hover"
                     placement="right"
                     :append-to-body="false"
