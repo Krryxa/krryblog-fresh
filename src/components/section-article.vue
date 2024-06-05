@@ -101,6 +101,12 @@ const descBottomList = shallowRef([
     width: '26px'
   }
 ])
+
+// 获取随机风景图
+const getRandomScenery = (min = 1, max = 16) => {
+  const index = Math.floor(Math.random() * (max - min + 1)) + min
+  return `resource/scenery/${index}`
+}
 </script>
 
 <template>
@@ -117,10 +123,18 @@ const descBottomList = shallowRef([
             <!-- fallback -->
             <img :src="`${basePath}/${val.imageWebp}`" :alt="val.title" />
           </template>
-          <img
-            v-else
-            :src="`https://api.ixiaowai.cn/gqapi/gqapi.php?${val.id}`"
-          />
+          <template v-else>
+            <!-- use if possible -->
+            <source
+              :srcset="`${basePath}/${getRandomScenery()}.avif`"
+              type="image/avif"
+            />
+            <!-- fallback -->
+            <img
+              :src="`${basePath}/${getRandomScenery()}.webp`"
+              :alt="val.title"
+            />
+          </template>
         </picture>
       </div>
       <span v-if="val.isTop && isHome" class="top-icon">
