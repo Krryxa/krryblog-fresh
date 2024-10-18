@@ -293,14 +293,13 @@ article {
         line-height: 30px;
 
         .day-word {
+          flex: none;
           font-weight: 500;
           color: #666;
         }
 
         & > div {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
+          display: flex;
 
           &:last-child {
             margin-bottom: 12px;
